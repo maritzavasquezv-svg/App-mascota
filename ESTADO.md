@@ -113,5 +113,6 @@ Aprobado.
 - Creadas: `terminos.html`, `privacidad.html`, `reembolsos.html`, `contacto.html`, en estilo azul y enlazadas desde el pie de la página de ventas.
 - Responsable: Maritza Pilar Vásquez Valencia, persona natural, Santiago de Chile. Ley aplicable: Chile (Ley 19.628 con Ley 21.719 para datos; Ley 19.496 del consumidor).
 - Proveedores nombrados: Supabase (São Paulo, Brasil), Anthropic (EE. UU., IA), Hotmart (Brasil, pagos). Si cambia el proveedor de IA o se agrega hosting (Vercel), mapas o correos, hay que actualizar la Política de privacidad.
-- **Pendiente:** correo de contacto (hoy aparece "[correo de contacto pendiente]" resaltado en amarillo); revisión por un abogado en Chile; confirmar en el panel de Hotmart que la garantía esté en 7 días.
+- **Correo de contacto:** maritzavasquezv@gmail.com (agregado el 9 de noviembre de 2026).
+- **Pendiente:** revisión por un abogado en Chile; confirmar en el panel de Hotmart que la garantía esté en 7 días.
 - **Para construir en la app** (los textos lo prometen): Perfil → Mi cuenta → Borrar mi cuenta; Perfil → Mi suscripción con enlace a Hotmart; aviso antes del fin de la prueba; casilla de consentimiento sin marcar en el registro; aviso "esto es orientación, no consejo veterinario" junto a cada respuesta del Consejero.
