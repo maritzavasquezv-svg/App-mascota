@@ -97,3 +97,14 @@ Aprobado.
 - Capa 4: entrada escalonada de cada pantalla, toque que achica un poco el elemento (escala 0,97), anillo y lista animados, cursor que parpadea; todo se apaga si el celular pide reducir el movimiento.
 - Capa 5: textos en el lenguaje de la ficha y con opciones fijas. Revisado: ninguna de las 19 pantallas se corta.
 - Verificación: es una vista previa en HTML, así que no aplican tsc ni build. Se revisó en el navegador con capturas de los pasos 8 y del paywall 3. El revisor visual automático no está en este entorno.
+
+---
+
+## Página de ventas — ángulo aprobado y página construida (9 de noviembre de 2026)
+- **Big Idea:** "No es que lo estés haciendo mal: todo lo que encuentras en internet está escrito para otro perro. El Plan de Bienvenida Kopeet arma, con una foto y 6 respuestas, qué hacer cada día con TU perro."
+- **Mecanismo con nombre:** Plan de Bienvenida Kopeet (el mismo nombre que en el onboarding y el paywall).
+- **Botón (Modelo 2):** "Crear el plan de mi perro gratis" → lleva al onboarding; el pago aparece después, en el paywall.
+- **Prueba social:** no hay testimonios → se usa la demostración de la app y la garantía Hotmart de 7 días; sin sección de testimonios.
+- **Construida:** `pagina-de-ventas.html` (v2), con las 10 secciones en orden: inicio · problema · lo que cuesta · Plan de Bienvenida · la app por dentro (carrusel) · precio · garantía · preguntas frecuentes · cierre · pie legal. El botón aparece 6 veces. Pesa 95 KB y usa las fotos de `perros/` y `marca/`.
+- **Revisión a 375 px (evaluada por Claude, sin revisor externo):** ningún bloque supera 4 líneas ✅ · dolores, pasos y beneficios con íconos ✅ · solo leyendo los títulos se entiende la página ✅ · espacio entre bloques y fondos alternados ✅ · preguntas frecuentes que se abren al tocar ✅ · precio y garantía en cajas ✅ · sin desplazamiento horizontal ✅. Se corrigió: respuestas de las preguntas frecuentes (pasaban de 4 líneas) y tarjetas flotantes que tapaban el celular en pantallas chicas.
+- **Pendiente:** páginas reales de Términos, Privacidad, Reembolsos y Contacto (hoy los enlaces del pie no llevan a ninguna parte); capturas reales cuando exista la app; el botón lleva por ahora a la vista previa de la app.
