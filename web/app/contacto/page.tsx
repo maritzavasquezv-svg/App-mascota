@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
+import Link from "next/link";
 import "../legal.css";
 
 export const metadata: Metadata = { title: "Contacto · Kopeet" };
@@ -8,7 +9,7 @@ export default function Pagina() {
   return (
     <div className="legal">
 
-<header className="top"><div className="w"><a className="marca" href="/"><img src="/marca/isotipo-kopeet-180.png" alt="" />Kopeet</a><a className="volver" href="/">← Volver</a></div></header>
+<header className="top"><div className="w"><Link className="marca" href="/"><img src="/marca/isotipo-kopeet-180.png" alt="" />Kopeet</Link><Link className="volver" href="/">← Volver</Link></div></header>
 <main><div className="w">
 <header className="cab"><span className="eyebrow">Estamos para ayudarte</span><h1>Contacto</h1><p className="fecha">Última actualización: 9 de noviembre de 2026 · Versión 1.0</p>
 </header>

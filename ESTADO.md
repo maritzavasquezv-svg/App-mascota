@@ -127,3 +127,12 @@ Aprobado.
 - Verificado: `tsc` ✓ · `next build` ✓ (6 rutas estáticas) · en el navegador a 375 px ✓ (sin desplazamiento lateral, 27 imágenes cargan, carrusel con 5 puntos, enlaces legales funcionan).
 - Pendiente: el botón "Crear el plan de mi perro gratis" lleva a `/empezar`, que se construye en la Etapa 2 (onboarding). `npm audit` informa 8 avisos moderados de dependencias de create-next-app (se revisan antes de publicar).
 - Para verla: en la carpeta `web`, ejecutar `npm run dev` y abrir http://localhost:3000
+
+### Etapas 2 y 3 — Onboarding y paywall reales (9 de noviembre de 2026) ✅
+- `/empezar`: los 8 pasos aprobados (nombre · cómo llegó · edad · qué te preocupa · reconocimiento · foto · hora del paseo con permiso de avisos del navegador · armando el plan con anillo y lista). Barra "N de 8", volver atrás, "Saltar" en el paso 1, botones deshabilitados hasta responder, entrada animada y respeto de "reducir movimiento".
+- Las respuestas se guardan en el navegador (sessionStorage) hasta crear la cuenta. La foto se reduce a 640 px.
+- `/plan`: paywall en 3 pantallas con los datos de la persona (nombre, origen, edad, primera preocupación, N respuestas), fechas reales de la prueba (hoy, aviso al día 5, cobro al día 7), anual preseleccionado a US$4,17/mes con total anual visible, garantía Hotmart, "Ahora no".
+- `/crear-cuenta`: pantalla provisional (marcada "En construcción") que se reemplaza en la Etapa 4.
+- Honestidad: la foto todavía NO se analiza con IA; la pantalla lo dice ("versión de prueba"). La ración, las vacunas y la adaptación aparecen bloqueadas sin valores inventados.
+- Corrección: los estilos de la página de ventas quedaron limitados a `.lp` para que no choquen con la app (había un choque con la clase "paso").
+- Verificado: `tsc` ✓ · `eslint` ✓ · `next build` ✓ · recorrido completo probado en el navegador a 375 px (página de ventas → 8 pasos → 3 pantallas del paywall) ✓.

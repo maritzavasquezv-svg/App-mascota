@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 /* Página de ventas Kopeet (estilo azul, aprobada el 9 nov 2026) */
-:root{
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+.lp{
+&{
   --bg:#f3f6fb; --surface:#fff; --ink:#0f1b3d; --ink-2:#55607a; --muted:#7b8496;
   --accent:#2f6bff; --accent-2:#7fb0ff; --soft:#eaf1ff; --navy:#0f1b3d;
   --ok:#1f9d55; --ok-soft:#e9f8ef; --warn:#f4b400; --bad:#e53935;
@@ -9,8 +11,8 @@
   --font:var(--font-poppins), system-ui, sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;overflow-x:hidden}
+
+&{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;overflow-x:hidden}
 img{display:block;max-width:100%}
 a{color:inherit}
 .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
@@ -204,4 +206,5 @@ footer .aviso{background:#fff;border-radius:14px;padding:12px 14px;font-size:12.
 @media (prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
   .rev{opacity:1;transform:none}
+}
 }

@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
+import Link from "next/link";
 import "../legal.css";
 
 export const metadata: Metadata = { title: "Términos y condiciones · Kopeet" };
@@ -8,11 +9,11 @@ export default function Pagina() {
   return (
     <div className="legal">
 
-<header className="top"><div className="w"><a className="marca" href="/"><img src="/marca/isotipo-kopeet-180.png" alt="" />Kopeet</a><a className="volver" href="/">← Volver</a></div></header>
+<header className="top"><div className="w"><Link className="marca" href="/"><img src="/marca/isotipo-kopeet-180.png" alt="" />Kopeet</Link><Link className="volver" href="/">← Volver</Link></div></header>
 <main><div className="w">
 <header className="cab"><span className="eyebrow">Legal</span><h1>Términos y condiciones</h1><p className="fecha">Última actualización: 9 de noviembre de 2026 · Versión 1.0</p>
 <div className="resumen"><b className="t">En pocas palabras</b><ul><li>Kopeet es una guía para cuidar a tu perro; <b>no reemplaza al veterinario</b>.</li><li>La suscripción se paga por Hotmart y se renueva sola hasta que la canceles.</li><li>Tienes 7 días gratis y 7 días de garantía de reembolso.</li><li>Debes tener 18 años o más para crear una cuenta.</li></ul></div></header>
-<section className="b"><h2><span className="n">1</span>Quiénes somos</h2><p>Kopeet AI ("Kopeet", "la app") es un servicio ofrecido por <b>Maritza Pilar Vásquez Valencia</b>, persona natural con domicilio en <b>Santiago, Chile</b>. Para cualquier consulta escríbenos a <a href="mailto:maritzavasquezv@gmail.com">maritzavasquezv@gmail.com</a>.</p><p>Al crear una cuenta o usar Kopeet aceptas estos términos. Si no estás de acuerdo, no uses el servicio.</p></section>
+<section className="b"><h2><span className="n">1</span>Quiénes somos</h2><p>Kopeet AI (“Kopeet”, “la app”) es un servicio ofrecido por <b>Maritza Pilar Vásquez Valencia</b>, persona natural con domicilio en <b>Santiago, Chile</b>. Para cualquier consulta escríbenos a <a href="mailto:maritzavasquezv@gmail.com">maritzavasquezv@gmail.com</a>.</p><p>Al crear una cuenta o usar Kopeet aceptas estos términos. Si no estás de acuerdo, no uses el servicio.</p></section>
 <section className="b"><h2><span className="n">2</span>Qué es Kopeet</h2><p>Kopeet es una aplicación web que ayuda a cuidar a perros de cualquier raza, mezcla o edad. Incluye:</p><ul><li>Un <b>escáner por foto</b> que estima mezcla, edad y tamaño.</li><li>El <b>Plan de Bienvenida</b> y un plan diario (ejercicio, ración, adaptación, baño).</li><li><b>Avisos</b> de vacunas, desparasitación y controles.</li><li>Un <b>Consejero 24 horas</b> con inteligencia artificial y semáforo de salud.</li><li>Un mapa de lugares para pasear y veterinarias.</li></ul></section>
 <section className="b"><h2><span className="n">3</span>No es atención veterinaria</h2><div className="aviso"><b>Kopeet entrega orientación generada por inteligencia artificial. No es diagnóstico, tratamiento ni consejo veterinario profesional.</b></div><ul><li>Las estimaciones (mezcla, edad, tamaño, ración) son aproximadas y pueden ser incorrectas.</li><li>El semáforo y las alertas de emergencia son una ayuda, no una evaluación clínica.</li><li>Ante cualquier síntoma preocupante o emergencia, acude de inmediato a un médico veterinario.</li><li>Tú eres responsable de las decisiones sobre la salud de tu perro.</li></ul></section>
 <section className="b"><h2><span className="n">4</span>Tu cuenta</h2><ul><li>Debes tener <b>18 años o más</b>.</li><li>Los datos que entregas deben ser verdaderos.</li><li>Eres responsable de cuidar tu contraseña y de lo que se haga con tu cuenta.</li><li>Puedes borrar tu cuenta cuando quieras (ver la Política de privacidad).</li></ul></section>

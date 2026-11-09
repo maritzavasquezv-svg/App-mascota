@@ -3,7 +3,7 @@ import EfectosLanding from "@/components/landing/EfectosLanding";
 
 export default function PaginaDeVentas() {
   return (
-    <>
+    <div className="lp">
 
 
 <header className="top"><div className="wrap">
@@ -193,6 +193,6 @@ export default function PaginaDeVentas() {
 
 
       <EfectosLanding />
-    </>
+    </div>
   );
 }

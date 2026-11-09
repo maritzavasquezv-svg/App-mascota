@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
+import Link from "next/link";
 import "../legal.css";
 
 export const metadata: Metadata = { title: "Reembolsos y cancelación · Kopeet" };
@@ -8,7 +9,7 @@ export default function Pagina() {
   return (
     <div className="legal">
 
-<header className="top"><div className="w"><a className="marca" href="/"><img src="/marca/isotipo-kopeet-180.png" alt="" />Kopeet</a><a className="volver" href="/">← Volver</a></div></header>
+<header className="top"><div className="w"><Link className="marca" href="/"><img src="/marca/isotipo-kopeet-180.png" alt="" />Kopeet</Link><Link className="volver" href="/">← Volver</Link></div></header>
 <main><div className="w">
 <header className="cab"><span className="eyebrow">Sin letra chica</span><h1>Reembolsos y cancelación</h1><p className="fecha">Última actualización: 9 de noviembre de 2026 · Versión 1.0</p>
 <div className="resumen"><b className="t">En pocas palabras</b><ul><li><b>7 días gratis</b>: si cancelas antes, no pagas nada.</li><li><b>7 días de garantía</b> después de pagar: te devolvemos el dinero.</li><li>Puedes cancelar cuando quieras desde Hotmart.</li></ul></div></header>
