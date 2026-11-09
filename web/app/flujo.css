@@ -111,3 +111,20 @@
 .flujo .entra > *:nth-child(4) { animation-delay: .21s; } .flujo .entra > *:nth-child(n+5) { animation-delay: .28s; }
 @keyframes entra { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .flujo *, .flujo .entra > * { animation: none !important; transition: none !important; } }
+/* cuentas (Etapa 4) */
+.flujo .etiqueta { display: block; margin-top: 16px; font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+.flujo .campo.chico { margin-top: 6px; height: 52px; font-size: 16px; font-weight: 500; box-shadow: 0 0 0 1.5px #d5dbe6; }
+.flujo .campo.chico:focus { box-shadow: 0 0 0 2px var(--accent), 0 10px 24px -14px rgb(47 107 255 / .5); }
+.flujo .check { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; font-size: 13.5px; line-height: 1.45; color: var(--ink-2); cursor: pointer; }
+.flujo .check input { width: 20px; height: 20px; margin-top: 1px; flex-shrink: 0; accent-color: var(--accent); }
+.flujo .check a, .flujo .nota a, .flujo .sub a { color: var(--accent); font-weight: 600; }
+.flujo .ficha-perro { margin-top: 16px; display: flex; gap: 14px; align-items: center; background: #fff; border-radius: 20px; padding: 12px; box-shadow: var(--shadow); }
+.flujo .ficha-perro img, .flujo .ficha-perro .sin-foto { width: 64px; height: 64px; border-radius: 99px; object-fit: cover; flex-shrink: 0; background: var(--soft); color: var(--accent); display: flex; align-items: center; justify-content: center; }
+.flujo .ficha-perro b { display: block; font-size: 17px; }
+.flujo .ficha-perro span { font-size: 13px; color: var(--muted); }
+.flujo .zona-peligro { margin-top: 26px; padding: 16px; border-radius: 18px; background: #fff5f5; }
+.flujo .zona-peligro b { color: #b42318; }
+.flujo .zona-peligro p { margin-top: 4px; font-size: 13.5px; color: #7a2a2a; }
+.flujo .btn-peligro { margin-top: 12px; width: 100%; min-height: 48px; border-radius: 999px; border: 1.5px solid #e5484d; background: #fff; color: #b42318; font: inherit; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+.flujo .btn-peligro.lleno { background: #d92d20; color: #fff; border-color: #d92d20; }
+.flujo .btn-peligro:disabled { opacity: .45; cursor: not-allowed; }

@@ -8,7 +8,7 @@ export default function PaginaDeVentas() {
 
 <header className="top"><div className="wrap">
   <a className="marca" href="#"><img src="/marca/isotipo-kopeet-180.png" alt="" />Kopeet</a>
-  <a className="entrar" href="#entrar">Entrar</a>
+  <a className="entrar" href="/entrar">Entrar</a>
 </div></header>
 
 <main>
