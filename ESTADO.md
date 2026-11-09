@@ -144,3 +144,14 @@ Aprobado.
 - Claves: solo la URL y la clave PÚBLICA de Supabase en `web/.env.local` (no se sube a GitHub; plantilla en `web/.env.example`).
 - Verificado: `tsc` ✓ · `eslint` ✓ · `next build` ✓ (13 rutas + proxy) · RLS probada con SQL (usuario A ve solo su perro; sin sesión ve 0) ✓ · en el navegador: /inicio sin sesión lleva a /entrar ✓, validaciones del registro ✓, vista a 375 px ✓.
 - **Pendiente:** prueba de registro real con el correo de la fundadora (confirmación por correo + guardado del perro + borrar cuenta); "¿Olvidaste tu contraseña?"; el correo de Supabase gratis tiene un límite bajo de envíos por hora → configurar Resend con dominio propio antes de lanzar; al publicar, agregar la dirección final en Supabase → Authentication → URL Configuration.
+
+### Etapa 5 — La app por dentro (9 de noviembre de 2026) ✅ (falta verla con una cuenta real)
+- Base de datos (migración `etapa5_registros_y_salud`): `registros` (ejercicio en minutos y baño por día) y `eventos_salud` (vacunas, desparasitación, controles), con RLS: solo sobre lo propio y solo en perros propios.
+- Navegación inferior flotante: Hoy · Baño · Consejero · Premios · Cuenta.
+- **Hoy** (`/inicio`): selector de perros + "Sumar", racha de ejercicio, barra de adaptación "3 días · 1 semana · 1 mes" (cuenta desde el día en que se sumó el perro), medidor de ejercicio con meta según la edad (+10/+20 min y deshacer), calendario del veterinario (la persona agrega fechas; Kopeet no inventa fechas médicas) y lugares para pasear (abren búsquedas en Google Maps, sin API).
+- **Baño** (`/inicio/bano`): racha, semana de lunes a domingo, 5 pasos, botón "Lo hizo en su baño" (1 por día) y festejo con la escarapela a los 7 días.
+- **Consejero** (`/inicio/consejero`): semáforo por reglas mientras no hay IA. Rojo para emergencias (se tragó algo, intoxicación, convulsiones, sangrado, no respira, golpe, panza hinchada) → pantalla de **Emergencia** con búsqueda de veterinarias 24 h; amarillo para vómito, diarrea, no come, cojea o tos, con pasos seguros; el resto dice honestamente que la IA llega en la próxima etapa. Aviso "no reemplaza al veterinario" en cada respuesta.
+- **Premios** (`/inicio/premios`): 6 premios calculados con los registros reales (primer paseo, pelota de oro, hueso dorado, galleta campeona, escudo sano, corona de peludo).
+- **Sumar perro** (`/inicio/sumar-perro`): nombre, origen, edad y foto opcional.
+- Verificado: `tsc` ✓ · `eslint` ✓ · `next build` ✓ (18 rutas) · pruebas de lógica (semáforo, rachas, premios, fechas: 12/12) ✓ · RLS con SQL (A no puede registrar ni agendar en el perro de B) ✓.
+- **Sin verificar:** las pantallas de /inicio en el navegador, porque piden una cuenta real (queda junto a la prueba de registro de la fundadora).
