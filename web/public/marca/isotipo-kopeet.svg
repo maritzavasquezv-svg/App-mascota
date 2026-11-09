@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="fondo" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#5b95ff"/>
+      <stop offset="0.5" stop-color="#2f6bff"/>
+      <stop offset="1" stop-color="#1a45c9"/>
+    </linearGradient>
+    <radialGradient id="luz" cx="0.3" cy="0.12" r="0.8">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="borde" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.45"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#0b2a8a" stop-opacity="0.35"/>
+    </linearGradient>
+    <linearGradient id="perro" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e2ebff"/>
+    </linearGradient>
+    <linearGradient id="oreja" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cfdcff"/>
+      <stop offset="1" stop-color="#b3c8ff"/>
+    </linearGradient>
+    <filter id="sombra" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#0a2477" flood-opacity="0.38"/>
+    </filter>
+    <clipPath id="caja"><rect x="64" y="64" width="896" height="896" rx="216"/></clipPath>
+  </defs>
+
+  <!-- contenedor -->
+  <rect x="64" y="64" width="896" height="896" rx="216" fill="url(#fondo)"/>
+  <rect x="64" y="64" width="896" height="896" rx="216" fill="url(#luz)"/>
+
+  <!-- perro: cabeza de perfil con oreja caída -->
+  <g filter="url(#sombra)" clip-path="url(#caja)">
+    <path fill="url(#perro)" d="
+      M 300 520
+      C 300 390 400 300 520 300
+      C 610 300 680 350 708 430
+      L 760 470
+      C 830 480 868 520 868 572
+      C 868 640 820 680 752 680
+      L 640 680
+      C 610 740 548 772 486 772
+      C 380 772 300 680 300 520 Z"/>
+    <!-- oreja -->
+    <path fill="url(#oreja)" d="
+      M 404 330
+      C 330 330 268 400 262 520
+      C 258 610 290 680 342 680
+      C 392 680 420 620 430 540
+      C 440 450 450 360 404 330 Z"/>
+    <!-- ojo -->
+    <circle cx="590" cy="470" r="34" fill="#0f1b3d"/>
+    <circle cx="602" cy="458" r="10" fill="#ffffff"/>
+    <!-- nariz -->
+    <ellipse cx="846" cy="560" rx="40" ry="34" fill="#0f1b3d"/>
+  </g>
+
+  <!-- chispa de IA -->
+  <path fill="#ffffff" d="M 770 196 C 778 250 794 266 848 274 C 794 282 778 298 770 352 C 762 298 746 282 692 274 C 746 266 762 250 770 196 Z"/>
+  <circle cx="862" cy="190" r="16" fill="#ffffff" opacity="0.85"/>
+
+  <!-- borde fino con relieve -->
+  <rect x="66" y="66" width="892" height="892" rx="214" fill="none" stroke="url(#borde)" stroke-width="4"/>
+</svg>

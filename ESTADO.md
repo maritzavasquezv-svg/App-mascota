@@ -116,3 +116,14 @@ Aprobado.
 - **Correo de contacto:** maritzavasquezv@gmail.com (agregado el 9 de noviembre de 2026).
 - **Pendiente:** revisión por un abogado en Chile; confirmar en el panel de Hotmart que la garantía esté en 7 días.
 - **Para construir en la app** (los textos lo prometen): Perfil → Mi cuenta → Borrar mi cuenta; Perfil → Mi suscripción con enlace a Hotmart; aviso antes del fin de la prueba; casilla de consentimiento sin marcar en el registro; aviso "esto es orientación, no consejo veterinario" junto a cada respuesta del Consejero.
+
+---
+
+## Construcción de la app real
+
+### Etapa 1 — Base + página de ventas (9 de noviembre de 2026) ✅
+- Proyecto en `web/`: Next.js 16.4 (App Router, TypeScript, Tailwind 4.3), con motion, lucide-react, zod, @supabase/supabase-js y @supabase/ssr 0.12 instalados.
+- Rutas: `/` (página de ventas aprobada, sin cambios de diseño), `/terminos`, `/privacidad`, `/reembolsos`, `/contacto`. Fuente Poppins con next/font. Fotos e isotipo en `web/public/`.
+- Verificado: `tsc` ✓ · `next build` ✓ (6 rutas estáticas) · en el navegador a 375 px ✓ (sin desplazamiento lateral, 27 imágenes cargan, carrusel con 5 puntos, enlaces legales funcionan).
+- Pendiente: el botón "Crear el plan de mi perro gratis" lleva a `/empezar`, que se construye en la Etapa 2 (onboarding). `npm audit` informa 8 avisos moderados de dependencias de create-next-app (se revisan antes de publicar).
+- Para verla: en la carpeta `web`, ejecutar `npm run dev` y abrir http://localhost:3000
