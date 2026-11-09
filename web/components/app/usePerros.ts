@@ -27,7 +27,7 @@ export function usePerros() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { router.replace("/entrar"); return; }
       try { await completarRegistro(supabase, user); } catch { /* se reintenta la próxima vez */ }
-      const { data, error } = await supabase.from("perros").select("id,nombre,origen,edad,preocupaciones,foto_ruta,creado_en").order("creado_en");
+      const { data, error } = await supabase.from("perros").select("id,nombre,origen,edad,preocupaciones,foto_ruta,creado_en,estimacion").order("creado_en");
       if (!vivo) return;
       if (error) { setError("No pudimos cargar tus perros. Revisa tu conexión y recarga."); return; }
       const lista = (data ?? []) as Perro[];

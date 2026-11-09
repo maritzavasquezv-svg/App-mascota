@@ -138,7 +138,7 @@ export default function Onboarding() {
               <div className="resultado">
                 <b>¡Listo! Ya tenemos la foto de {nombre}</b>
                 <p>Toca la foto si quieres cambiarla.</p>
-                <p className="aviso-prueba">Versión de prueba: la estimación con IA (mezcla, edad y tamaño) se conecta en la etapa de servicios reales.</p>
+                <p className="aviso-prueba">La estimación con IA (mezcla, edad y tamaño) aparece en su plan cuando crees tu cuenta.</p>
               </div>
             )}
             <div className="espacio" />

@@ -1,7 +1,7 @@
 // Lógica de la app por dentro: perros, registros del día, rachas, premios y adaptación.
 import type { Edad, Origen } from "@/lib/onboarding";
 
-export interface Perro { id: string; nombre: string; origen: Origen | null; edad: Edad | null; preocupaciones: string[]; foto_ruta: string | null; creado_en: string }
+export interface Perro { id: string; nombre: string; origen: Origen | null; edad: Edad | null; preocupaciones: string[]; foto_ruta: string | null; creado_en: string; estimacion?: { mezcla: string; confianza: string; etapa: string; edad_aprox: string; tamano_adulto: string; peso_adulto_kg: string; nota: string } | null }
 export interface Registro { id: string; perro_id: string; tipo: "ejercicio" | "bano"; minutos: number | null; fecha: string }
 export interface EventoSalud { id: string; perro_id: string; tipo: "vacuna" | "desparasitacion" | "control" | "otro"; titulo: string; fecha: string; hecho: boolean }
 

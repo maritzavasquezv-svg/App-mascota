@@ -155,3 +155,15 @@ Aprobado.
 - **Sumar perro** (`/inicio/sumar-perro`): nombre, origen, edad y foto opcional.
 - Verificado: `tsc` ✓ · `eslint` ✓ · `next build` ✓ (18 rutas) · pruebas de lógica (semáforo, rachas, premios, fechas: 12/12) ✓ · RLS con SQL (A no puede registrar ni agendar en el perro de B) ✓.
 - **Sin verificar:** las pantallas de /inicio en el navegador, porque piden una cuenta real (queda junto a la prueba de registro de la fundadora).
+
+### Etapa 6 — Servicios reales: código listo (9 de noviembre de 2026) 🟡 falta configurar cuentas
+- **IA (Anthropic, SDK oficial `@anthropic-ai/sdk`):** `/api/consejero` y `/api/escaner`. Modelo configurable con `AI_MODEL` (por defecto `claude-opus-5-5`), respuestas en JSON validado (zod), `max_tokens` 4000, esfuerzo bajo para el chat y medio para la foto, caché del texto de sistema y *fallback* automático de Anthropic si la IA declina por seguridad.
+- **Seguridad del Consejero:** las emergencias se detectan primero con reglas y se responden al instante sin esperar a la IA; sin clave de IA, la app sigue funcionando con las reglas.
+- **Costos:** límite de `AI_LIMITE_DIARIO` usos por persona al día (por defecto 30), registrado en la tabla `usos_ia` (con RLS). Solo se envía a la IA el perro (nombre, origen, edad, preocupaciones), nunca el correo ni datos de la persona.
+- **Escáner:** en /inicio aparece "Analizar su foto"; el resultado (mezcla, edad, tamaño y peso adulto, confianza) se guarda en `perros.estimacion`.
+- **Hotmart:** `/api/webhooks/hotmart` verifica el `hottok` (comparación segura) y guarda el estado en `suscripciones` (activa, cancelada, reembolsada o vencida), por correo del comprador. La tabla solo la escribe el servidor; cada persona solo puede leer la suya.
+- Migración `etapa6_usos_ia_y_suscripciones`. Asesor de seguridad: solo el aviso intencional de `borrar_mi_cuenta`.
+- Verificado: `tsc` ✓ · `eslint` ✓ · `next build` ✓ (21 rutas) · las 3 APIs rechazan llamadas sin sesión o sin hottok (401) ✓.
+- **Sin verificar:** respuestas reales de la IA (no hay `ANTHROPIC_API_KEY` todavía) y un aviso real de Hotmart.
+- **Pendiente de la fundadora:** cuenta en Vercel (importar el repo, carpeta `web`), variables `ANTHROPIC_API_KEY`, `SUPABASE_SECRET_KEY`, `HOTMART_HOTTOK`; producto en Hotmart con la URL del webhook; dominio.
+- **Pendiente técnico después del despliegue:** que la app lea `suscripciones` para abrir o cerrar las funciones de pago; agregar la dirección de Vercel en Supabase → Authentication → URL Configuration; correos con Resend.

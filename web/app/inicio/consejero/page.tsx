@@ -3,23 +3,34 @@ import { useState } from "react";
 import Link from "next/link";
 import { AlertTriangle, Send } from "lucide-react";
 import { usePerros } from "@/components/app/usePerros";
-import { triage, type RespuestaConsejero } from "@/lib/app-datos";
+import type { RespuestaConsejero } from "@/lib/app-datos";
 
-interface Mensaje { de: "yo" | "kopeet"; texto?: string; resp?: RespuestaConsejero }
+interface Mensaje { de: "yo" | "kopeet"; texto?: string; resp?: RespuestaConsejero; ia?: boolean }
 const LUCES = { rojo: "#e53935", amarillo: "#f4b400", verde: "#22b35e" } as const;
 
 export default function Consejero() {
   const { activo } = usePerros();
   const [texto, setTexto] = useState("");
   const [chat, setChat] = useState<Mensaje[]>([]);
+  const [pensando, setPensando] = useState(false);
   const nombre = activo?.nombre || "tu perro";
 
-  function enviar(e: React.FormEvent) {
+  async function enviar(e: React.FormEvent) {
     e.preventDefault();
     const t = texto.trim();
-    if (!t) return;
-    setChat((c) => [...c, { de: "yo", texto: t }, { de: "kopeet", resp: triage(t) }]);
+    if (!t || pensando) return;
+    setChat((c) => [...c, { de: "yo", texto: t }]);
     setTexto("");
+    setPensando(true);
+    try {
+      const res = await fetch("/api/consejero", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pregunta: t, perroId: activo?.id }) });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error ?? "error");
+      const r = d.respuesta as RespuestaConsejero;
+      setChat((c) => [...c, { de: "kopeet", resp: { ...r, luz: r.luz as RespuestaConsejero["luz"] }, ia: d.fuente === "ia" }]);
+    } catch {
+      setChat((c) => [...c, { de: "kopeet", resp: { luz: "sin-clasificar", titulo: "No pudimos responder", pasos: ["Revisa tu conexión e intenta de nuevo.", "Si es urgente, acude a tu veterinario."] } }]);
+    } finally { setPensando(false); }
   }
 
   return (
@@ -42,13 +53,14 @@ export default function Consejero() {
               {m.resp!.luz === "sin-clasificar" && <b>{m.resp!.titulo}</b>}
               <ul>{m.resp!.pasos.map((p) => <li key={p}>{p}</li>)}</ul>
               {m.resp!.luz === "rojo" && <Link className="cta rojo" href={`/inicio/emergencia?motivo=${encodeURIComponent(m.resp!.motivo ?? "")}`}><AlertTriangle size={17} /> Ver qué hacer ahora</Link>}
-              <p className="aviso-vet">Esto es orientación, no un diagnóstico. No reemplaza al veterinario.</p>
+              <p className="aviso-vet">{m.ia ? "Respuesta con IA. " : ""}Esto es orientación, no un diagnóstico. No reemplaza al veterinario.</p>
             </div>
           ))}
+        {pensando && <div className="msg ia pensando">Kopeet está pensando…</div>}
       </div>
       <form className="campo-chat" onSubmit={enviar}>
         <input value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Escribe tu duda…" aria-label="Tu duda" maxLength={500} />
-        <button type="submit" aria-label="Enviar" disabled={!texto.trim()}><Send size={17} /></button>
+        <button type="submit" aria-label="Enviar" disabled={!texto.trim() || pensando}><Send size={17} /></button>
       </form>
     </div>
   );

@@ -4,6 +4,7 @@ import { CalendarPlus, Check, Home, MapPin, Plus, Stethoscope, Trash2 } from "lu
 import { crearCliente } from "@/lib/supabase/cliente";
 import { usePerros } from "@/components/app/usePerros";
 import SelectorPerros from "@/components/app/SelectorPerros";
+import Escaner from "@/components/app/Escaner";
 import { minutosEjercicio } from "@/lib/onboarding";
 import {
   TIPOS_EVENTO, diasEnCasa, enDias, fechaCorta, hoyISO, mapa, minutosDelDia, racha,
@@ -25,7 +26,7 @@ function Medidor({ hechos, meta }: { hechos: number; meta: number }) {
 }
 
 export default function Inicio() {
-  const { perros, fotos, activo, elegir, error } = usePerros();
+  const { perros, fotos, activo, elegir, error, recargar } = usePerros();
   const [registros, setRegistros] = useState<Registro[]>([]);
   const [eventos, setEventos] = useState<EventoSalud[]>([]);
   const [nuevo, setNuevo] = useState<{ tipo: EventoSalud["tipo"]; fecha: string; titulo: string } | null>(null);
@@ -89,6 +90,7 @@ export default function Inicio() {
       <div className="fila-tit"><h1>{perros.length > 1 ? `Tus ${perros.length} perros` : `El plan de ${nombre}`}</h1>
         <span className="chip-racha" title="Días seguidos de ejercicio">🔥 {racha(registros, "ejercicio")} días</span></div>
       <SelectorPerros perros={perros} fotos={fotos} activoId={activo.id} elegir={elegir} />
+      <Escaner perro={activo} alActualizar={recargar} />
 
       <section className="tarjeta">
         <div className="tarjeta-tit"><span><Home size={15} /> Adaptación a su nuevo hogar</span><b>Día {dias}</b></div>
