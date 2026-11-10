@@ -16,7 +16,7 @@ export default function Navegacion() {
   return (
     <nav className="nav-app" aria-label="Navegación principal">
       {ITEMS.map(({ href, texto, Icono }) => {
-        const on = href === "/inicio" ? ruta === "/inicio" || ruta.startsWith("/inicio/bano") || ruta.startsWith("/inicio/sumar-perro")
+        const on = href === "/inicio" ? ruta === "/inicio" || ruta.startsWith("/inicio/bano") || ruta.startsWith("/inicio/sumar-perro") || ruta.startsWith("/inicio/editar-perro")
           : href === "/inicio/consejero" ? ruta.startsWith(href) || ruta.startsWith("/inicio/emergencia") : ruta.startsWith(href);
         return (
           <Link key={href} href={href} className={on ? "on" : ""} aria-current={on ? "page" : undefined} aria-label={href === "/inicio/consejero" ? "Consejero y emergencia" : undefined}>

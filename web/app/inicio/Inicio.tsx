@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { CalendarPlus, Check, Home, Stethoscope, Trash2 } from "lucide-react";
+import { CalendarPlus, Check, Home, Pencil, Stethoscope, Trash2 } from "lucide-react";
 import { crearCliente } from "@/lib/supabase/cliente";
 import { usePerros } from "@/components/app/usePerros";
 import SelectorPerros from "@/components/app/SelectorPerros";
@@ -93,6 +93,7 @@ export default function Inicio() {
       <div className="fila-tit"><h1>{perros.length > 1 ? `Tus ${perros.length} perros` : `El plan de ${nombre}`}</h1>
         <span className="chip-racha" title="Días seguidos de ejercicio">🔥 {racha(registros, "ejercicio")} días</span></div>
       <SelectorPerros perros={perros} fotos={fotos} activoId={activo.id} elegir={elegir} />
+      <a className="enlace-raza" href={`/inicio/editar-perro?id=${activo.id}`} style={{ marginTop: 4 }}><Pencil size={13} /> Editar o borrar a {nombre}</a>
       <AvisoPlan plan={plan} />
       <Escaner perro={activo} alActualizar={recargar} />
 
