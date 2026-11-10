@@ -172,4 +172,5 @@ Aprobado.
 - Dirección: **https://app-mascota-navy.vercel.app** (proyecto `app-mascota` en la cuenta Vercel de la fundadora, carpeta raíz `web`, se publica solo con cada push a `main`).
 - Variables cargadas: `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (tipo Config, públicas). El primer despliegue daba error 500 en cuentas y API porque faltaban; se agregaron y se volvió a publicar.
 - Verificado en internet: página de ventas, onboarding, paywall, legales, imágenes ✓ · /crear-cuenta y /entrar 200 ✓ · /inicio sin sesión redirige a /entrar ✓ · /api/consejero sin sesión 401 ✓.
-- **Pendiente:** en Supabase → Authentication → URL Configuration, poner Site URL = https://app-mascota-navy.vercel.app y agregar https://app-mascota-navy.vercel.app/auth/confirmar en Redirect URLs (si no, el correo de confirmación apunta a localhost). Luego: ANTHROPIC_API_KEY, SUPABASE_SECRET_KEY y HOTMART_HOTTOK como variables secretas.
+- Supabase → Authentication → URL Configuration ✅ (10 nov 2026): Site URL = https://app-mascota-navy.vercel.app · Redirect URL = https://app-mascota-navy.vercel.app/auth/confirmar (verificado después de recargar).
+- **Pendiente:** ANTHROPIC_API_KEY, SUPABASE_SECRET_KEY y HOTMART_HOTTOK como variables secretas.
