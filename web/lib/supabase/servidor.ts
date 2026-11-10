@@ -15,7 +15,8 @@ export async function clienteConSesion() {
 
 /** Cliente con la clave SECRETA de Supabase (salta RLS). Solo para el webhook de Hotmart. */
 export function clienteAdmin() {
-  const clave = process.env.SUPABASE_SECRET_KEY;
+  // trim(): al copiar y pegar a veces se cuela un espacio o salto de línea, que rompe la cabecera HTTP.
+  const clave = process.env.SUPABASE_SECRET_KEY?.trim();
   if (!clave) throw new Error("Falta SUPABASE_SECRET_KEY en las variables del servidor");
   return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, clave, { auth: { persistSession: false, autoRefreshToken: false } });
 }
