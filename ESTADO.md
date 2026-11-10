@@ -203,3 +203,14 @@ Aprobado.
 - **Panel de administración sin clave secreta** (10 nov 2026): la clave secreta de Supabase falló 3 veces al copiarla (primero con "•••", después se pegó la clave pública). Se cambió el panel para que no la necesite: función `resumen_admin()` en la base (SECURITY DEFINER) que solo responde a los correos de la tabla privada `administradores` (migración `panel_admin_sin_clave_secreta`). `SUPABASE_SECRET_KEY` queda solo para el webhook de Hotmart y se resuelve en esa etapa.
 - **Editar o borrar un perro** (10 nov 2026): `/inicio/editar-perro?id=…` con nombre, raza, pedigrí, origen, edad y foto; "Borrar a [nombre]" con confirmación (borra también su foto; registros y eventos se borran en cascada). Enlace "Editar o borrar a [nombre]" bajo los perros en Hoy.
 - Texto cambiado a pedido de la fundadora: "Pipí y caca" → "Orina y heces" en Hoy, el plan, Premios y la página de ventas.
+
+### Tres idiomas: español, inglés y portugués (10 de noviembre de 2026) ✅
+- Pedido de la fundadora: "colocarle idiomas español y inglés" → "Todo", "Automático + botón", "con un botón", "y también portugués".
+- **Botón ES · EN · PT** en: página de ventas (arriba), inicio del plan (paso 1), pantalla de planes, crear cuenta, entrar, recuperar contraseña, legales y **Cuenta → Idioma** dentro de la app.
+- **Automático**: la primera vez se usa el idioma del celular (es → español, pt → portugués, cualquier otro → inglés). La elección queda guardada en la cookie `idioma`.
+- **Página de ventas y legales con dirección propia**: `/` (español), `/en`, `/pt`, y `/en/terminos`, `/pt/privacidad`, etc. Quien entra a `/` con el celular en inglés o portugués va solo a su versión.
+- **Toda la app traducida**: Hoy (rutina, adaptación, veterinario), Orina y heces, Consejero, Emergencia, Premios, Destinos (las búsquedas de Google Maps también van en el idioma), Cuenta, sumar/editar perro, escáner y avisos de error.
+- **IA en el idioma elegido**: el Consejero y el escáner responden en español, inglés o portugués de Brasil. El semáforo de emergencias reconoce palabras clave en los tres idiomas.
+- Legales en inglés y portugués llevan nota: "traducción de cortesía; prevalece la versión en español" → **revisar con el abogado** junto con la versión en español.
+- No traducido a propósito: el panel `/admin` (solo lo usa la fundadora). Los correos de Supabase siguen en su texto por defecto hasta conectar Resend (entonces se harán en 3 idiomas).
+- Código: `lib/idiomas.ts` (común), `lib/i18n.ts` (`useT()` con `t("es","en","pt")`), `components/SelectorIdioma.tsx`, `components/landing/Ventas.tsx`, `components/legal/*`, `proxy.ts` (redirección por idioma).

@@ -208,3 +208,16 @@ footer .aviso{background:#fff;border-radius:14px;padding:12px 14px;font-size:12.
   .rev{opacity:1;transform:none}
 }
 }
+
+/* ---------- Botón de idioma ES / EN / PT ---------- */
+.selector-idioma { display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: #e6ebf3; flex-shrink: 0; }
+.selector-idioma button { border: 0; background: transparent; font: inherit; font-size: 12px; font-weight: 700; letter-spacing: .02em; padding: 5px 8px; min-width: 32px; min-height: 28px; border-radius: 999px; color: #4a5878; cursor: pointer; }
+.selector-idioma button[aria-pressed="true"] { background: #fff; color: #2f6bff; box-shadow: 0 1px 3px rgb(15 27 61 / .15); }
+.selector-idioma button:focus-visible { outline: 2px solid #2f6bff; outline-offset: 1px; }
+.lp .top-der { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.lp .top-der .entrar { margin-left: 0; }
+.legal .top .selector-idioma { margin-left: auto; }
+.legal .top .volver { margin-left: 8px; }
+.flujo .cabeza .selector-idioma { margin-left: auto; }
+.flujo .cabeza .selector-idioma + .cerrar { margin-left: 6px; }
+.flujo .idioma-fila { display: flex; justify-content: flex-end; margin-top: 10px; }

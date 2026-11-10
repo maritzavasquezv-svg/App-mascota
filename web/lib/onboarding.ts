@@ -1,5 +1,6 @@
 // Datos del onboarding de Kopeet: tipos, opciones y el armado del Plan de Bienvenida.
 // Las respuestas viven en el navegador (sessionStorage) hasta que la persona crea su cuenta (Etapa 4).
+import { locale, tr, type Idioma, type Txt } from "./idiomas";
 
 export type Origen = "refugio" | "calle" | "criador" | "regalo";
 export type Edad = "cachorro" | "adulto" | "senior" | "no-se";
@@ -17,21 +18,21 @@ export interface Respuestas {
 
 export const VACIO: Respuestas = { nombre: "", origen: null, edad: null, preocupaciones: [], foto: null, hora: null, avisos: "sin-respuesta" };
 
-export const ORIGENES: { id: Origen; texto: string }[] = [
-  { id: "refugio", texto: "Lo adopté de un refugio" },
-  { id: "calle", texto: "Lo rescaté de la calle" },
-  { id: "criador", texto: "De un criador o una tienda" },
-  { id: "regalo", texto: "Me lo regalaron" },
+export const ORIGENES: { id: Origen; texto: Txt }[] = [
+  { id: "refugio", texto: { es: "Lo adopté de un refugio", en: "I adopted from a shelter", pt: "Adotei de um abrigo" } },
+  { id: "calle", texto: { es: "Lo rescaté de la calle", en: "I rescued from the street", pt: "Resgatei da rua" } },
+  { id: "criador", texto: { es: "De un criador o una tienda", en: "From a breeder or a store", pt: "De um criador ou loja" } },
+  { id: "regalo", texto: { es: "Me lo regalaron", en: "It was a gift", pt: "Ganhei de presente" } },
 ];
 
-export const EDADES: { id: Edad; texto: string; detalle: string }[] = [
-  { id: "cachorro", texto: "Cachorro", detalle: "Menos de 1 año" },
-  { id: "adulto", texto: "Adulto", detalle: "De 1 a 7 años" },
-  { id: "senior", texto: "Senior", detalle: "Más de 7 años" },
-  { id: "no-se", texto: "Lo adopté y no sé", detalle: "La estimamos con su foto" },
+export const EDADES: { id: Edad; texto: Txt; detalle: Txt }[] = [
+  { id: "cachorro", texto: { es: "Cachorro", en: "Puppy", pt: "Filhote" }, detalle: { es: "Menos de 1 año", en: "Under 1 year", pt: "Menos de 1 ano" } },
+  { id: "adulto", texto: { es: "Adulto", en: "Adult", pt: "Adulto" }, detalle: { es: "De 1 a 7 años", en: "1 to 7 years", pt: "De 1 a 7 anos" } },
+  { id: "senior", texto: { es: "Senior", en: "Senior", pt: "Idoso" }, detalle: { es: "Más de 7 años", en: "Over 7 years", pt: "Mais de 7 anos" } },
+  { id: "no-se", texto: { es: "Lo adopté y no sé", en: "Adopted, not sure", pt: "Adotei e não sei" }, detalle: { es: "La estimamos con su foto", en: "We estimate it from a photo", pt: "Estimamos pela foto" } },
 ];
 
-// Frases de la ficha de avatar (aprobada el 9 nov 2026)
+// Frases de la ficha de avatar (aprobada el 9 nov 2026). Se guardan en español en la base; se traducen al mostrarlas.
 export const PREOCUPACIONES = [
   "Vomita o tiene diarrea",
   "No come",
@@ -42,12 +43,24 @@ export const PREOCUPACIONES = [
   "No sé qué edad tiene",
   "¿Cuánto tarda en adaptarse?",
 ];
+const TRAD_PREOCUPACIONES: Record<string, [en: string, pt: string]> = {
+  "Vomita o tiene diarrea": ["Vomiting or diarrhea", "Vômito ou diarreia"],
+  "No come": ["Won't eat", "Não come"],
+  "Lloró la primera noche": ["Cried the first night", "Chorou na primeira noite"],
+  "No orina en su baño": ["Doesn't urinate in its spot", "Não faz xixi no lugar certo"],
+  "Se come sus heces": ["Eats its own feces", "Come as próprias fezes"],
+  "Su primera vacuna": ["First vaccine", "Primeira vacina"],
+  "No sé qué edad tiene": ["Not sure how old it is", "Não sei a idade"],
+  "¿Cuánto tarda en adaptarse?": ["How long to settle in?", "Quanto tempo para se adaptar?"],
+};
+export const preocupacion = (p: string, idioma: Idioma = "es") =>
+  idioma === "es" ? p : TRAD_PREOCUPACIONES[p]?.[idioma === "en" ? 0 : 1] ?? p;
 
-export const HORAS: { id: HoraPaseo; texto: string; detalle: string; hora: string }[] = [
-  { id: "manana", texto: "En la mañana", detalle: "Cerca de las 7:00", hora: "7:00" },
-  { id: "mediodia", texto: "Al mediodía", detalle: "Cerca de las 13:00", hora: "13:00" },
-  { id: "tarde", texto: "En la tarde", detalle: "Cerca de las 18:00", hora: "18:00" },
-  { id: "noche", texto: "En la noche", detalle: "Cerca de las 21:00", hora: "21:00" },
+export const HORAS: { id: HoraPaseo; texto: Txt; detalle: Txt; hora: string }[] = [
+  { id: "manana", hora: "7:00", texto: { es: "En la mañana", en: "In the morning", pt: "De manhã" }, detalle: { es: "Cerca de las 7:00", en: "Around 7 AM", pt: "Por volta das 7:00" } },
+  { id: "mediodia", hora: "13:00", texto: { es: "Al mediodía", en: "At noon", pt: "Ao meio-dia" }, detalle: { es: "Cerca de las 13:00", en: "Around 1 PM", pt: "Por volta das 13:00" } },
+  { id: "tarde", hora: "18:00", texto: { es: "En la tarde", en: "In the afternoon", pt: "À tarde" }, detalle: { es: "Cerca de las 18:00", en: "Around 6 PM", pt: "Por volta das 18:00" } },
+  { id: "noche", hora: "21:00", texto: { es: "En la noche", en: "At night", pt: "À noite" }, detalle: { es: "Cerca de las 21:00", en: "Around 9 PM", pt: "Por volta das 21:00" } },
 ];
 
 const CLAVE = "kopeet-onboarding";
@@ -71,7 +84,7 @@ export function guardar(r: Respuestas): void {
   }
 }
 
-export const nombreDe = (r: Respuestas) => r.nombre.trim() || "tu perro";
+export const nombreDe = (r: Respuestas, idioma: Idioma = "es") => r.nombre.trim() || tr(idioma, "tu perro", "your dog", "seu cão");
 
 /** Cuántas respuestas dio la persona (para "Hecho con tus N respuestas"). */
 export function contarRespuestas(r: Respuestas): number {
@@ -88,27 +101,27 @@ export function minutosEjercicio(edad: Edad | null): number {
   }
 }
 
-export function etiquetaEdad(edad: Edad | null): string {
+export function etiquetaEdad(edad: Edad | null, i: Idioma = "es"): string {
   switch (edad) {
-    case "cachorro": return "cachorro";
-    case "adulto": return "adulto";
-    case "senior": return "senior";
-    default: return "edad por estimar";
+    case "cachorro": return tr(i, "cachorro", "puppy", "filhote");
+    case "adulto": return tr(i, "adulto", "adult", "adulto");
+    case "senior": return tr(i, "senior", "senior", "idoso");
+    default: return tr(i, "edad por estimar", "age to be estimated", "idade a estimar");
   }
 }
 
-export function etiquetaOrigen(o: Origen | null): string {
+export function etiquetaOrigen(o: Origen | null, i: Idioma = "es"): string {
   switch (o) {
-    case "refugio": return "adoptado de un refugio";
-    case "calle": return "rescatado de la calle";
-    case "criador": return "de criador o tienda";
-    case "regalo": return "llegó de regalo";
+    case "refugio": return tr(i, "adoptado de un refugio", "adopted from a shelter", "adotado de um abrigo");
+    case "calle": return tr(i, "rescatado de la calle", "rescued from the street", "resgatado da rua");
+    case "criador": return tr(i, "de criador o tienda", "from a breeder or store", "de criador ou loja");
+    case "regalo": return tr(i, "llegó de regalo", "came as a gift", "veio de presente");
     default: return "";
   }
 }
 
-const fmt = new Intl.DateTimeFormat("es-CL", { day: "numeric", month: "long" });
-export function fechasPrueba(hoy = new Date()) {
+export function fechasPrueba(hoy = new Date(), idioma: Idioma = "es") {
+  const fmt = new Intl.DateTimeFormat(locale(idioma), { day: "numeric", month: "long" });
   const dia = (n: number) => { const d = new Date(hoy); d.setDate(d.getDate() + n); return d; };
   return { hoy: fmt.format(hoy), aviso: fmt.format(dia(5)), cobro: fmt.format(dia(7)) };
 }
@@ -126,7 +139,11 @@ export function reducirFoto(archivo: File, lado = 640): Promise<string> {
       URL.revokeObjectURL(url);
       ok(c.toDataURL("image/jpeg", 0.82));
     };
-    img.onerror = () => { URL.revokeObjectURL(url); mal(new Error("No pudimos leer esa imagen. Prueba con otra foto (JPG o PNG).")); };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      const i = document.documentElement.lang as Idioma;
+      mal(new Error(tr(i, "No pudimos leer esa imagen. Prueba con otra foto (JPG o PNG).", "We couldn't read that image. Try another photo (JPG or PNG).", "Não conseguimos ler essa imagem. Tente outra foto (JPG ou PNG).")));
+    };
     img.src = url;
   });
 }

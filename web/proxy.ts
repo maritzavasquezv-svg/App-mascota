@@ -1,9 +1,25 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { esIdioma, idiomaDeNavegador } from "@/lib/idiomas";
 
-// Mantiene viva la sesión de Supabase y protege la zona privada (/inicio).
-// Es una verificación rápida; los datos igual están protegidos por RLS en la base.
+// Páginas públicas que tienen versión en /en y /pt.
+const CON_VERSION = ["/", "/terminos", "/privacidad", "/reembolsos", "/contacto"];
+
+// 1) Página de ventas y legales: lleva a cada persona a su idioma (el que eligió, o el de su celular).
+// 2) Mantiene viva la sesión de Supabase y protege la zona privada (/inicio).
+//    Es una verificación rápida; los datos igual están protegidos por RLS en la base.
 export async function proxy(request: NextRequest) {
+  const ruta = request.nextUrl.pathname;
+
+  if (CON_VERSION.includes(ruta)) {
+    const cookie = request.cookies.get("idioma")?.value;
+    const idioma = esIdioma(cookie) ? cookie : idiomaDeNavegador(request.headers.get("accept-language"));
+    if (idioma === "es") return NextResponse.next();
+    const url = request.nextUrl.clone();
+    url.pathname = `/${idioma}${ruta === "/" ? "" : ruta}`;
+    return NextResponse.redirect(url);
+  }
+
   let respuesta = NextResponse.next({ request });
 
   const supabase = createServerClient(
@@ -22,7 +38,6 @@ export async function proxy(request: NextRequest) {
   );
 
   const { data } = await supabase.auth.getUser();
-  const ruta = request.nextUrl.pathname;
 
   if (!data.user && (ruta.startsWith("/inicio") || ruta.startsWith("/admin"))) {
     const url = request.nextUrl.clone();
@@ -39,5 +54,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/inicio/:path*", "/admin", "/entrar", "/crear-cuenta", "/auth/:path*"],
+  matcher: ["/", "/terminos", "/privacidad", "/reembolsos", "/contacto", "/inicio/:path*", "/admin", "/entrar", "/crear-cuenta", "/auth/:path*"],
 };

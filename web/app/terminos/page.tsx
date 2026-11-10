@@ -1,35 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
-import Link from "next/link";
-import "../legal.css";
+import Terminos from "@/components/legal/Terminos";
 
 export const metadata: Metadata = { title: "Términos y condiciones · Kopeet" };
 
 export default function Pagina() {
-  return (
-    <div className="legal">
-
-<header className="top"><div className="w"><Link className="marca" href="/"><img src="/marca/isotipo-kopeet-180.png" alt="" />Kopeet</Link><Link className="volver" href="/">← Volver</Link></div></header>
-<main><div className="w">
-<header className="cab"><span className="eyebrow">Legal</span><h1>Términos y condiciones</h1><p className="fecha">Última actualización: 9 de noviembre de 2026 · Versión 1.0</p>
-<div className="resumen"><b className="t">En pocas palabras</b><ul><li>Kopeet es una guía para cuidar a tu perro; <b>no reemplaza al veterinario</b>.</li><li>La suscripción se paga por Hotmart y se renueva sola hasta que la canceles.</li><li>Tienes 7 días gratis y 7 días de garantía de reembolso.</li><li>Debes tener 18 años o más para crear una cuenta.</li></ul></div></header>
-<section className="b"><h2><span className="n">1</span>Quiénes somos</h2><p>Kopeet AI (“Kopeet”, “la app”) es un servicio ofrecido por <b>Maritza Pilar Vásquez Valencia</b>, persona natural con domicilio en <b>Santiago, Chile</b>. Para cualquier consulta escríbenos a <a href="mailto:maritzavasquezv@gmail.com">maritzavasquezv@gmail.com</a>.</p><p>Al crear una cuenta o usar Kopeet aceptas estos términos. Si no estás de acuerdo, no uses el servicio.</p></section>
-<section className="b"><h2><span className="n">2</span>Qué es Kopeet</h2><p>Kopeet es una aplicación web que ayuda a cuidar a perros de cualquier raza, mezcla o edad. Incluye:</p><ul><li>Un <b>escáner por foto</b> que estima mezcla, edad y tamaño.</li><li>El <b>Plan de Bienvenida</b> y un plan diario (ejercicio, ración, adaptación, baño).</li><li><b>Avisos</b> de vacunas, desparasitación y controles.</li><li>Un <b>Consejero 24 horas</b> con inteligencia artificial y semáforo de salud.</li><li>Un mapa de lugares para pasear y veterinarias.</li></ul></section>
-<section className="b"><h2><span className="n">3</span>No es atención veterinaria</h2><div className="aviso"><b>Kopeet entrega orientación generada por inteligencia artificial. No es diagnóstico, tratamiento ni consejo veterinario profesional.</b></div><ul><li>Las estimaciones (mezcla, edad, tamaño, ración) son aproximadas y pueden ser incorrectas.</li><li>El semáforo y las alertas de emergencia son una ayuda, no una evaluación clínica.</li><li>Ante cualquier síntoma preocupante o emergencia, acude de inmediato a un médico veterinario.</li><li>Tú eres responsable de las decisiones sobre la salud de tu perro.</li></ul></section>
-<section className="b"><h2><span className="n">4</span>Tu cuenta</h2><ul><li>Debes tener <b>18 años o más</b>.</li><li>Los datos que entregas deben ser verdaderos.</li><li>Eres responsable de cuidar tu contraseña y de lo que se haga con tu cuenta.</li><li>Puedes borrar tu cuenta cuando quieras (ver la Política de privacidad).</li></ul></section>
-<section className="b"><h2><span className="n">5</span>Suscripción, prueba gratis y pagos</h2><ul><li>Planes: <b>Anual US$49,99</b> (equivale a US$4,17 al mes) o <b>Mensual US$6,99</b>. Los precios pueden incluir o sumar impuestos según tu país; el total final se muestra en el pago.</li><li><b>Prueba gratis de 7 días.</b> Si no cancelas antes de que termine, se cobra el plan que elegiste. Te avisamos antes del cobro.</li><li>El pago lo procesa <b>Hotmart</b>, que actúa como plataforma de pago. Al pagar aceptas también sus términos.</li><li>La suscripción <b>se renueva automáticamente</b> cada mes o cada año hasta que la canceles.</li><li>Si cambiamos el precio, te avisaremos con anticipación; el cambio se aplica desde la siguiente renovación.</li></ul></section>
-<section className="b"><h2><span className="n">6</span>Cancelación y reembolsos</h2><p>Puedes cancelar cuando quieras. Mantienes el acceso hasta el final del período pagado. Tienes <b>7 días de garantía de reembolso</b> a través de Hotmart. Detalles en <a href="/reembolsos">Reembolsos y cancelación</a>.</p></section>
-<section className="b"><h2><span className="n">7</span>Uso aceptable</h2><p>No está permitido:</p><ul><li>Usar Kopeet para fines ilegales o para dañar animales.</li><li>Subir contenido de otras personas sin permiso, o contenido ofensivo.</li><li>Intentar acceder sin autorización, copiar o revender el servicio.</li></ul><p>Podemos suspender o cerrar cuentas que no cumplan estas reglas.</p></section>
-<section className="b"><h2><span className="n">8</span>Tu contenido</h2><p>Las fotos y datos de tu perro siguen siendo tuyos. Nos das permiso para usarlos <b>solo para darte el servicio</b> (por ejemplo, analizar la foto o armar el plan). No los usamos en publicidad sin tu autorización.</p></section>
-<section className="b"><h2><span className="n">9</span>Propiedad de Kopeet</h2><p>La marca, el diseño, el isotipo, los textos y el software de Kopeet pertenecen a Maritza Pilar Vásquez Valencia. No puedes copiarlos ni usarlos sin permiso.</p></section>
-<section className="b"><h2><span className="n">10</span>Disponibilidad y responsabilidad</h2><ul><li>Hacemos lo posible para que Kopeet funcione siempre, pero puede haber interrupciones o errores.</li><li>En la medida que lo permita la ley, Kopeet no responde por daños derivados de decisiones tomadas solo con la orientación de la app.</li><li>Nada de esto limita los derechos que te da la Ley N° 19.496 sobre Protección de los Derechos de los Consumidores.</li></ul></section>
-<section className="b"><h2><span className="n">11</span>Cambios a estos términos</h2><p>Si cambiamos algo importante, te avisaremos por correo o dentro de la app antes de que rija. La fecha de arriba muestra la última versión.</p></section>
-<section className="b"><h2><span className="n">12</span>Ley aplicable</h2><p>Estos términos se rigen por las leyes de la <b>República de Chile</b>. Cualquier diferencia se intentará resolver primero de buena fe escribiendo a <a href="mailto:maritzavasquezv@gmail.com">maritzavasquezv@gmail.com</a>; si no, ante los tribunales competentes de Santiago, sin perjuicio de tus derechos como consumidor.</p></section>
-<p className="legal-nota">Este documento es una primera versión preparada para Kopeet. Se recomienda su revisión por un abogado en Chile antes del lanzamiento.</p>
-</div></main>
-<footer><div className="w"><nav><a href="/terminos" aria-current="page">Términos y condiciones</a><a href="/privacidad">Política de privacidad</a><a href="/reembolsos">Reembolsos y cancelación</a><a href="/contacto">Contacto</a></nav>
-<p>Kopeet es una guía educativa y preventiva. No reemplaza la consulta con un médico veterinario.</p><p>© 2026 Kopeet AI · Maritza Pilar Vásquez Valencia · Santiago, Chile.</p></div></footer>
-
-    </div>
-  );
+  return <Terminos i="es" />;
 }

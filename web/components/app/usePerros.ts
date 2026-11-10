@@ -5,6 +5,7 @@ import type { User } from "@supabase/supabase-js";
 import { crearCliente } from "@/lib/supabase/cliente";
 import { completarRegistro } from "@/lib/registro";
 import type { Perro } from "@/lib/app-datos";
+import { idiomaActual, tr } from "@/lib/i18n";
 
 const CLAVE_ACTIVO = "kopeet-perro-activo";
 
@@ -29,7 +30,7 @@ export function usePerros() {
       try { await completarRegistro(supabase, user); } catch { /* se reintenta la próxima vez */ }
       const { data, error } = await supabase.from("perros").select("id,nombre,origen,edad,preocupaciones,foto_ruta,creado_en,estimacion,raza_declarada,con_pedigri").order("creado_en");
       if (!vivo) return;
-      if (error) { setError("No pudimos cargar tus perros. Revisa tu conexión y recarga."); return; }
+      if (error) { setError(tr(idiomaActual(), "No pudimos cargar tus perros. Revisa tu conexión y recarga.", "We couldn't load your dogs. Check your connection and reload.", "Não conseguimos carregar seus cães. Confira sua conexão e recarregue.")); return; }
       const lista = (data ?? []) as Perro[];
       setUser(user); setPerros(lista);
       const urls: Record<string, string> = {};

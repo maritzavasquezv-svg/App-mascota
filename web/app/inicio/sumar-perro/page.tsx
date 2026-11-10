@@ -6,9 +6,11 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, Camera, Check } from "lucide-react";
 import { crearCliente } from "@/lib/supabase/cliente";
 import { EDADES, ORIGENES, reducirFoto, type Edad, type Origen } from "@/lib/onboarding";
+import { useT } from "@/lib/i18n";
 
 export default function SumarPerro() {
   const router = useRouter();
+  const { t, idioma } = useT();
   const [nombre, setNombre] = useState("");
   const [origen, setOrigen] = useState<Origen | null>(null);
   const [edad, setEdad] = useState<Edad | null>(null);
@@ -35,30 +37,30 @@ export default function SumarPerro() {
     }
     const { data, error } = await s.from("perros").insert({ usuario_id: user.id, nombre: nombre.trim(), origen, edad, foto_ruta: fotoRuta }).select("id").single();
     setGuardando(false);
-    if (error) { setError("No pudimos guardar a tu perro. Intenta de nuevo."); return; }
+    if (error) { setError(t("No pudimos guardar a tu perro. Intenta de nuevo.", "We couldn't save your dog. Try again.", "Não conseguimos salvar seu cão. Tente de novo.")); return; }
     try { window.localStorage.setItem("kopeet-perro-activo", data.id); } catch { /* nada */ }
     router.push("/inicio");
   }
 
   return (
     <>
-      <div className="barra"><Link className="atras" href="/inicio" aria-label="Volver"><ArrowLeft size={18} /></Link></div>
+      <div className="barra"><Link className="atras" href="/inicio" aria-label={t("Volver", "Back", "Voltar")}><ArrowLeft size={18} /></Link></div>
       <div className="cuerpo entra">
-        <h1>Suma otro perro</h1>
-        <p className="sub">Un solo plan sirve para todos los perros de tu casa.</p>
+        <h1>{t("Suma otro perro", "Add another dog", "Adicione outro cão")}</h1>
+        <p className="sub">{t("Un solo plan sirve para todos los perros de tu casa.", "One plan covers every dog in your home.", "Um só plano serve para todos os cães da sua casa.")}</p>
         <label className="subir chica">
-          {foto ? <img src={foto} alt="Foto del perro" /> : (<><Camera size={28} />Foto (opcional)</>)}
-          <input type="file" accept="image/*" onChange={elegirFoto} aria-label="Elegir foto" />
+          {foto ? <img src={foto} alt={t("Foto del perro", "Dog's photo", "Foto do cão")} /> : (<><Camera size={28} />{t("Foto (opcional)", "Photo (optional)", "Foto (opcional)")}</>)}
+          <input type="file" accept="image/*" onChange={elegirFoto} aria-label={t("Elegir foto", "Choose photo", "Escolher foto")} />
         </label>
-        <label className="etiqueta" htmlFor="nombre">Nombre</label>
-        <input id="nombre" className="campo chico" maxLength={24} value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder="Ej.: Luna" />
-        <p className="etiqueta">¿Cómo llegó a tu vida?</p>
-        <div className="chips">{ORIGENES.map((o) => <button key={o.id} className="chip" aria-pressed={origen === o.id} onClick={() => setOrigen(o.id)}>{origen === o.id && <Check size={13} />}{o.texto}</button>)}</div>
-        <p className="etiqueta">Edad</p>
-        <div className="chips">{EDADES.map((o) => <button key={o.id} className="chip" aria-pressed={edad === o.id} onClick={() => setEdad(o.id)}>{edad === o.id && <Check size={13} />}{o.texto}</button>)}</div>
+        <label className="etiqueta" htmlFor="nombre">{t("Nombre", "Name", "Nome")}</label>
+        <input id="nombre" className="campo chico" maxLength={24} value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder={t("Ej.: Luna", "E.g.: Luna", "Ex.: Luna")} />
+        <p className="etiqueta">{t("¿Cómo llegó a tu vida?", "How did they come into your life?", "Como chegou à sua vida?")}</p>
+        <div className="chips">{ORIGENES.map((o) => <button key={o.id} className="chip" aria-pressed={origen === o.id} onClick={() => setOrigen(o.id)}>{origen === o.id && <Check size={13} />}{o.texto[idioma]}</button>)}</div>
+        <p className="etiqueta">{t("Edad", "Age", "Idade")}</p>
+        <div className="chips">{EDADES.map((o) => <button key={o.id} className="chip" aria-pressed={edad === o.id} onClick={() => setEdad(o.id)}>{edad === o.id && <Check size={13} />}{o.texto[idioma]}</button>)}</div>
         {error && <p className="error" role="alert">{error}</p>}
         <div className="espacio" />
-        <button className="cta azul" disabled={!nombre.trim() || !edad || guardando} onClick={guardar}>{guardando ? "Guardando…" : "Sumar a mi familia"}</button>
+        <button className="cta azul" disabled={!nombre.trim() || !edad || guardando} onClick={guardar}>{guardando ? t("Guardando…", "Saving…", "Salvando…") : t("Sumar a mi familia", "Add to my family", "Adicionar à família")}</button>
       </div>
     </>
   );

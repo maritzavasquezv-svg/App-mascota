@@ -6,6 +6,7 @@ import { usePerros } from "@/components/app/usePerros";
 import SelectorPerros from "@/components/app/SelectorPerros";
 import { minutosEjercicio } from "@/lib/onboarding";
 import { premios, type EventoSalud, type Registro } from "@/lib/app-datos";
+import { useT } from "@/lib/i18n";
 
 const ICONOS: Record<string, React.ReactNode> = {
   "primer-paseo": <Award size={26} />, "pelota-oro": <Trophy size={26} />, "hueso-dorado": <Bone size={26} />,
@@ -14,6 +15,7 @@ const ICONOS: Record<string, React.ReactNode> = {
 
 export default function Premios() {
   const { perros, fotos, activo, elegir, error } = usePerros();
+  const { t, idioma } = useT();
   const [datos, setDatos] = useState<{ r: Registro[]; e: EventoSalud[] } | null>(null);
 
   useEffect(() => {
@@ -26,16 +28,16 @@ export default function Premios() {
   }, [activo]);
 
   if (error) return <p className="error" role="alert">{error}</p>;
-  if (!perros || !activo) return <p className="sub">Cargando…</p>;
-  const lista = datos ? premios(datos.r, datos.e, minutosEjercicio(activo.edad)) : [];
+  if (!perros || !activo) return <p className="sub">{t("Cargando…", "Loading…", "Carregando…")}</p>;
+  const lista = datos ? premios(datos.r, datos.e, minutosEjercicio(activo.edad), idioma) : [];
   const ganados = lista.filter((p) => p.ganado).length;
 
   return (
     <div className="cuerpo entra">
-      <p className="fecha-hoy">Pared de premios</p>
-      <h1>Los premios de {activo.nombre || "tu perro"}</h1>
+      <p className="fecha-hoy">{t("Pared de premios", "Rewards wall", "Mural de prêmios")}</p>
+      <h1>{t(`Los premios de ${activo.nombre || "tu perro"}`, `${activo.nombre || "Your dog"}'s rewards`, `Os prêmios de ${activo.nombre || "seu cão"}`)}</h1>
       <SelectorPerros perros={perros} fotos={fotos} activoId={activo.id} elegir={elegir} />
-      <p className="nota">{datos ? `${ganados} de ${lista.length} premios ganados` : "Cargando…"}</p>
+      <p className="nota">{datos ? t(`${ganados} de ${lista.length} premios ganados`, `${ganados} of ${lista.length} rewards earned`, `${ganados} de ${lista.length} prêmios ganhos`) : t("Cargando…", "Loading…", "Carregando…")}</p>
       <div className="pared">
         {lista.map((p) => (
           <div key={p.id} className={`medalla ${p.ganado ? "ganada" : ""}`}>
