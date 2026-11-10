@@ -198,4 +198,4 @@ Aprobado.
 - La IA (Consejero y escáner) ahora requiere plan activo. Sin plan: el Consejero responde con las reglas de seguridad (las emergencias siguen funcionando siempre) y muestra "Activar mi plan"; el escáner responde 402 con explicación.
 - Tarjeta "Activa tu plan" en Hoy con los enlaces de pago de Hotmart (`NEXT_PUBLIC_HOTMART_PAGO_ANUAL` y `_MENSUAL`); pide pagar con el mismo correo de la cuenta.
 - Panel `/admin` (solo `ADMIN_EMAILS`, protegido también por `proxy.ts`): cuentas, planes activos, perros, usos de IA de hoy y lista de usuarios con su estado. Necesita `SUPABASE_SECRET_KEY` en Vercel. Enlace en Cuenta.
-- **Antes de publicar:** agregar `ADMIN_EMAILS` en Vercel; si no, la fundadora pierde el acceso a la IA.
+- `ADMIN_EMAILS` cargada en Vercel (tipo Config) con el correo de la fundadora antes de publicar ✅.
