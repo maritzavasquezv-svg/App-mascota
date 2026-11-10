@@ -127,3 +127,17 @@
 .flujo .rutina-tx span { font-size: 12px; color: var(--muted); }
 .flujo .rutina-bt { display: flex; gap: 5px; flex-shrink: 0; }
 .flujo .mini:disabled { opacity: .45; cursor: not-allowed; }
+/* Consejero + Emergencia y Destinos */
+.flujo .tarjeta-sos { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; background: linear-gradient(135deg, #ff5a5a, #d93a3a); color: #fff; text-decoration: none; box-shadow: 0 12px 24px -12px rgb(217 45 32 / .7); }
+.flujo .tarjeta-sos .sos-ic { width: 38px; height: 38px; border-radius: 99px; background: rgb(255 255 255 / .22); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.flujo .tarjeta-sos > span:nth-child(2) { flex: 1; }
+.flujo .tarjeta-sos b { display: block; font-size: 15px; }
+.flujo .tarjeta-sos em { font-style: normal; font-size: 12.5px; opacity: .95; }
+.nav-app .ic { position: relative; }
+.nav-app .punto-sos { position: absolute; top: 4px; right: 8px; width: 8px; height: 8px; border-radius: 99px; background: #ff4d4d; box-shadow: 0 0 0 2px #0f1b3d; }
+.flujo .destinos { display: grid; gap: 6px; margin-top: 8px; }
+.flujo .destinos a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 14px; background: var(--bg); color: var(--ink); text-decoration: none; }
+.flujo .dest-emoji { font-size: 22px; width: 32px; text-align: center; }
+.flujo .dest-tx { flex: 1; } .flujo .dest-tx b { display: block; font-size: 14.5px; } .flujo .dest-tx em { font-style: normal; font-size: 12px; color: var(--muted); }
+.flujo .destinos svg { color: var(--muted); }
+.nav-app a { min-width: 46px; }

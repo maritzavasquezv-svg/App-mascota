@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { AlertTriangle, Send } from "lucide-react";
+import { AlertTriangle, ChevronRight, Send, Siren } from "lucide-react";
 import { usePerros } from "@/components/app/usePerros";
 import type { RespuestaConsejero } from "@/lib/app-datos";
 
@@ -35,7 +35,12 @@ export default function Consejero() {
 
   return (
     <div className="cuerpo entra consejero">
-      <p className="fecha-hoy">Consejero 24 h</p>
+      <Link href="/inicio/emergencia" className="tarjeta-sos">
+        <span className="sos-ic"><Siren size={20} /></span>
+        <span><b>¿Es una emergencia?</b><em>Señales graves y veterinarias 24 h cerca</em></span>
+        <ChevronRight size={18} />
+      </Link>
+      <p className="fecha-hoy" style={{ marginTop: 16 }}>Consejero 24 h</p>
       <h1>¿Qué le pasa a {nombre}?</h1>
       <div className="leyenda-sem"><span><i style={{ background: LUCES.verde }} />Observar</span><span><i style={{ background: LUCES.amarillo }} />Consultar</span><span><i style={{ background: LUCES.rojo }} />Veterinario ya</span></div>
       <div className="chat" aria-live="polite">

@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { CalendarPlus, Check, Home, MapPin, Stethoscope, Trash2 } from "lucide-react";
+import { CalendarPlus, Check, Home, Stethoscope, Trash2 } from "lucide-react";
 import { crearCliente } from "@/lib/supabase/cliente";
 import { usePerros } from "@/components/app/usePerros";
 import SelectorPerros from "@/components/app/SelectorPerros";
@@ -8,7 +8,7 @@ import Escaner from "@/components/app/Escaner";
 import RutinaHoy from "@/components/app/RutinaHoy";
 import { minutosEjercicio } from "@/lib/onboarding";
 import {
-  TIPOS_EVENTO, diasEnCasa, enDias, fechaCorta, hoyISO, mapa, minutosDelDia, racha,
+  TIPOS_EVENTO, diasEnCasa, enDias, fechaCorta, hoyISO, minutosDelDia, racha,
   type EventoSalud, type Registro,
 } from "@/lib/app-datos";
 
@@ -134,15 +134,7 @@ export default function Inicio() {
         <p className="nota">Las fechas las define tu veterinario. Kopeet te las recuerda.</p>
       </section>
 
-      <section className="tarjeta">
-        <p className="tarjeta-tit"><span><MapPin size={15} /> Lugares para pasear cerca de ti</span></p>
-        <div className="lugares">
-          <a href={mapa("parques para perros cerca de mí")} target="_blank" rel="noopener noreferrer">🌳 Parques para perros</a>
-          <a href={mapa("café pet friendly cerca de mí")} target="_blank" rel="noopener noreferrer">☕ Cafés que aceptan perros</a>
-          <a href={mapa("veterinaria 24 horas cerca de mí")} target="_blank" rel="noopener noreferrer">🏥 Veterinarias 24 horas</a>
-        </div>
-        <p className="nota">Se abre en Google Maps con tu ubicación.</p>
-      </section>
+      <a className="enlace-raza" href="/inicio/destinos" style={{ marginTop: 14 }}>📍 Parques, cafés y veterinarias cerca: ver Destinos</a>
       {aviso && <p className="error" role="alert">{aviso}</p>}
     </div>
   );
