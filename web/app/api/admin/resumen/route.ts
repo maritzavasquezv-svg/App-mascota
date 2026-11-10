@@ -12,7 +12,11 @@ export async function GET() {
   try { admin = clienteAdmin(); } catch { return NextResponse.json({ error: "Falta configurar SUPABASE_SECRET_KEY en Vercel." }, { status: 503 }); }
 
   const { data: usuarios, error } = await admin.auth.admin.listUsers({ page: 1, perPage: 200 });
-  if (error) return NextResponse.json({ error: "No pudimos leer los usuarios." }, { status: 500 });
+  if (error) {
+    console.error("admin listUsers", error.status, error.code, error.message);
+    const clave = /invalid api key|jwt|unauthorized|forbidden/i.test(error.message) || error.status === 401 || error.status === 403;
+    return NextResponse.json({ error: clave ? "La clave SUPABASE_SECRET_KEY de Vercel no es válida. Copia de nuevo la clave secreta (sb_secret_...)." : "No pudimos leer los usuarios.", detalle: error.code ?? error.status ?? null }, { status: 500 });
+  }
   const [{ count: perros }, { data: subs }, { count: usosHoy }] = await Promise.all([
     admin.from("perros").select("id", { count: "exact", head: true }),
     admin.from("suscripciones").select("email,estado,plan,actualizado_en"),
