@@ -47,7 +47,7 @@ export function premios(registros: Registro[], eventos: EventoSalud[], metaMin: 
     { id: "primer-paseo", nombre: "Primer paseo", detalle: "Registra su primer ejercicio", ganado: ejercicioDias.size > 0, avance: ejercicioDias.size > 0 ? "¡Logrado!" : "Aún no" },
     { id: "pelota-oro", nombre: "Pelota de oro", detalle: `Cumple ${metaMin} min de ejercicio en un día`, ganado: diaConMeta, avance: diaConMeta ? "¡Logrado!" : "Aún no" },
     { id: "hueso-dorado", nombre: "Hueso dorado", detalle: "7 días seguidos de ejercicio", ganado: rEj >= 7, avance: `${Math.min(rEj, 7)} de 7 días` },
-    { id: "galleta-campeona", nombre: "Galleta campeona", detalle: "7 días seguidos haciendo pipí y caca en su lugar", ganado: rBano >= 7, avance: `${Math.min(rBano, 7)} de 7 días` },
+    { id: "galleta-campeona", nombre: "Galleta campeona", detalle: "7 días seguidos haciendo orina y heces en su lugar", ganado: rBano >= 7, avance: `${Math.min(rBano, 7)} de 7 días` },
     { id: "escudo-sano", nombre: "Escudo sano", detalle: "Marca una vacuna como hecha", ganado: vacuna, avance: vacuna ? "¡Logrado!" : "Aún no" },
     { id: "corona-peludo", nombre: "Corona de peludo", detalle: "Completa un control sano", ganado: control, avance: control ? "¡Logrado!" : "Aún no" },
   ];

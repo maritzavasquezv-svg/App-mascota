@@ -54,14 +54,14 @@ export default function Bano() {
     <div className="cuerpo entra">
       <Link className="atras" href="/inicio" aria-label="Volver a Hoy" style={{ marginBottom: 8 }}><ArrowLeft size={18} /></Link>
       <p className="fecha-hoy">Plan de {nombre}</p>
-      <h1>Pipí y caca en su lugar</h1>
+      <h1>Orina y heces en su lugar</h1>
       <SelectorPerros perros={perros} fotos={fotos} activoId={activo.id} elegir={elegir} />
       <div className="racha-card"><div><b>{n} día{n === 1 ? "" : "s"} seguido{n === 1 ? "" : "s"}</b><span>Hizo sus necesidades en su lugar</span></div>
         <img src="/marca/premio-escarapela.png" alt="" width={50} height={50} className={n >= 7 ? "" : "apagada"} /></div>
       <div className="semana">{semana.map((s) => <span key={s.iso} className={`${s.ok ? "ok" : ""} ${s.hoy ? "hoy" : ""}`}>{s.ok ? <Check size={13} /> : s.d}</span>)}</div>
       <p className="nota" style={{ textAlign: "center" }}>{n >= 7 ? "¡Ganó la escarapela de la Galleta campeona! 🏅" : <>Faltan <b>{7 - n} días</b> para ganar la escarapela 🏅</>}</p>
       <div className="pasos-bano">{PASOS.map((p, i) => <div key={p.t}><span>{i + 1}</span><div><b>{p.t}</b><em>{p.d}</em></div></div>)}</div>
-      <button className="cta azul" style={{ marginTop: 14 }} onClick={loHizo} disabled={hoyHecho}><PawPrint size={18} /> {hoyHecho ? "Hoy ya lo registraste ✓" : "Hizo pipí o caca en su lugar"}</button>
+      <button className="cta azul" style={{ marginTop: 14 }} onClick={loHizo} disabled={hoyHecho}><PawPrint size={18} /> {hoyHecho ? "Hoy ya lo registraste ✓" : "Hizo orina o heces en su lugar"}</button>
       {festejo && (
         <div className="festejo" role="dialog" aria-label="Premio">
           <img src="/marca/premio-escarapela.png" alt="Escarapela" width={110} height={110} />

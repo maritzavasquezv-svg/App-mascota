@@ -18,7 +18,7 @@ return (
 );
 }
 
-/** Todo el día a día del perro en una lista: comer, paseo, juego, pipí y caca, y descanso. */
+/** Todo el día a día del perro en una lista: comer, paseo, juego, orina y heces, y descanso. */
 export default function RutinaHoy({ registros, edad, nombre, agregar, deshacer }: {
   registros: Registro[]; edad: string | null; nombre: string;
   agregar: (tipo: Tipo, minutos?: number) => void; deshacer: (tipo: Tipo) => void;
@@ -43,14 +43,14 @@ export default function RutinaHoy({ registros, edad, nombre, agregar, deshacer }
         <Fila deshacer={deshacer} icono={<ToyBrick size={17} />} titulo="Juego" detalle={juego ? `${juego} min hoy` : "Juego o estimulación mental"} listo={juego > 0} tipo="juego" puedeDeshacer={juego > 0}>
           <button className="mini" onClick={() => agregar("juego", 10)}><Plus size={13} /> 10 min</button>
         </Fila>
-        <Fila deshacer={deshacer} icono={<PawPrint size={17} />} titulo="Pipí y caca" detalle={necesidades ? `${necesidades} vez${necesidades > 1 ? "es" : ""} en su lugar` : "En su lugar"} listo={necesidades > 0} tipo="bano" puedeDeshacer={necesidades > 0}>
+        <Fila deshacer={deshacer} icono={<PawPrint size={17} />} titulo="Orina y heces" detalle={necesidades ? `${necesidades} vez${necesidades > 1 ? "es" : ""} en su lugar` : "En su lugar"} listo={necesidades > 0} tipo="bano" puedeDeshacer={necesidades > 0}>
           <button className="mini" onClick={() => agregar("bano")}><Plus size={13} /> Lo hizo</button>
         </Fila>
         <Fila deshacer={deshacer} icono={<Moon size={17} />} titulo="Dormir" detalle={durmio ? "Descansó bien" : `Necesita ${horasSueno(edad)} al día`} listo={durmio} tipo="descanso" puedeDeshacer={durmio}>
           {!durmio && <button className="mini" onClick={() => agregar("descanso")}><Check size={13} /> Durmió bien</button>}
         </Fila>
       </div>
-      <Link className="enlace-raza" href="/inicio/bano" style={{ marginTop: 10 }}>Plan para enseñarle a hacer pipí y caca en su lugar <ChevronRight size={14} /></Link>
+      <Link className="enlace-raza" href="/inicio/bano" style={{ marginTop: 10 }}>Plan para enseñarle a hacer orina y heces en su lugar <ChevronRight size={14} /></Link>
       <p className="nota">Cantidades orientativas para {nombre}. Tu veterinario puede indicarte otras.</p>
     </section>
   );
