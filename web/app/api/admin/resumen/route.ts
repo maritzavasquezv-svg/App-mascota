@@ -2,6 +2,13 @@ import { NextResponse } from "next/server";
 import { clienteAdmin, clienteConSesion } from "@/lib/supabase/servidor";
 import { esAdmin } from "@/lib/plan";
 
+// Describe la clave sin revelarla (solo su tipo y largo), para diagnosticar errores de configuración.
+function tipoDeClave() {
+  const k = process.env.SUPABASE_SECRET_KEY?.trim() ?? "";
+  const tipo = k.startsWith("sb_secret_") ? "secreta (sb_secret_)" : k.startsWith("sb_publishable_") ? "PÚBLICA (sb_publishable_) — no sirve aquí" : k.startsWith("eyJ") ? "legacy (JWT)" : "desconocida";
+  return { tipo, largo: k.length, espacios: /s/.test(k) };
+}
+
 // Resumen para el panel de administración. Solo para los correos de ADMIN_EMAILS.
 export async function GET() {
   const supabase = await clienteConSesion();
@@ -15,7 +22,7 @@ export async function GET() {
   if (error) {
     console.error("admin listUsers", error.status, error.code, error.message);
     const clave = /invalid api key|jwt|unauthorized|forbidden/i.test(error.message) || error.status === 401 || error.status === 403;
-    return NextResponse.json({ error: clave ? "La clave SUPABASE_SECRET_KEY de Vercel no es válida. Copia de nuevo la clave secreta (sb_secret_...)." : "No pudimos leer los usuarios.", detalle: error.code ?? error.status ?? null }, { status: 500 });
+    return NextResponse.json({ error: clave ? "La clave SUPABASE_SECRET_KEY de Vercel no es válida. Copia de nuevo la clave secreta (sb_secret_...)." : "No pudimos leer los usuarios.", detalle: error.code ?? error.status ?? null, clave: tipoDeClave() }, { status: 500 });
   }
   const [{ count: perros }, { data: subs }, { count: usosHoy }] = await Promise.all([
     admin.from("perros").select("id", { count: "exact", head: true }),
