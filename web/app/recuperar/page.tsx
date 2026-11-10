@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, MailCheck } from "lucide-react";
-import { crearCliente } from "@/lib/supabase/cliente";
+import { crearClienteCorreos } from "@/lib/supabase/cliente";
 import "../flujo.css";
 
 export default function Recuperar() {
@@ -14,7 +14,7 @@ export default function Recuperar() {
   async function enviar(e: React.FormEvent) {
     e.preventDefault();
     setError(null); setEnviando(true);
-    const { error } = await crearCliente().auth.resetPasswordForEmail(correo.trim(), { redirectTo: `${window.location.origin}/auth/confirmar` });
+    const { error } = await crearClienteCorreos().auth.resetPasswordForEmail(correo.trim(), { redirectTo: `${window.location.origin}/auth/listo` });
     setEnviando(false);
     if (error && /rate limit|too many/i.test(error.message)) { setError("Pediste varios correos seguidos. Espera unos minutos y vuelve a intentar."); return; }
     // Por seguridad no decimos si el correo existe o no.

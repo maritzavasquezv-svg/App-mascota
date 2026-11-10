@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, MailCheck } from "lucide-react";
-import { crearCliente } from "@/lib/supabase/cliente";
+import { crearClienteCorreos } from "@/lib/supabase/cliente";
 import { leer, nombreDe } from "@/lib/onboarding";
 import { guardarPendiente, type Consentimiento } from "@/lib/registro";
 
@@ -40,12 +40,12 @@ export default function Registro() {
       { finalidad: "marketing", aceptado: novedades },
     ];
     guardarPendiente(r, plan);
-    const supabase = crearCliente();
+    const supabase = crearClienteCorreos();
     const { data, error } = await supabase.auth.signUp({
       email: correo.trim(),
       password: clave,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/confirmar`,
+        emailRedirectTo: `${window.location.origin}/auth/listo`,
         data: {
           plan, consentimientos, locale: navigator.language,
           onboarding: { nombre: r.nombre, origen: r.origen, edad: r.edad, preocupaciones: r.preocupaciones, hora: r.hora, avisos: r.avisos },
@@ -54,7 +54,7 @@ export default function Registro() {
     });
     setEnviando(false);
     if (error) { setError(traducirError(error.message)); return; }
-    if (data.session) router.push("/inicio");
+    if (data.session) { router.push("/entrar?error=enlace"); return; }
     else setRevisaCorreo(true);
   }
 

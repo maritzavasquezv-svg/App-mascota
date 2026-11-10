@@ -174,3 +174,10 @@ Aprobado.
 - Verificado en internet: página de ventas, onboarding, paywall, legales, imágenes ✓ · /crear-cuenta y /entrar 200 ✓ · /inicio sin sesión redirige a /entrar ✓ · /api/consejero sin sesión 401 ✓.
 - Supabase → Authentication → URL Configuration ✅ (10 nov 2026): Site URL = https://app-mascota-navy.vercel.app · Redirect URL = https://app-mascota-navy.vercel.app/auth/confirmar (verificado después de recargar).
 - **Pendiente:** ANTHROPIC_API_KEY, SUPABASE_SECRET_KEY y HOTMART_HOTTOK como variables secretas.
+
+### Arreglo de cuentas (10 de noviembre de 2026)
+- Problema real: la fundadora creó su cuenta, el correo quedó confirmado, pero nunca pudo entrar. El enlace del correo usaba el flujo PKCE, que solo funciona en el mismo navegador donde se pidió, y ella lo abrió en Gmail en otro navegador.
+- Arreglo: los correos de registro y de "olvidé mi contraseña" ahora usan el flujo implícito (`crearClienteCorreos`) y llegan a `/auth/listo`, que guarda la sesión. Funciona en cualquier navegador o celular. Redirect URL agregada en Supabase: https://app-mascota-navy.vercel.app/auth/listo.
+- Nuevo: `/recuperar` (¿Olvidaste tu contraseña?), `/nueva-clave`, aviso en `/entrar` cuando el correo ya está confirmado y casilla "Mostrar contraseña".
+- Correos en español: Supabase NO permite editar las plantillas sin un SMTP propio → se hace con Resend cuando haya dominio.
+- Límite: el correo gratis de Supabase envía muy pocos correos por hora a todo el proyecto; si un correo no llega, hay que esperar.
