@@ -128,3 +128,4 @@
 .flujo .btn-peligro { margin-top: 12px; width: 100%; min-height: 48px; border-radius: 999px; border: 1.5px solid #e5484d; background: #fff; color: #b42318; font: inherit; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
 .flujo .btn-peligro.lleno { background: #d92d20; color: #fff; border-color: #d92d20; }
 .flujo .btn-peligro:disabled { opacity: .45; cursor: not-allowed; }
+.flujo .aviso-ok { margin-top: 12px; font-size: 13.5px; color: #16753f; background: var(--ok-soft); border-radius: 12px; padding: 10px 12px; }
