@@ -167,3 +167,9 @@ Aprobado.
 - **Sin verificar:** respuestas reales de la IA (no hay `ANTHROPIC_API_KEY` todavía) y un aviso real de Hotmart.
 - **Pendiente de la fundadora:** cuenta en Vercel (importar el repo, carpeta `web`), variables `ANTHROPIC_API_KEY`, `SUPABASE_SECRET_KEY`, `HOTMART_HOTTOK`; producto en Hotmart con la URL del webhook; dominio.
 - **Pendiente técnico después del despliegue:** que la app lea `suscripciones` para abrir o cerrar las funciones de pago; agregar la dirección de Vercel en Supabase → Authentication → URL Configuration; correos con Resend.
+
+### Publicación en Vercel (10 de noviembre de 2026) ✅
+- Dirección: **https://app-mascota-navy.vercel.app** (proyecto `app-mascota` en la cuenta Vercel de la fundadora, carpeta raíz `web`, se publica solo con cada push a `main`).
+- Variables cargadas: `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (tipo Config, públicas). El primer despliegue daba error 500 en cuentas y API porque faltaban; se agregaron y se volvió a publicar.
+- Verificado en internet: página de ventas, onboarding, paywall, legales, imágenes ✓ · /crear-cuenta y /entrar 200 ✓ · /inicio sin sesión redirige a /entrar ✓ · /api/consejero sin sesión 401 ✓.
+- **Pendiente:** en Supabase → Authentication → URL Configuration, poner Site URL = https://app-mascota-navy.vercel.app y agregar https://app-mascota-navy.vercel.app/auth/confirmar en Redirect URLs (si no, el correo de confirmación apunta a localhost). Luego: ANTHROPIC_API_KEY, SUPABASE_SECRET_KEY y HOTMART_HOTTOK como variables secretas.
