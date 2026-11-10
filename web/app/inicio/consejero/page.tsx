@@ -5,7 +5,7 @@ import { AlertTriangle, ChevronRight, Send, Siren } from "lucide-react";
 import { usePerros } from "@/components/app/usePerros";
 import type { RespuestaConsejero } from "@/lib/app-datos";
 
-interface Mensaje { de: "yo" | "kopeet"; texto?: string; resp?: RespuestaConsejero; ia?: boolean }
+interface Mensaje { de: "yo" | "kopeet"; texto?: string; resp?: RespuestaConsejero; ia?: boolean; plan?: boolean }
 const LUCES = { rojo: "#e53935", amarillo: "#f4b400", verde: "#22b35e" } as const;
 
 export default function Consejero() {
@@ -27,7 +27,7 @@ export default function Consejero() {
       const d = await res.json();
       if (!res.ok) throw new Error(d.error ?? "error");
       const r = d.respuesta as RespuestaConsejero;
-      setChat((c) => [...c, { de: "kopeet", resp: { ...r, luz: r.luz as RespuestaConsejero["luz"] }, ia: d.fuente === "ia" }]);
+      setChat((c) => [...c, { de: "kopeet", resp: { ...r, luz: r.luz as RespuestaConsejero["luz"] }, ia: d.fuente === "ia", plan: Boolean(d.requierePlan) }]);
     } catch {
       setChat((c) => [...c, { de: "kopeet", resp: { luz: "sin-clasificar", titulo: "No pudimos responder", pasos: ["Revisa tu conexión e intenta de nuevo.", "Si es urgente, acude a tu veterinario."] } }]);
     } finally { setPensando(false); }
@@ -58,6 +58,7 @@ export default function Consejero() {
               {m.resp!.luz === "sin-clasificar" && <b>{m.resp!.titulo}</b>}
               <ul>{m.resp!.pasos.map((p) => <li key={p}>{p}</li>)}</ul>
               {m.resp!.luz === "rojo" && <Link className="cta rojo" href={`/inicio/emergencia?motivo=${encodeURIComponent(m.resp!.motivo ?? "")}`}><AlertTriangle size={17} /> Ver qué hacer ahora</Link>}
+              {m.plan && <p className="nota"><b>Con el plan</b>, el Consejero responde cualquier duda con IA. <Link href="/inicio">Activar mi plan</Link></p>}
               <p className="aviso-vet">{m.ia ? "Respuesta con IA. " : ""}Esto es orientación, no un diagnóstico. No reemplaza al veterinario.</p>
             </div>
           ))}

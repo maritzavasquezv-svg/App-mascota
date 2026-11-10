@@ -92,7 +92,7 @@ const AMARILLO: [RegExp, string[]][] = [
 export function triage(texto: string): RespuestaConsejero {
   for (const [re, motivo] of ROJO) if (re.test(texto)) return { luz: "rojo", titulo: "Veterinario ya", pasos: ["Esto puede ser una emergencia. Lleva a tu perro al veterinario ahora."], motivo };
   for (const [re, pasos] of AMARILLO) if (re.test(texto)) return { luz: "amarillo", titulo: "Consulta pronto", pasos };
-  return { luz: "sin-clasificar", titulo: "Recibimos tu pregunta", pasos: ["Las respuestas personalizadas con IA se activan en la próxima etapa de la app.", "Si notas algo raro en su salud o su conducta, consulta con tu veterinario."] };
+  return { luz: "sin-clasificar", titulo: "Recibimos tu pregunta", pasos: ["Para responder esta duda con detalle se usa el Consejero con IA.", "Si notas algo raro en su salud o su conducta, consulta con tu veterinario."] };
 }
 
 export const mapa = (q: string) => `https://www.google.com/maps/search/${encodeURIComponent(q)}`;

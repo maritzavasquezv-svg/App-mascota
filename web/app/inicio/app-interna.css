@@ -141,3 +141,6 @@
 .flujo .dest-tx { flex: 1; } .flujo .dest-tx b { display: block; font-size: 14.5px; } .flujo .dest-tx em { font-style: normal; font-size: 12px; color: var(--muted); }
 .flujo .destinos svg { color: var(--muted); }
 .nav-app a { min-width: 46px; }
+.flujo .aviso-plan { border: 1.5px solid var(--accent); }
+.flujo .mini-cta { display: inline-flex; align-items: center; padding: 9px 14px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 13.5px; font-weight: 700; text-decoration: none; }
+.flujo .mini-cta.suave { background: var(--soft); color: var(--accent); }

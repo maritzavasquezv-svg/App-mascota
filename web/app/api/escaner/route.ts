@@ -3,6 +3,7 @@ import { z } from "zod";
 import { clienteConSesion } from "@/lib/supabase/servidor";
 import { LIMITE_DIARIO, estimarPerro, iaDisponible, mensajeErrorIA } from "@/lib/ia";
 import { etiquetaOrigen, type Origen } from "@/lib/onboarding";
+import { estadoPlan } from "@/lib/plan";
 
 const Entrada = z.object({
   imagen: z.string().regex(/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/).max(2_000_000),
@@ -14,6 +15,8 @@ export async function POST(req: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Inicia sesión para usar el escáner." }, { status: 401 });
   if (!iaDisponible()) return NextResponse.json({ error: "El escáner con IA todavía no está activado." }, { status: 503 });
+
+  if (!(await estadoPlan(supabase, user)).activo) return NextResponse.json({ error: "El escáner con IA es parte del plan. Actívalo para analizar la foto.", requierePlan: true }, { status: 402 });
 
   const datos = Entrada.safeParse(await req.json().catch(() => null));
   if (!datos.success) return NextResponse.json({ error: "Esa imagen no sirve. Usa una foto JPG o PNG de menos de 1,5 MB." }, { status: 400 });

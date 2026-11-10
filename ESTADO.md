@@ -192,3 +192,10 @@ Aprobado.
 - **Hoy con todas las necesidades del perro** (pedido de la fundadora): tarjeta "Su rutina de hoy" con Comer (comidas según la edad: 3 cachorro, 2 adulto/senior), Paseo (+15 min), Juego (+10 min), Pipí y caca en su lugar y Dormir (horas orientativas según la edad, "Durmió bien"), con deshacer en cada fila y contador "N de 5". Arriba queda el medidor de actividad (paseo + juego) y abajo el Veterinario. Migración `rutina_diaria_tipos` (registros: comida, paseo, juego, descanso).
 - **Barra de abajo según la fundadora:** Hoy · Consejero (con Emergencia dentro: tarjeta roja "¿Es una emergencia?" arriba del chat y punto rojo en el ícono) · Premios · Destinos · Cuenta. Se quitó el botón flotante de emergencia.
 - **Destinos** (`/inicio/destinos`): lugares para ir con el perro en 3 grupos (pasear y jugar · salir con tu perro · su cuidado): parques, playas, senderos, cafés, hoteles, veterinarias 24 h, peluquerías, tiendas y guarderías, como búsquedas en Google Maps cerca de la persona. Los "Lugares para pasear" salieron de Hoy (queda un enlace a Destinos).
+
+### Pagos y panel de administración — código (10 de noviembre de 2026)
+- `lib/plan.ts` + `/api/plan`: el plan está activo si Hotmart avisó una compra vigente para el correo de la cuenta, o si el correo está en `ADMIN_EMAILS`.
+- La IA (Consejero y escáner) ahora requiere plan activo. Sin plan: el Consejero responde con las reglas de seguridad (las emergencias siguen funcionando siempre) y muestra "Activar mi plan"; el escáner responde 402 con explicación.
+- Tarjeta "Activa tu plan" en Hoy con los enlaces de pago de Hotmart (`NEXT_PUBLIC_HOTMART_PAGO_ANUAL` y `_MENSUAL`); pide pagar con el mismo correo de la cuenta.
+- Panel `/admin` (solo `ADMIN_EMAILS`, protegido también por `proxy.ts`): cuentas, planes activos, perros, usos de IA de hoy y lista de usuarios con su estado. Necesita `SUPABASE_SECRET_KEY` en Vercel. Enlace en Cuenta.
+- **Antes de publicar:** agregar `ADMIN_EMAILS` en Vercel; si no, la fundadora pierde el acceso a la IA.

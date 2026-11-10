@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, LogOut, Trash2 } from "lucide-react";
 import { crearCliente } from "@/lib/supabase/cliente";
+import { usePlan } from "@/components/app/AvisoPlan";
 
 export default function Cuenta() {
   const router = useRouter();
@@ -13,6 +14,7 @@ export default function Cuenta() {
   const [texto, setTexto] = useState("");
   const [borrando, setBorrando] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const estadoPlan = usePlan();
 
   useEffect(() => {
     const supabase = crearCliente();
@@ -57,10 +59,11 @@ export default function Cuenta() {
         <div className="resumen">
           <div><span>Correo</span><b>{correo || "…"}</b></div>
           <div><span>Plan elegido</span><b>{plan === "mensual" ? "Mensual · US$6,99" : plan === "anual" ? "Anual · US$4,17/mes" : "Sin elegir"}</b></div>
-          <div><span>Suscripción</span><b>Se activa con Hotmart</b></div>
+          <div><span>Suscripción</span><b>{!estadoPlan ? "…" : estadoPlan.admin ? "Administradora" : estadoPlan.activo ? "Activa ✓" : estadoPlan.estado ? estadoPlan.estado : "Sin activar"}</b></div>
         </div>
         <p className="nota">Para cancelar una suscripción ya pagada, mira <Link href="/reembolsos">Reembolsos y cancelación</Link>.</p>
 
+        {estadoPlan?.admin && <Link className="cta azul" href="/admin" style={{ marginTop: 18 }}>Panel de administración</Link>}
         <button className="cta" style={{ marginTop: 22 }} onClick={salir}><LogOut size={18} /> Cerrar sesión</button>
 
         <div className="zona-peligro">

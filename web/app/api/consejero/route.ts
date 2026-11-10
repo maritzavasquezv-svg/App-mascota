@@ -3,6 +3,7 @@ import { z } from "zod";
 import { clienteConSesion } from "@/lib/supabase/servidor";
 import { LIMITE_DIARIO, consultarConsejero, iaDisponible, mensajeErrorIA } from "@/lib/ia";
 import { triage } from "@/lib/app-datos";
+import { estadoPlan } from "@/lib/plan";
 import { etiquetaEdad, etiquetaOrigen, type Edad, type Origen } from "@/lib/onboarding";
 
 const Entrada = z.object({ pregunta: z.string().trim().min(2).max(500), perroId: z.string().uuid().optional() });
@@ -19,6 +20,10 @@ export async function POST(req: NextRequest) {
   // 1) Seguridad primero: si las reglas detectan una emergencia, se responde al instante.
   const reglas = triage(pregunta);
   if (reglas.luz === "rojo" || !iaDisponible()) return NextResponse.json({ respuesta: reglas, fuente: "reglas" });
+
+  // La IA es parte del plan pagado. Sin plan, responde con las reglas de seguridad y lo explica.
+  const plan = await estadoPlan(supabase, user);
+  if (!plan.activo) return NextResponse.json({ respuesta: reglas, fuente: "reglas", requierePlan: true });
 
   // 2) Límite diario por persona (controla el costo de la IA)
   const desde = new Date(); desde.setHours(0, 0, 0, 0);

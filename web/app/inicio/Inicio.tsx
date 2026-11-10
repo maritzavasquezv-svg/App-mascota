@@ -6,6 +6,7 @@ import { usePerros } from "@/components/app/usePerros";
 import SelectorPerros from "@/components/app/SelectorPerros";
 import Escaner from "@/components/app/Escaner";
 import RutinaHoy from "@/components/app/RutinaHoy";
+import AvisoPlan, { usePlan } from "@/components/app/AvisoPlan";
 import { minutosEjercicio } from "@/lib/onboarding";
 import {
   TIPOS_EVENTO, diasEnCasa, enDias, fechaCorta, hoyISO, minutosDelDia, racha,
@@ -28,6 +29,7 @@ function Medidor({ hechos, meta }: { hechos: number; meta: number }) {
 
 export default function Inicio() {
   const { perros, fotos, activo, elegir, error, recargar } = usePerros();
+  const plan = usePlan();
   const [registros, setRegistros] = useState<Registro[]>([]);
   const [eventos, setEventos] = useState<EventoSalud[]>([]);
   const [nuevo, setNuevo] = useState<{ tipo: EventoSalud["tipo"]; fecha: string; titulo: string } | null>(null);
@@ -91,6 +93,7 @@ export default function Inicio() {
       <div className="fila-tit"><h1>{perros.length > 1 ? `Tus ${perros.length} perros` : `El plan de ${nombre}`}</h1>
         <span className="chip-racha" title="Días seguidos de ejercicio">🔥 {racha(registros, "ejercicio")} días</span></div>
       <SelectorPerros perros={perros} fotos={fotos} activoId={activo.id} elegir={elegir} />
+      <AvisoPlan plan={plan} />
       <Escaner perro={activo} alActualizar={recargar} />
 
       <section className="tarjeta">
