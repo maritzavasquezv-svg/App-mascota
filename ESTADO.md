@@ -182,3 +182,4 @@ Aprobado.
 - Correos en español: Supabase NO permite editar las plantillas sin un SMTP propio → se hace con Resend cuando haya dominio.
 - Límite: el correo gratis de Supabase envía muy pocos correos por hora a todo el proyecto; si un correo no llega, hay que esperar.
 - ✅ Prueba real de la fundadora (10 nov 2026): entró a su cuenta con "olvidé mi contraseña". Se guardaron perfil (anual, paseo de noche), perro Galia (criador, cachorro) y los 3 consentimientos. La foto NO se guardó: quedaba pendiente en el navegador del recorrido y entró desde otro. Arreglo: botón "Subir su foto" / "Cambiar su foto" en Hoy (`components/app/SubirFoto.tsx`), que reemplaza la foto anterior y borra la estimación vieja.
+- 🤖 IA activada (10 nov 2026): la fundadora creó su cuenta en Claude Console (saldo US$5) y cargó `ANTHROPIC_API_KEY` como Secret en Vercel. Se volvió a publicar para que la app la use.
