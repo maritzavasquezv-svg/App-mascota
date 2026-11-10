@@ -1,17 +1,18 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import { useCallback, useEffect, useState } from "react";
-import { Check, Droplets } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, Check, PawPrint } from "lucide-react";
 import { crearCliente } from "@/lib/supabase/cliente";
 import { usePerros } from "@/components/app/usePerros";
 import SelectorPerros from "@/components/app/SelectorPerros";
 import { hoyISO, racha, type Registro } from "@/lib/app-datos";
 
 const PASOS = [
-  { t: "Llévalo a su baño al despertar", d: "Es cuando más ganas tiene." },
+  { t: "Llévalo a su lugar apenas despierte", d: "Es cuando más ganas tiene." },
   { t: "Después de cada comida y de jugar", d: "Unos 10 a 15 minutos después." },
   { t: "Premio en cuanto lo haga bien", d: "Una caricia o un snack, en ese mismo momento." },
-  { t: "Antes de dormir", d: "Una última salida al baño." },
+  { t: "Antes de dormir", d: "Una última salida a su lugar." },
   { t: "Si se equivoca, no lo retes", d: "Limpia sin olor (con vinagre y agua) y vuelve a empezar." },
 ];
 const DIAS = ["L", "M", "M", "J", "V", "S", "D"];
@@ -51,19 +52,20 @@ export default function Bano() {
 
   return (
     <div className="cuerpo entra">
+      <Link className="atras" href="/inicio" aria-label="Volver a Hoy" style={{ marginBottom: 8 }}><ArrowLeft size={18} /></Link>
       <p className="fecha-hoy">Plan de {nombre}</p>
-      <h1>Aprende a ir al baño</h1>
+      <h1>Pipí y caca en su lugar</h1>
       <SelectorPerros perros={perros} fotos={fotos} activoId={activo.id} elegir={elegir} />
-      <div className="racha-card"><div><b>{n} día{n === 1 ? "" : "s"} seguido{n === 1 ? "" : "s"}</b><span>Hizo pipí en su baño</span></div>
+      <div className="racha-card"><div><b>{n} día{n === 1 ? "" : "s"} seguido{n === 1 ? "" : "s"}</b><span>Hizo sus necesidades en su lugar</span></div>
         <img src="/marca/premio-escarapela.png" alt="" width={50} height={50} className={n >= 7 ? "" : "apagada"} /></div>
       <div className="semana">{semana.map((s) => <span key={s.iso} className={`${s.ok ? "ok" : ""} ${s.hoy ? "hoy" : ""}`}>{s.ok ? <Check size={13} /> : s.d}</span>)}</div>
       <p className="nota" style={{ textAlign: "center" }}>{n >= 7 ? "¡Ganó la escarapela de la Galleta campeona! 🏅" : <>Faltan <b>{7 - n} días</b> para ganar la escarapela 🏅</>}</p>
       <div className="pasos-bano">{PASOS.map((p, i) => <div key={p.t}><span>{i + 1}</span><div><b>{p.t}</b><em>{p.d}</em></div></div>)}</div>
-      <button className="cta azul" style={{ marginTop: 14 }} onClick={loHizo} disabled={hoyHecho}><Droplets size={18} /> {hoyHecho ? "Hoy ya lo registraste ✓" : "Lo hizo en su baño"}</button>
+      <button className="cta azul" style={{ marginTop: 14 }} onClick={loHizo} disabled={hoyHecho}><PawPrint size={18} /> {hoyHecho ? "Hoy ya lo registraste ✓" : "Hizo pipí o caca en su lugar"}</button>
       {festejo && (
         <div className="festejo" role="dialog" aria-label="Premio">
           <img src="/marca/premio-escarapela.png" alt="Escarapela" width={110} height={110} />
-          <b>¡Premio de perrito!</b><span>{nombre} hizo 7 días seguidos en su baño.</span>
+          <b>¡Premio de perrito!</b><span>{nombre} hizo sus necesidades en su lugar 7 días seguidos.</span>
           <button className="cta" onClick={() => setFestejo(false)}>¡Genial!</button>
         </div>
       )}

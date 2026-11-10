@@ -47,7 +47,7 @@ export async function consultarConsejero(pregunta: string, contexto: string): Pr
 // ---------------- Escáner por foto ----------------
 export const EstimacionPerro = z.object({
   es_perro: z.boolean().describe("false si la foto no muestra un perro con claridad"),
-  mezcla: z.string().describe("Mezcla o raza probable en lenguaje simple, por ejemplo: Mestizo con rasgos de Border collie"),
+  mezcla: z.string().describe("Raza o mezcla más probable, en lenguaje simple. Ejemplos: 'Border collie', 'Mezcla de Labrador y Pastor alemán', 'Mestizo de tamaño mediano'"),
   confianza: z.enum(["baja", "media", "alta"]),
   etapa: z.enum(["cachorro", "adulto", "senior", "no-se"]).describe("Etapa de vida estimada"),
   edad_aprox: z.string().describe("Rango aproximado, por ejemplo: 1 a 2 años"),
@@ -57,9 +57,15 @@ export const EstimacionPerro = z.object({
 });
 export type EstimacionPerro = z.infer<typeof EstimacionPerro>;
 
-const SISTEMA_ESCANER = `Analizas fotos de perros para Kopeet. La mayoría son mestizos o adoptados: describe la mezcla probable en lenguaje simple y sin juzgar; no afirmes razas puras salvo que sea muy evidente. Estima etapa de vida, edad aproximada, tamaño y peso adulto con rangos. Responde en español neutro. Si la foto no muestra un perro con claridad, marca es_perro en false.`;
+const SISTEMA_ESCANER = `Analizas fotos de perros para Kopeet, una app para perros de cualquier origen: de raza, mestizos, adoptados o comprados.
+Identifica la raza más probable según los rasgos visibles, sin suponer de antemano que el perro es mestizo ni que es de raza:
+- Si los rasgos coinciden claramente con una raza, nombra esa raza (por ejemplo "Border collie").
+- Si ves rasgos de varias razas, describe la mezcla. Si no se distingue ninguna, di "Mestizo" y su tamaño.
+- Usa la información que da la dueña: si dice la raza o que tiene pedigrí, esa información manda; no la contradigas, úsala para estimar tamaño, peso y etapa.
+- Si la imagen es un dibujo o ilustración, igual describe la raza que representa, baja la confianza y menciónalo en la nota.
+Estima etapa de vida, edad aproximada, tamaño y peso adulto con rangos. Responde en español neutro, sin juzgar. Si no se ve un perro con claridad, marca es_perro en false.`;
 
-export async function estimarPerro(imagenBase64: string, tipo: "image/jpeg" | "image/png" | "image/webp"): Promise<EstimacionPerro | null> {
+export async function estimarPerro(imagenBase64: string, tipo: "image/jpeg" | "image/png" | "image/webp", contexto = ""): Promise<EstimacionPerro | null> {
   const r = await ia().beta.messages.parse({
     model: MODELO_IA,
     max_tokens: 4000,
@@ -68,7 +74,7 @@ export async function estimarPerro(imagenBase64: string, tipo: "image/jpeg" | "i
     system: SISTEMA_ESCANER,
     messages: [{ role: "user", content: [
       { type: "image", source: { type: "base64", media_type: tipo, data: imagenBase64 } },
-      { type: "text", text: "Estima la mezcla, la etapa de vida, la edad y el tamaño adulto de este perro." },
+      { type: "text", text: `${contexto ? `Lo que dice la dueña: ${contexto}\n\n` : ""}Estima la raza o mezcla, la etapa de vida, la edad y el tamaño adulto de este perro.` },
     ] }],
   });
   if (r.stop_reason === "refusal") return null;
