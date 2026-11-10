@@ -2,7 +2,7 @@
 import type { Edad, Origen } from "@/lib/onboarding";
 
 export interface Perro { id: string; nombre: string; origen: Origen | null; edad: Edad | null; preocupaciones: string[]; foto_ruta: string | null; creado_en: string; raza_declarada?: string | null; con_pedigri?: boolean; estimacion?: { mezcla: string; confianza: string; etapa: string; edad_aprox: string; tamano_adulto: string; peso_adulto_kg: string; nota: string } | null }
-export interface Registro { id: string; perro_id: string; tipo: "ejercicio" | "bano"; minutos: number | null; fecha: string }
+export interface Registro { id: string; perro_id: string; tipo: "ejercicio" | "bano" | "comida" | "paseo" | "juego" | "descanso"; minutos: number | null; fecha: string }
 export interface EventoSalud { id: string; perro_id: string; tipo: "vacuna" | "desparasitacion" | "control" | "otro"; titulo: string; fecha: string; hecho: boolean }
 
 /** Fecha local de hoy en formato AAAA-MM-DD. */
@@ -17,7 +17,8 @@ function sumarDias(iso: string, n: number): string {
 
 /** Días seguidos con al menos un registro del tipo (cuenta desde hoy, o desde ayer si hoy aún no hay). */
 export function racha(registros: Registro[], tipo: Registro["tipo"], hoy = hoyISO()): number {
-  const dias = new Set(registros.filter((r) => r.tipo === tipo).map((r) => r.fecha));
+  const tipos: string[] = tipo === "ejercicio" ? ["ejercicio", "paseo", "juego"] : [tipo];
+  const dias = new Set(registros.filter((r) => tipos.includes(r.tipo)).map((r) => r.fecha));
   let dia = dias.has(hoy) ? hoy : sumarDias(hoy, -1);
   let n = 0;
   while (dias.has(dia)) { n++; dia = sumarDias(dia, -1); }
@@ -25,7 +26,7 @@ export function racha(registros: Registro[], tipo: Registro["tipo"], hoy = hoyIS
 }
 
 export const minutosDelDia = (registros: Registro[], fecha = hoyISO()) =>
-  registros.filter((r) => r.tipo === "ejercicio" && r.fecha === fecha).reduce((s, r) => s + (r.minutos ?? 0), 0);
+  registros.filter((r) => ["ejercicio", "paseo", "juego"].includes(r.tipo) && r.fecha === fecha).reduce((s, r) => s + (r.minutos ?? 0), 0);
 
 /** Días desde que el perro llegó a Kopeet (día 1 = el primer día). */
 export function diasEnCasa(perro: Perro, hoy = new Date()): number {
@@ -36,7 +37,7 @@ export function diasEnCasa(perro: Perro, hoy = new Date()): number {
 
 export interface Premio { id: string; nombre: string; detalle: string; ganado: boolean; avance: string }
 export function premios(registros: Registro[], eventos: EventoSalud[], metaMin: number): Premio[] {
-  const ejercicioDias = new Set(registros.filter((r) => r.tipo === "ejercicio").map((r) => r.fecha));
+  const ejercicioDias = new Set(registros.filter((r) => ["ejercicio", "paseo", "juego"].includes(r.tipo)).map((r) => r.fecha));
   const rEj = racha(registros, "ejercicio");
   const rBano = racha(registros, "bano");
   const diaConMeta = [...ejercicioDias].some((f) => minutosDelDia(registros, f) >= metaMin);
@@ -95,3 +96,10 @@ export function triage(texto: string): RespuestaConsejero {
 }
 
 export const mapa = (q: string) => `https://www.google.com/maps/search/${encodeURIComponent(q)}`;
+
+/** Cuántas comidas al día se sugieren según la etapa (orientación general; el veterinario manda). */
+export const comidasDelDia = (edad: string | null) => (edad === "cachorro" ? 3 : 2);
+/** Horas de sueño diarias habituales según la etapa (orientación general). */
+export const horasSueno = (edad: string | null) => (edad === "cachorro" ? "18 a 20 h" : edad === "senior" ? "14 a 18 h" : "12 a 14 h");
+export const vecesHoy = (registros: Registro[], tipo: Registro["tipo"], fecha = hoyISO()) => registros.filter((r) => r.tipo === tipo && r.fecha === fecha).length;
+export const minutosHoy = (registros: Registro[], tipo: Registro["tipo"], fecha = hoyISO()) => registros.filter((r) => r.tipo === tipo && r.fecha === fecha).reduce((s, r) => s + (r.minutos ?? 0), 0);

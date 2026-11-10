@@ -116,3 +116,14 @@
 /* Botón de emergencia siempre visible */
 .flujo .boton-sos { align-self: flex-end; display: inline-flex; align-items: center; gap: 6px; margin: 2px 0 -6px; padding: 8px 14px; border-radius: 999px; background: #d92d20; color: #fff; font-size: 13.5px; font-weight: 700; text-decoration: none; box-shadow: 0 8px 18px -8px rgb(217 45 32 / .7); position: sticky; top: 10px; z-index: 20; }
 .flujo .senales { margin: 8px 0 0 18px; display: grid; gap: 5px; font-size: 14px; color: var(--ink-2); }
+/* Rutina de hoy */
+.flujo .rutina { display: grid; gap: 2px; margin-top: 8px; }
+.flujo .rutina-fila { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-top: 1px solid #edf0f6; }
+.flujo .rutina-fila:first-child { border-top: 0; }
+.flujo .rutina-ic { width: 36px; height: 36px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--soft); color: var(--accent); }
+.flujo .rutina-fila.listo .rutina-ic { background: #22b35e; color: #fff; }
+.flujo .rutina-tx { flex: 1; min-width: 0; }
+.flujo .rutina-tx b { display: block; font-size: 14.5px; }
+.flujo .rutina-tx span { font-size: 12px; color: var(--muted); }
+.flujo .rutina-bt { display: flex; gap: 5px; flex-shrink: 0; }
+.flujo .mini:disabled { opacity: .45; cursor: not-allowed; }

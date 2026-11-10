@@ -1,11 +1,11 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
-import { CalendarPlus, Check, ChevronRight, Home, MapPin, PawPrint, Plus, Stethoscope, Trash2 } from "lucide-react";
+import { CalendarPlus, Check, Home, MapPin, Stethoscope, Trash2 } from "lucide-react";
 import { crearCliente } from "@/lib/supabase/cliente";
 import { usePerros } from "@/components/app/usePerros";
 import SelectorPerros from "@/components/app/SelectorPerros";
 import Escaner from "@/components/app/Escaner";
+import RutinaHoy from "@/components/app/RutinaHoy";
 import { minutosEjercicio } from "@/lib/onboarding";
 import {
   TIPOS_EVENTO, diasEnCasa, enDias, fechaCorta, hoyISO, mapa, minutosDelDia, racha,
@@ -63,16 +63,12 @@ export default function Inicio() {
   const dias = diasEnCasa(activo);
   const proximos = eventos.filter((e) => !e.hecho);
 
-  async function sumarMinutos(min: number) {
-    const { error } = await crearCliente().from("registros").insert({ perro_id: activo!.id, tipo: "ejercicio", minutos: min, fecha: hoyISO() });
+  async function agregar(tipo: Registro["tipo"], minutos?: number) {
+    const { error } = await crearCliente().from("registros").insert({ perro_id: activo!.id, tipo, minutos: minutos ?? null, fecha: hoyISO() });
     if (error) setAviso("No pudimos guardar. Intenta de nuevo."); else void cargar(activo!.id);
   }
-  async function hizoSusNecesidades() {
-    const { error } = await crearCliente().from("registros").insert({ perro_id: activo!.id, tipo: "bano", fecha: hoyISO() });
-    if (error) setAviso("No pudimos guardar. Intenta de nuevo."); else void cargar(activo!.id);
-  }
-  async function deshacerUltimo() {
-    const ult = registros.filter((r) => r.tipo === "ejercicio" && r.fecha === hoyISO()).at(-1);
+  async function deshacer(tipo: Registro["tipo"]) {
+    const ult = registros.filter((r) => r.tipo === tipo && r.fecha === hoyISO()).at(-1);
     if (!ult) return;
     await crearCliente().from("registros").delete().eq("id", ult.id);
     void cargar(activo!.id);
@@ -106,26 +102,14 @@ export default function Inicio() {
       </section>
 
       <section className="tarjeta medidor-app">
-        <p className="tarjeta-tit"><span>Ejercicio de hoy · {nombre}</span></p>
+        <p className="tarjeta-tit"><span>Actividad de hoy · {nombre}</span></p>
         <Medidor hechos={hechos} meta={meta} />
         <div className="medidor-num"><b>{hechos}<small> / {meta} min</small></b>
           <em>{hechos >= meta ? "¡Meta cumplida! 🎉" : `Faltan ${meta - hechos} min`}</em></div>
-        <div className="botones-min">
-          <button onClick={() => sumarMinutos(10)}><Plus size={15} /> 10 min</button>
-          <button onClick={() => sumarMinutos(20)}><Plus size={15} /> 20 min</button>
-          {hechos > 0 && <button className="suave" onClick={deshacerUltimo}>Deshacer</button>}
-        </div>
+        <p className="nota" style={{ textAlign: "center" }}>Suma paseo y juego. Anótalos en su rutina.</p>
       </section>
 
-      <section className="tarjeta">
-        <div className="tarjeta-tit"><span><PawPrint size={15} /> Pipí y caca en su lugar</span><b>{racha(registros, "bano")} días seguidos</b></div>
-        <div className="botones-min" style={{ justifyContent: "flex-start" }}>
-          {registros.some((r) => r.tipo === "bano" && r.fecha === hoyISO())
-            ? <button disabled className="suave"><Check size={15} /> Hoy ya lo hizo en su lugar</button>
-            : <button onClick={hizoSusNecesidades}><PawPrint size={15} /> Hizo pipí o caca en su lugar</button>}
-        </div>
-        <Link className="enlace-raza" href="/inicio/bano" style={{ marginTop: 10 }}>Ver el plan para enseñarle y su semana <ChevronRight size={14} /></Link>
-      </section>
+      <RutinaHoy registros={registros} edad={activo.edad} nombre={nombre} agregar={agregar} deshacer={deshacer} />
 
       <section className="tarjeta">
         <div className="tarjeta-tit"><span><Stethoscope size={15} /> Veterinario</span>
