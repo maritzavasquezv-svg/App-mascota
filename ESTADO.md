@@ -200,3 +200,4 @@ Aprobado.
 - Panel `/admin` (solo `ADMIN_EMAILS`, protegido también por `proxy.ts`): cuentas, planes activos, perros, usos de IA de hoy y lista de usuarios con su estado. Necesita `SUPABASE_SECRET_KEY` en Vercel. Enlace en Cuenta.
 - `ADMIN_EMAILS` cargada en Vercel (tipo Config) con el correo de la fundadora antes de publicar ✅.
 - `SUPABASE_SECRET_KEY` cargada en Vercel por la fundadora (Secret) ✅. Activa el panel /admin y el webhook de Hotmart.
+- **Panel de administración sin clave secreta** (10 nov 2026): la clave secreta de Supabase falló 3 veces al copiarla (primero con "•••", después se pegó la clave pública). Se cambió el panel para que no la necesite: función `resumen_admin()` en la base (SECURITY DEFINER) que solo responde a los correos de la tabla privada `administradores` (migración `panel_admin_sin_clave_secreta`). `SUPABASE_SECRET_KEY` queda solo para el webhook de Hotmart y se resuelve en esa etapa.
