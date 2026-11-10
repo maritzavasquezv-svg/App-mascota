@@ -199,3 +199,4 @@ Aprobado.
 - Tarjeta "Activa tu plan" en Hoy con los enlaces de pago de Hotmart (`NEXT_PUBLIC_HOTMART_PAGO_ANUAL` y `_MENSUAL`); pide pagar con el mismo correo de la cuenta.
 - Panel `/admin` (solo `ADMIN_EMAILS`, protegido también por `proxy.ts`): cuentas, planes activos, perros, usos de IA de hoy y lista de usuarios con su estado. Necesita `SUPABASE_SECRET_KEY` en Vercel. Enlace en Cuenta.
 - `ADMIN_EMAILS` cargada en Vercel (tipo Config) con el correo de la fundadora antes de publicar ✅.
+- `SUPABASE_SECRET_KEY` cargada en Vercel por la fundadora (Secret) ✅. Activa el panel /admin y el webhook de Hotmart.
