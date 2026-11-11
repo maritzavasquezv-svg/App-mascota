@@ -9,11 +9,13 @@ import { guardarPendiente, type Consentimiento } from "@/lib/registro";
 import { useT } from "@/lib/i18n";
 import SelectorIdioma from "@/components/SelectorIdioma";
 import { leerOrigen, registrarEvento } from "@/lib/eventos";
+import { esPlan, resumenPlan, type PlanId } from "@/lib/planes";
 
 export default function Registro() {
   const router = useRouter();
   const { t, idioma } = useT();
-  const plan = useSearchParams().get("plan") === "mensual" ? "mensual" : "anual";
+  const pedido = useSearchParams().get("plan");
+  const plan: PlanId = esPlan(pedido) ? pedido : "anual";
   const [r] = useState(() => leer());
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
@@ -87,9 +89,7 @@ export default function Registro() {
       <div className="barra"><Link className="atras" href="/plan" aria-label={t("Volver", "Back", "Voltar")}><ArrowLeft size={18} /></Link><span style={{ flex: 1 }} /><SelectorIdioma /></div>
       <form className="cuerpo entra" onSubmit={crear} noValidate>
         <h1>{t("Crea tu cuenta para guardar el plan de ", "Create your account to save ", "Crie sua conta para salvar o plano de ")}<em>{nombre}</em>{t("", "'s plan", "")}</h1>
-        <p className="sub">{t("Plan elegido: ", "Chosen plan: ", "Plano escolhido: ")}<b>{plan === "mensual"
-          ? t("Mensual · US$6,99", "Monthly · US$6.99", "Mensal · US$ 6,99")
-          : t("Anual · US$4,17 al mes", "Yearly · US$4.17 per month", "Anual · US$ 4,17 por mês")}</b>. {t("Hoy no pagas nada.", "You pay nothing today.", "Hoje você não paga nada.")}</p>
+        <p className="sub">{t("Plan elegido: ", "Chosen plan: ", "Plano escolhido: ")}<b>{resumenPlan(plan, idioma)}</b>. {t("Hoy no pagas nada.", "You pay nothing today.", "Hoje você não paga nada.")}</p>
         <label className="etiqueta" htmlFor="correo">{t("Correo", "Email", "E-mail")}</label>
         <input id="correo" className="campo chico" type="email" autoComplete="email" required value={correo} onChange={(e) => setCorreo(e.target.value)} placeholder={t("tu@correo.com", "you@email.com", "voce@email.com")} />
         <label className="etiqueta" htmlFor="clave">{t("Contraseña", "Password", "Senha")}</label>

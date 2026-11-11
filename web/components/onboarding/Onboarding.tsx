@@ -77,7 +77,7 @@ export default function Onboarding() {
             <p className="sub">{t("Así armamos el plan con su nombre.", "We'll build the plan with their name.", "Assim montamos o plano com o nome dele.")}</p>
             <input ref={nombreRef} className="campo" value={r.nombre} maxLength={24} placeholder={t("Ej.: Bruno", "E.g.: Max", "Ex.: Thor")} aria-label={t("Nombre de tu perro", "Your dog's name", "Nome do seu cão")}
               onChange={(e) => cambiar({ nombre: e.target.value })} onKeyDown={(e) => { if (e.key === "Enter" && r.nombre.trim()) siguiente(); }} />
-            <p className="nota">{t("¿Tienes más de un perro? Después sumas a los demás.", "Have more than one dog? You can add the others later.", "Tem mais de um cão? Depois você adiciona os outros.")}</p>
+            <p className="nota">{t("¿Tienes más de un perro? Con el Plan Familiar sumas hasta 4.", "Have more than one dog? The Family plan covers up to 4.", "Tem mais de um cão? Com o Plano Familiar você adiciona até 4.")}</p>
             <button className="cta" onClick={siguiente} disabled={!r.nombre.trim()}>{seguir}</button>
           </>)}
 

@@ -8,6 +8,8 @@ import { crearCliente } from "@/lib/supabase/cliente";
 import { EDADES, ORIGENES, reducirFoto, type Edad, type Origen } from "@/lib/onboarding";
 import { useT } from "@/lib/i18n";
 import { registrarEvento } from "@/lib/eventos";
+import { PasarAFamiliar, useLimitePerros } from "@/components/app/LimitePerros";
+import { usePlan } from "@/components/app/AvisoPlan";
 
 export default function SumarPerro() {
   const router = useRouter();
@@ -18,6 +20,9 @@ export default function SumarPerro() {
   const [foto, setFoto] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [guardando, setGuardando] = useState(false);
+  const lim = useLimitePerros();
+  const plan = usePlan();
+  const lleno = Boolean(lim && lim.actuales >= lim.limite);
 
   async function elegirFoto(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0]; if (!f) return;
@@ -25,6 +30,7 @@ export default function SumarPerro() {
   }
 
   async function guardar() {
+    if (lleno) return;
     setError(null); setGuardando(true);
     const s = crearCliente();
     const { data: { user } } = await s.auth.getUser();
@@ -38,7 +44,13 @@ export default function SumarPerro() {
     }
     const { data, error } = await s.from("perros").insert({ usuario_id: user.id, nombre: nombre.trim(), origen, edad, foto_ruta: fotoRuta }).select("id").single();
     setGuardando(false);
-    if (error) { setError(t("No pudimos guardar a tu perro. Intenta de nuevo.", "We couldn't save your dog. Try again.", "Não conseguimos salvar seu cão. Tente de novo.")); return; }
+    if (error) {
+      if (fotoRuta) await s.storage.from("fotos-perros").remove([fotoRuta]);
+      setError(/limite_perros/.test(error.message)
+        ? t("Tu plan no permite más perros. Pásate al Plan Familiar para sumar hasta 4.", "Your plan doesn't allow more dogs. Switch to the Family plan to add up to 4.", "Seu plano não permite mais cães. Passe para o Plano Familiar para adicionar até 4.")
+        : t("No pudimos guardar a tu perro. Intenta de nuevo.", "We couldn't save your dog. Try again.", "Não conseguimos salvar seu cão. Tente de novo."));
+      return;
+    }
     registrarEvento("perro_creado");
     try { window.localStorage.setItem("kopeet-perro-activo", data.id); } catch { /* nada */ }
     router.push("/inicio");
@@ -49,7 +61,9 @@ export default function SumarPerro() {
       <div className="barra"><Link className="atras" href="/inicio" aria-label={t("Volver", "Back", "Voltar")}><ArrowLeft size={18} /></Link></div>
       <div className="cuerpo entra">
         <h1>{t("Suma otro perro", "Add another dog", "Adicione outro cão")}</h1>
-        <p className="sub">{t("Un solo plan sirve para todos los perros de tu casa.", "One plan covers every dog in your home.", "Um só plano serve para todos os cães da sua casa.")}</p>
+        {lim && <p className="sub">{t(`Tienes ${lim.actuales} de ${lim.limite >= 99 ? "∞" : lim.limite} perros en tu plan.`, `You have ${lim.actuales} of ${lim.limite >= 99 ? "∞" : lim.limite} dogs on your plan.`, `Você tem ${lim.actuales} de ${lim.limite >= 99 ? "∞" : lim.limite} cães no seu plano.`)}</p>}
+        {lleno && lim && <PasarAFamiliar lim={lim} plan={plan} />}
+        {!lleno && (<>
         <label className="subir chica">
           {foto ? <img src={foto} alt={t("Foto del perro", "Dog's photo", "Foto do cão")} /> : (<><Camera size={28} />{t("Foto (opcional)", "Photo (optional)", "Foto (opcional)")}</>)}
           <input type="file" accept="image/*" onChange={elegirFoto} aria-label={t("Elegir foto", "Choose photo", "Escolher foto")} />
@@ -63,6 +77,7 @@ export default function SumarPerro() {
         {error && <p className="error" role="alert">{error}</p>}
         <div className="espacio" />
         <button className="cta azul" disabled={!nombre.trim() || !edad || guardando} onClick={guardar}>{guardando ? t("Guardando…", "Saving…", "Salvando…") : t("Sumar a mi familia", "Add to my family", "Adicionar à família")}</button>
+        </>)}
       </div>
     </>
   );

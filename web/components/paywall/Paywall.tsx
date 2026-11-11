@@ -8,15 +8,18 @@ import { contarRespuestas, etiquetaEdad, etiquetaOrigen, fechasPrueba, leer, min
 import { useT } from "@/lib/i18n";
 import SelectorIdioma from "@/components/SelectorIdioma";
 import { registrarEvento } from "@/lib/eventos";
+import { PERROS_FAMILIAR, PLANES, nombrePlan, precio, type PlanId } from "@/lib/planes";
 
-type Plan = "anual" | "mensual";
 
 export default function Paywall() {
   const router = useRouter();
   const { t, idioma } = useT();
   const [r] = useState<Respuestas>(() => leer());
   const [pantalla, setPantalla] = useState(1);
-  const [plan, setPlan] = useState<Plan>("anual");
+  const [familiar, setFamiliar] = useState(false);
+  const [periodo, setPeriodo] = useState<"anual" | "mensual">("anual");
+  const plan: PlanId = familiar ? `familiar_${periodo}` : periodo;
+  const pAnual = PLANES[familiar ? "familiar_anual" : "anual"], pMensual = PLANES[familiar ? "familiar_mensual" : "mensual"];
   const [hoy] = useState(() => new Date());
   const fechas = fechasPrueba(hoy, idioma);
 
@@ -29,8 +32,6 @@ export default function Paywall() {
   const quien = t(sinNombre ? "de tu perro" : `de ${nombre}`, sinNombre ? "your dog's" : `${nombre}'s`, sinNombre ? "do seu cão" : `de ${nombre}`);
   const salir = () => router.push("/");
   const detalle = [etiquetaOrigen(r.origen, idioma), etiquetaEdad(r.edad, idioma)].filter(Boolean).join(" · ");
-  const anual = t("US$49,99", "US$49.99", "US$ 49,99");
-  const mensual = t("US$6,99", "US$6.99", "US$ 6,99");
 
   const cabeza = (
     <div className="cabeza">
@@ -85,24 +86,28 @@ export default function Paywall() {
               <li><Check size={16} /><span><b>{t("Avisos", "Reminders", "Avisos")}</b>{t(" de vacunas y desparasitación", " for vaccines and deworming", " de vacinas e vermifugação")}</span></li>
               <li><Check size={16} /><span><b>{t("Consejero 24 h", "24/7 Advisor", "Conselheiro 24 h")}</b>{t(" con semáforo de salud", " with a health traffic light", " com semáforo de saúde")}</span></li>
             </ul>
+            <div className="tipo-plan" role="radiogroup" aria-label={t("¿Cuántos perros?", "How many dogs?", "Quantos cães?")}>
+              <button role="radio" aria-checked={!familiar} onClick={() => setFamiliar(false)}><b>{t("1 perro", "1 dog", "1 cão")}</b><span>{t("Plan individual", "Individual plan", "Plano individual")}</span></button>
+              <button role="radio" aria-checked={familiar} onClick={() => setFamiliar(true)}><b>{t(`Hasta ${PERROS_FAMILIAR} perros`, `Up to ${PERROS_FAMILIAR} dogs`, `Até ${PERROS_FAMILIAR} cães`)}</b><span>{t("Plan familiar", "Family plan", "Plano familiar")}</span></button>
+            </div>
             <div className="planes" role="radiogroup" aria-label="Plan">
-              <button className="plan" role="radio" aria-checked={plan === "anual"} onClick={() => setPlan("anual")}>
+              <button className="plan" role="radio" aria-checked={periodo === "anual"} onClick={() => setPeriodo("anual")}>
                 <span className="tag">{t("Mejor valor", "Best value", "Melhor valor")}</span>
-                <div className="txt"><b>{t("Anual", "Yearly", "Anual")}</b><span>{t(`Se cobra ${anual} al año · ahorras 40%`, `Billed ${anual} per year · save 40%`, `Cobrado ${anual} por ano · economize 40%`)}</span></div>
-                <div className="pr"><strong>{t("US$4,17", "US$4.17", "US$ 4,17")}</strong>{t("al mes", "per month", "por mês")}</div><span className="radio" />
+                <div className="txt"><b>{t("Anual", "Yearly", "Anual")}</b><span>{t(`Se cobra ${precio(pAnual.total, idioma)} al año · ahorras ${pAnual.ahorro}%`, `Billed ${precio(pAnual.total, idioma)} per year · save ${pAnual.ahorro}%`, `Cobrado ${precio(pAnual.total, idioma)} por ano · economize ${pAnual.ahorro}%`)}</span></div>
+                <div className="pr"><strong>{precio(pAnual.porMes, idioma)}</strong>{t("al mes", "per month", "por mês")}</div><span className="radio" />
               </button>
-              <button className="plan" role="radio" aria-checked={plan === "mensual"} onClick={() => setPlan("mensual")}>
+              <button className="plan" role="radio" aria-checked={periodo === "mensual"} onClick={() => setPeriodo("mensual")}>
                 <div className="txt"><b>{t("Mensual", "Monthly", "Mensal")}</b><span>{t("Se cobra cada mes", "Billed every month", "Cobrado todo mês")}</span></div>
-                <div className="pr"><strong>{mensual}</strong>{t("al mes", "per month", "por mês")}</div><span className="radio" />
+                <div className="pr"><strong>{precio(pMensual.total, idioma)}</strong>{t("al mes", "per month", "por mês")}</div><span className="radio" />
               </button>
             </div>
             <div className="espacio" />
             <Link className="cta azul" href={`/crear-cuenta?plan=${plan}`} onClick={() => registrarEvento("plan_elegido", { plan })}>{t(`Empezar el plan ${quien} gratis`, `Start ${quien} plan for free`, `Começar o plano ${quien} grátis`)}</Link>
             <p className="letra">
               <b>{t("Hoy no pagas nada.", "You pay nothing today.", "Hoje você não paga nada.")}</b>{" "}
-              {plan === "anual"
-                ? t(`El ${fechas.cobro} se cobra ${anual} (plan anual).`, `On ${fechas.cobro} you're charged ${anual} (yearly plan).`, `Em ${fechas.cobro} é cobrado ${anual} (plano anual).`)
-                : t(`El ${fechas.cobro} se cobra ${mensual} (plan mensual).`, `On ${fechas.cobro} you're charged ${mensual} (monthly plan).`, `Em ${fechas.cobro} é cobrado ${mensual} (plano mensal).`)}{" "}
+              {t(`El ${fechas.cobro} se cobra ${precio(PLANES[plan].total, idioma)} (${nombrePlan(plan, "es").toLowerCase()}).`,
+                `On ${fechas.cobro} you're charged ${precio(PLANES[plan].total, idioma)} (${nombrePlan(plan, "en").toLowerCase()}).`,
+                `Em ${fechas.cobro} é cobrado ${precio(PLANES[plan].total, idioma)} (${nombrePlan(plan, "pt").toLowerCase()}).`)}{" "}
               {t("Se renueva automáticamente; cancela cuando quieras.", "Renews automatically; cancel anytime.", "Renova automaticamente; cancele quando quiser.")}
             </p>
             <p className="garantia-mini"><ShieldCheck size={15} /> {t("Garantía Hotmart de 7 días", "7-day Hotmart guarantee", "Garantia Hotmart de 7 dias")}</p>

@@ -119,12 +119,12 @@ export default function Ventas({ i }: { i: Idioma }) {
   <div className="center">
     <span className="eyebrow">{t("Precio", "Pricing", "Preço")}</span>
     <h2>{t("Empieza con ", "Start with ", "Comece com ")}<em>{t("7 días gratis", "7 days free", "7 dias grátis")}</em></h2>
-    <p className="lead">{t("Un solo plan para ", "One plan for ", "Um só plano para ")}<b>{t("todos los perros de tu casa", "every dog in your home", "todos os cães da sua casa")}</b>.</p>
+    <p className="lead">{t("Plan individual para ", "Individual plan for ", "Plano individual para ")}<b>{t("1 perro", "1 dog", "1 cão")}</b>{t(", o ", ", or the ", ", ou ")}<b>{t("Plan Familiar", "Family plan", "Plano Familiar")}</b>{t(" para hasta 4 perros.", " for up to 4 dogs.", " para até 4 cães.")}</p>
   </div>
   <div className="planes">
     <div className="plan rec">
       <span className="tag">{t("Mejor valor", "Best value", "Melhor valor")}</span>
-      <div className="cab"><h3>{t("Anual", "Yearly", "Anual")}</h3><div className="precio"><strong>{t("US$4,17", "US$4.17", "US$ 4,17")}</strong><span>{t("al mes", "per month", "por mês")}</span></div></div>
+      <div className="cab"><h3>{t("Anual", "Yearly", "Anual")}<small className="perros-plan">{t("1 perro", "1 dog", "1 cão")}</small></h3><div className="precio"><strong>{t("US$4,17", "US$4.17", "US$ 4,17")}</strong><span>{t("al mes", "per month", "por mês")}</span></div></div>
       <p className="total">{t("Se cobra ", "Billed ", "Cobrado ")}<b>{t("US$49,99 al año", "US$49.99 per year", "US$ 49,99 por ano")}</b>{t(" después de la prueba.", " after the trial.", " depois do teste.")}</p>
       <span className="ahorro">{t("Ahorras 40%", "Save 40%", "Economize 40%")}</span>
       <ul className="incluye">
@@ -135,11 +135,21 @@ export default function Ventas({ i }: { i: Idioma }) {
       <a className="btn" href="/empezar">{t("Empezar mis 7 días gratis", "Start my 7 free days", "Começar meus 7 dias grátis")}</a>
     </div>
     <div className="plan mens">
-      <div className="cab"><h3>{t("Mensual", "Monthly", "Mensal")}</h3><div className="precio"><strong>{t("US$6,99", "US$6.99", "US$ 6,99")}</strong><span>{t("al mes", "per month", "por mês")}</span></div></div>
+      <div className="cab"><h3>{t("Mensual", "Monthly", "Mensal")}<small className="perros-plan">{t("1 perro", "1 dog", "1 cão")}</small></h3><div className="precio"><strong>{t("US$6,99", "US$6.99", "US$ 6,99")}</strong><span>{t("al mes", "per month", "por mês")}</span></div></div>
       <p className="total">{t("Se cobra cada mes después de la prueba.", "Billed monthly after the trial.", "Cobrado todo mês depois do teste.")}</p>
       <ul className="incluye">
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>{t("Todo lo del plan anual", "Everything in the yearly plan", "Tudo do plano anual")}</span></li>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>{t("Cancelas cuando quieras", "Cancel anytime", "Cancele quando quiser")}</span></li>
+      </ul>
+      <a className="btn" href="/empezar">{t("Empezar mis 7 días gratis", "Start my 7 free days", "Começar meus 7 dias grátis")}</a>
+    </div>
+    <div className="plan familiar">
+      <span className="tag">{t("Hasta 4 perros", "Up to 4 dogs", "Até 4 cães")}</span>
+      <div className="cab"><h3>{t("Familiar", "Family", "Familiar")}<small className="perros-plan">{t("2 a 4 perros", "2 to 4 dogs", "2 a 4 cães")}</small></h3><div className="precio"><strong>{t("US$9,99", "US$9.99", "US$ 9,99")}</strong><span>{t("al mes", "per month", "por mês")}</span></div></div>
+      <p className="total">{t("O ", "Or ", "Ou ")}<b>{t("US$69,99 al año", "US$69.99 per year", "US$ 69,99 por ano")}</b>{t(" (US$5,83 al mes, ahorras 42%).", " (US$5.83 a month, save 42%).", " (US$ 5,83 por mês, economize 42%).")}</p>
+      <ul className="incluye">
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>{t("Todo lo del plan individual", "Everything in the individual plan", "Tudo do plano individual")}</span></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>{t("Un plan, una rutina y premios para cada perro", "A plan, routine and rewards for each dog", "Plano, rotina e prêmios para cada cão")}</span></li>
       </ul>
       <a className="btn" href="/empezar">{t("Empezar mis 7 días gratis", "Start my 7 free days", "Começar meus 7 dias grátis")}</a>
     </div>
@@ -171,7 +181,7 @@ export default function Ventas({ i }: { i: Idioma }) {
     <details><summary>{t("No tengo tiempo, ¿cuánto me toma?", "I'm short on time — how long does it take?", "Não tenho tempo, quanto leva?")}<span className="mas"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></span></summary><p>{t("Armarlo toma ", "Setting it up takes ", "Montar leva ")}<b>{t("2 minutos", "2 minutes", "2 minutos")}</b>{t(". Revisarlo, ", ". Checking it, ", ". Conferir, ")}<b>{t("menos de 1 minuto", "under 1 minute", "menos de 1 minuto")}</b>{t(" al día.", " a day.", " por dia.")}</p></details>
     <details><summary>{t("Ya probé apps así y las dejé. ¿Por qué esta sería distinta?", "I tried apps like this and quit. Why would this one be different?", "Já testei apps assim e desisti. Por que este seria diferente?")}<span className="mas"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></span></summary><p>{t("No es un recordatorio más: ", "It's not just another reminder: ", "Não é só mais um lembrete: ")}<b>{t("te dice qué hacer hoy y por qué", "it tells you what to do today and why", "diz o que fazer hoje e por quê")}</b>.</p></details>
     <details><summary>{t("¿Es seguro pagar? ¿Puedo cancelar?", "Is paying safe? Can I cancel?", "É seguro pagar? Posso cancelar?")}<span className="mas"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></span></summary><p>{t("Paga por ", "Pay through ", "Pague pela ")}<b>Hotmart</b>{t(", con ", ", with ", ", com ")}<b>{t("7 días gratis", "7 days free", "7 dias grátis")}</b>{t(" y garantía de reembolso de 7 días.", " and a 7-day refund guarantee.", " e garantia de reembolso de 7 dias.")}</p></details>
-    <details><summary>{t("¿Sirve si tengo varios perros?", "Does it work if I have several dogs?", "Serve se tenho vários cães?")}<span className="mas"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></span></summary><p>{t("Sí. ", "Yes. ", "Sim. ")}<b>{t("Un solo plan", "One plan", "Um só plano")}</b>{t(" para todos los perros de tu casa.", " for every dog in your home.", " para todos os cães da sua casa.")}</p></details>
+    <details><summary>{t("¿Sirve si tengo varios perros?", "Does it work if I have several dogs?", "Serve se tenho vários cães?")}<span className="mas"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></span></summary><p>{t("Sí. Con el ", "Yes. With the ", "Sim. Com o ")}<b>{t("Plan Familiar", "Family plan", "Plano Familiar")}</b>{t(" sumas hasta 4 perros por US$9,99 al mes (o US$69,99 al año), cada uno con su propio plan.", " you can add up to 4 dogs for US$9.99 a month (or US$69.99 a year), each with its own plan.", " você adiciona até 4 cães por US$ 9,99 por mês (ou US$ 69,99 por ano), cada um com seu próprio plano.")}</p></details>
   </div>
 </div></section>
 

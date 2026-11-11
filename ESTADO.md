@@ -225,3 +225,12 @@ Aprobado.
 - **Costo de IA real**: cada llamada guarda modelo, tokens y costo (precios Opus 5.5 US$4/20 por millón; respaldos con su precio). Los 3 usos anteriores quedan "sin costo".
 - **Canal de origen**: enlaces con `?origen=instagram` (o utm_source / referrer) se guardan en el registro.
 - Pendiente: revisión visual de cada pantalla con la sesión de la fundadora; conectar Hotmart (pegar hottok en Ajustes + webhook en Hotmart).
+
+### Plan Familiar y límite de perros (11 de noviembre de 2026) ✅ código publicado
+- Decisión de la fundadora: "plan por un perro y plan familiar".
+- **Individual (1 perro)**: US$6,99/mes o US$49,99/año (sin cambio). **Familiar (hasta 4 perros)**: US$9,99/mes o US$69,99/año (US$5,83/mes). Precios en `web/lib/planes.ts` (fuente única).
+- Pantalla de planes: selector "1 perro / Hasta 4 perros" + anual/mensual. Página de ventas (3 idiomas): tercera tarjeta "Familiar" y FAQ actualizada. Términos (3 idiomas) con los 4 precios.
+- **Límite en la base** (no se puede saltar): trigger `limite_perros` en `perros`. Sin plan o plan individual: 1 perro; familiar o cortesía: 4; administradoras: sin límite. Los perros que ya existían no se borran.
+- "Sumar perro" y "Cuenta" muestran "X de Y perros" y una tarjeta para pasar al Plan Familiar.
+- Hotmart: el nombre del plan debe incluir "Familiar" (p. ej. "Kopeet Familiar Anual"). Enlaces de pago nuevos en Vercel cuando existan: `NEXT_PUBLIC_HOTMART_PAGO_FAMILIAR_ANUAL` y `NEXT_PUBLIC_HOTMART_PAGO_FAMILIAR_MENSUAL`.
+- Probado en la base: plan familiar desde Hotmart, bloqueo del 2º perro sin plan, hasta 4 con familiar.

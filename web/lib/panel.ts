@@ -11,7 +11,7 @@ interface Crudo {
     anterior: { compras: N; bruto: N; hotmart: N; afiliados: N };
     bajas: { voluntarias: N; involuntarias: N; reembolsos: N; montoReembolsado: N };
     porMes: { mes: string; bruto: N; neto: N }[];
-    activas: { pagadas: N; manuales: N; mrr: N; mrrSinMonto: N };
+    activas: { pagadas: N; familiares: N; manuales: N; mrr: N; mrrSinMonto: N };
   };
   ia: { mes: N; hoy: N; usosMes: N; usosSinCosto: N; porFuncion: { funcion: string; usos: N; costo: N | null }[]; porUsuario: { email: string; usos: N; costo: N | null }[]; porDia: { dia: string; costo: N }[] };
   usuarios: { total: N; confirmados: N; nuevosMes: N; nuevosAnterior: N; activos7: N; activos30: N; activacion: { base: N; activados: N }; retencion: { dia: N; base: N; volvieron: N }[] };

@@ -13,6 +13,8 @@ export async function GET() {
     pagar: {
       anual: process.env.NEXT_PUBLIC_HOTMART_PAGO_ANUAL || null,
       mensual: process.env.NEXT_PUBLIC_HOTMART_PAGO_MENSUAL || null,
+      familiar_anual: process.env.NEXT_PUBLIC_HOTMART_PAGO_FAMILIAR_ANUAL || null,
+      familiar_mensual: process.env.NEXT_PUBLIC_HOTMART_PAGO_FAMILIAR_MENSUAL || null,
     },
   });
 }

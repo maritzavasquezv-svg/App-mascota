@@ -7,6 +7,8 @@ import { crearCliente } from "@/lib/supabase/cliente";
 import { usePlan } from "@/components/app/AvisoPlan";
 import { useT } from "@/lib/i18n";
 import SelectorIdioma from "@/components/SelectorIdioma";
+import { nombrePlan, PLANES, precio, esPlan } from "@/lib/planes";
+import { PasarAFamiliar, useLimitePerros } from "@/components/app/LimitePerros";
 
 export default function Cuenta() {
   const router = useRouter();
@@ -18,6 +20,7 @@ export default function Cuenta() {
   const [borrando, setBorrando] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const estadoPlan = usePlan();
+  const lim = useLimitePerros();
   const palabra = t("BORRAR", "DELETE", "APAGAR");
 
   useEffect(() => {
@@ -69,10 +72,12 @@ export default function Cuenta() {
         <h1>{t("Mi cuenta", "My account", "Minha conta")}</h1>
         <div className="resumen">
           <div><span>{t("Correo", "Email", "E-mail")}</span><b>{correo || "…"}</b></div>
-          <div><span>{t("Plan elegido", "Chosen plan", "Plano escolhido")}</span><b>{plan === "mensual" ? t("Mensual · US$6,99", "Monthly · US$6.99", "Mensal · US$ 6,99") : plan === "anual" ? t("Anual · US$4,17/mes", "Yearly · US$4.17/mo", "Anual · US$ 4,17/mês") : t("Sin elegir", "Not chosen", "Não escolhido")}</b></div>
+          <div><span>{t("Plan elegido", "Chosen plan", "Plano escolhido")}</span><b>{esPlan(estadoPlan?.plan ?? plan) ? `${nombrePlan(estadoPlan?.plan ?? plan, idioma)} · ${precio(PLANES[(estadoPlan?.plan ?? plan) as keyof typeof PLANES].total, idioma)}` : nombrePlan(estadoPlan?.plan ?? plan, idioma)}</b></div>
           <div><span>{t("Suscripción", "Subscription", "Assinatura")}</span><b>{estado}</b></div>
+          {lim && <div><span>{t("Perros en tu plan", "Dogs on your plan", "Cães no seu plano")}</span><b>{lim.actuales} / {lim.limite >= 99 ? "∞" : lim.limite}</b></div>}
           <div><span><Languages size={14} /> {t("Idioma", "Language", "Idioma")}</span><SelectorIdioma /></div>
         </div>
+        {lim && lim.limite < 4 && lim.actuales >= lim.limite && <PasarAFamiliar lim={lim} plan={estadoPlan} />}
         <p className="nota">{t("Para cancelar una suscripción ya pagada, mira ", "To cancel a paid subscription, see ", "Para cancelar uma assinatura já paga, veja ")}<Link href={idioma === "es" ? "/reembolsos" : `/${idioma}/reembolsos`}>{t("Reembolsos y cancelación", "Refunds and cancellation", "Reembolsos e cancelamento")}</Link>.</p>
 
         {estadoPlan?.admin && <Link className="cta azul" href="/admin" style={{ marginTop: 18 }}>{t("Panel de administración", "Admin panel", "Painel de administração")}</Link>}

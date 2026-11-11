@@ -187,7 +187,7 @@ function Resumen({ d, mes, irA }: { d: Panel; mes: string; irA: (s: Seccion) => 
     </section>
     <div className="pa-kpis">
       <Kpi titulo="Ingreso mensual recurrente (MRR)" valor={d.ventas.activas.pagadas ? usd(r.mrr) : <SinDatos />} nota="Lo que entra cada mes por suscripciones activas" />
-      <Kpi titulo="Clientes pagando" valor={r.clientesPagando} nota={r.accesosManuales ? `+ ${r.accesosManuales} con acceso dado a mano` : undefined} />
+      <Kpi titulo="Clientes pagando" valor={r.clientesPagando} nota={[d.ventas.activas.pagadas ? `${d.ventas.activas.familiares} con Plan Familiar` : "", r.accesosManuales ? `+ ${r.accesosManuales} con acceso dado a mano` : ""].filter(Boolean).join(" · ") || undefined} />
       <Kpi titulo="Usuarios en total" valor={d.usuarios.total} nota={`${d.usuarios.nuevosMes} nuevos este mes`} />
       <Kpi titulo="Activos esta semana" valor={d.usuarios.activos7} nota="Usaron la app en los últimos 7 días" />
       <Kpi titulo="Activación" valor={pct(d.usuarios.activacionTasa)} nota="Usaron la app de verdad en su primera semana" />

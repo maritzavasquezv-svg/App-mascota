@@ -68,9 +68,10 @@ begin
           from generate_series(ini - interval '11 months', ini, interval '1 month') m) t), '[]'::jsonb),
       'activas', (select jsonb_build_object(
           'pagadas', count(*) filter (where s.origen = 'hotmart'),
+          'familiares', count(*) filter (where s.origen = 'hotmart' and s.plan like 'familiar%'),
           'manuales', count(*) filter (where s.origen = 'manual' and (s.vence_en is null or s.vence_en > now())),
           'mrr', coalesce(sum(case when s.origen = 'hotmart' then
-                   (select case when coalesce(v.plan, s.plan) = 'anual' then v.bruto / 12 else v.bruto end
+                   (select case when coalesce(v.plan, s.plan) like '%anual' then v.bruto / 12 else v.bruto end
                       from aprob v where lower(v.email) = lower(s.email) and not v.reembolsada order by v.fecha desc limit 1) end), 0),
           'mrrSinMonto', count(*) filter (where s.origen = 'hotmart' and not exists (select 1 from aprob v where lower(v.email) = lower(s.email))))
         from public.suscripciones s where s.estado = 'activa')
