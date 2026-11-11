@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Languages, LogOut, Trash2 } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Languages, LogOut, Trash2 } from "lucide-react";
 import { crearCliente } from "@/lib/supabase/cliente";
 import { usePlan } from "@/components/app/AvisoPlan";
 import { useT } from "@/lib/i18n";
@@ -22,6 +22,9 @@ export default function Cuenta() {
   const estadoPlan = usePlan();
   const lim = useLimitePerros();
   const palabra = t("BORRAR", "DELETE", "APAGAR");
+  const [yaCancele, setYaCancele] = useState(false);
+  // Suscripción pagada y activa en Hotmart (no cuenta el acceso de cortesía ni la administradora): se pide confirmar que la canceló.
+  const pagaSuscripcion = Boolean(estadoPlan?.activo && !estadoPlan.admin && estadoPlan.plan !== "cortesia");
 
   useEffect(() => {
     const supabase = crearCliente();
@@ -87,13 +90,23 @@ export default function Cuenta() {
         <div className="zona-peligro">
           <b>{t("Borrar mi cuenta", "Delete my account", "Apagar minha conta")}</b>
           <p>{t("Se borran para siempre tu cuenta, tus perros, sus fotos y tus respuestas. No se puede deshacer.", "Your account, dogs, photos and answers are deleted forever. It can't be undone.", "Sua conta, seus cães, as fotos e suas respostas serão apagados para sempre. Não é possível desfazer.")}</p>
+          <div className="aviso-cobro" role="note">
+            <AlertTriangle size={18} />
+            <p><b>{t("Antes de borrar tu cuenta, cancela tu suscripción en Hotmart.", "Before deleting your account, cancel your subscription in Hotmart.", "Antes de apagar sua conta, cancele sua assinatura na Hotmart.")}</b>{" "}
+              {t("Borrar la cuenta en Kopeet no detiene los cobros: los hace Hotmart y seguirían llegando a tu tarjeta.", "Deleting your Kopeet account does not stop the charges: Hotmart bills you and they would keep reaching your card.", "Apagar a conta no Kopeet não interrompe as cobranças: quem cobra é a Hotmart e elas continuariam chegando no seu cartão.")}{" "}
+              <a href="https://consumer.hotmart.com/" target="_blank" rel="noopener noreferrer">{t("Cancelar en Hotmart", "Cancel in Hotmart", "Cancelar na Hotmart")}</a></p>
+          </div>
           {!confirmar
             ? <button className="btn-peligro" onClick={() => setConfirmar(true)}><Trash2 size={16} /> {t("Quiero borrar mi cuenta", "I want to delete my account", "Quero apagar minha conta")}</button>
             : (<>
               <label className="etiqueta" htmlFor="conf">{t(`Escribe ${palabra} para confirmar`, `Type ${palabra} to confirm`, `Digite ${palabra} para confirmar`)}</label>
               <input id="conf" className="campo chico" value={texto} onChange={(e) => setTexto(e.target.value)} autoComplete="off" />
+              {pagaSuscripcion && (
+                <label className="check"><input type="checkbox" checked={yaCancele} onChange={(e) => setYaCancele(e.target.checked)} />
+                  <span>{t("Ya cancelé mi suscripción en Hotmart (si no, se me seguirá cobrando).", "I already canceled my subscription in Hotmart (otherwise I'll keep being charged).", "Já cancelei minha assinatura na Hotmart (senão continuarei sendo cobrada).")}</span></label>
+              )}
               {error && <p className="error" role="alert">{error}</p>}
-              <button className="btn-peligro lleno" disabled={texto.trim().toUpperCase() !== palabra || borrando} onClick={borrarCuenta}>
+              <button className="btn-peligro lleno" disabled={texto.trim().toUpperCase() !== palabra || borrando || (pagaSuscripcion && !yaCancele)} onClick={borrarCuenta}>
                 {borrando ? t("Borrando…", "Deleting…", "Apagando…") : t("Borrar mi cuenta para siempre", "Delete my account forever", "Apagar minha conta para sempre")}
               </button>
               <button className="secundario" onClick={() => { setConfirmar(false); setTexto(""); }}>{t("Cancelar", "Cancel", "Cancelar")}</button>

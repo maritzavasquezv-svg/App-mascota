@@ -254,3 +254,7 @@ Aprobado.
 - **Agregado**: proveedores Vercel y Resend; Anthropic no entrena con datos de la API; borrado de cuenta al instante y qué queda (compras por ley tributaria, uso y errores anónimos); derechos LGPD/UE/California; licencia de uso; propiedad de las respuestas de la IA; "no es servicio de emergencias"; aviso "la IA puede equivocarse" visible junto al Consejero y al escáner.
 - Garantía coherente en todo: 7 días gratis + 7 días de garantía Hotmart (landing = planes = términos = reembolsos).
 - ⚠️ Pendiente humano: revisión por abogado en Chile antes de lanzar (versión 1.1 y traducciones EN/PT); confirmar con contador el % de impuesto (boleta de honorarios / IVA por servicios digitales).
+
+### Advertencia antes de borrar la cuenta (11 de noviembre de 2026) ✅
+- En Cuenta → Borrar mi cuenta: aviso visible "Antes de borrar tu cuenta, cancela tu suscripción en Hotmart; borrar la cuenta no detiene los cobros", con enlace a Hotmart (3 idiomas).
+- Si la persona tiene una suscripción pagada activa, además debe marcar "Ya cancelé mi suscripción en Hotmart" para poder borrar.
