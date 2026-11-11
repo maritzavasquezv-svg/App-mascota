@@ -78,7 +78,8 @@ export default function Cuenta() {
           <div><span><Languages size={14} /> {t("Idioma", "Language", "Idioma")}</span><SelectorIdioma /></div>
         </div>
         {lim && lim.limite < 4 && lim.actuales >= lim.limite && <PasarAFamiliar lim={lim} plan={estadoPlan} />}
-        <p className="nota">{t("Para cancelar una suscripción ya pagada, mira ", "To cancel a paid subscription, see ", "Para cancelar uma assinatura já paga, veja ")}<Link href={idioma === "es" ? "/reembolsos" : `/${idioma}/reembolsos`}>{t("Reembolsos y cancelación", "Refunds and cancellation", "Reembolsos e cancelamento")}</Link>.</p>
+        <a className="cta" href="https://consumer.hotmart.com/" target="_blank" rel="noopener noreferrer" style={{ marginTop: 14 }}>{t("Cancelar o gestionar mi suscripción en Hotmart", "Cancel or manage my subscription in Hotmart", "Cancelar ou gerenciar minha assinatura na Hotmart")}</a>
+        <p className="nota">{t("Entra con el mismo correo con el que pagaste → Mis compras → Kopeet. Más detalles en ", "Sign in with the email you paid with → My purchases → Kopeet. More details in ", "Entre com o e-mail usado no pagamento → Minhas compras → Kopeet. Mais detalhes em ")}<Link href={idioma === "es" ? "/reembolsos" : `/${idioma}/reembolsos`}>{t("Reembolsos y cancelación", "Refunds and cancellation", "Reembolsos e cancelamento")}</Link>.</p>
 
         {estadoPlan?.admin && <Link className="cta azul" href="/admin" style={{ marginTop: 18 }}>{t("Panel de administración", "Admin panel", "Painel de administração")}</Link>}
         <button className="cta" style={{ marginTop: 22 }} onClick={salir}><LogOut size={18} /> {t("Cerrar sesión", "Sign out", "Sair")}</button>

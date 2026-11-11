@@ -70,7 +70,7 @@ export default function Consejero() {
               <ul>{m.resp!.pasos.map((p) => <li key={p}>{p}</li>)}</ul>
               {m.resp!.luz === "rojo" && <Link className="cta rojo" href={`/inicio/emergencia?motivo=${encodeURIComponent(m.resp!.motivo ?? "")}`}><AlertTriangle size={17} /> {t("Ver qué hacer ahora", "See what to do now", "Ver o que fazer agora")}</Link>}
               {m.plan && <p className="nota"><b>{t("Con el plan", "With the plan", "Com o plano")}</b>{t(", el Consejero responde cualquier duda con IA. ", ", the Advisor answers any question with AI. ", ", o Conselheiro responde qualquer dúvida com IA. ")}<Link href="/inicio">{t("Activar mi plan", "Activate my plan", "Ativar meu plano")}</Link></p>}
-              <p className="aviso-vet">{m.ia ? t("Respuesta con IA. ", "AI answer. ", "Resposta com IA. ") : ""}{t("Esto es orientación, no un diagnóstico. No reemplaza al veterinario.", "This is guidance, not a diagnosis. It doesn't replace your vet.", "Isto é orientação, não um diagnóstico. Não substitui o veterinário.")}</p>
+              <p className="aviso-vet">{m.ia ? t("Respuesta con IA. ", "AI answer. ", "Resposta com IA. ") : ""}{t("Puede equivocarse. Es orientación, no un diagnóstico, y no reemplaza al veterinario: tú decides.", "It can be wrong. This is guidance, not a diagnosis, and it doesn't replace your vet: you decide.", "Pode errar. É orientação, não um diagnóstico, e não substitui o veterinário: você decide.")}</p>
             </div>
           ))}
         {pensando && <div className="msg ia pensando">{t("Kopeet está pensando…", "Kopeet is thinking…", "O Kopeet está pensando…")}</div>}

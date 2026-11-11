@@ -241,3 +241,16 @@ Aprobado.
 - La API key de Resend se pega una vez en **/admin → Ajustes → Resumen semanal por correo** (queda en `privado.secretos`, no en Vercel). Remitente `onboarding@resend.dev`: sin dominio propio, Resend solo envía al correo dueño de la cuenta, por eso la cuenta Resend debe crearse con maritzavasquezv@gmail.com.
 - Probado en transacción con rollback: correo en español, asunto y cifras correctos, destinatario la administradora, tarea programada activa.
 - Pendiente: que la fundadora cree la cuenta Resend, pegue la key y reciba el correo de prueba.
+
+### Auditoría legal (11 de noviembre de 2026) ✅ publicada
+- Prompt de auditoría de la fundadora. El documento "docs/sistema/47-LEGAL-FISCAL-Y-PRIVACIDAD.md" y FICHA-MERCADO.md **no existen** en el proyecto: se auditó con el checklist del prompt y el código real. Datos del responsable ya conocidos: Maritza Pilar Vásquez Valencia, persona natural, Santiago de Chile, maritzavasquezv@gmail.com.
+- **6 páginas legales** en 3 idiomas, enlazadas en el pie de la página de ventas y de las legales: Términos, Privacidad, Reembolsos, **Cookies (nueva)**, **Aviso sobre la IA (nueva)**, Contacto.
+- **Discrepancias críticas corregidas** (lo prometido ≠ lo que hacía el código):
+  1. Se prometía "te avisamos antes de que termine la prueba / antes del cobro" y la app no envía ese aviso → ahora se muestra la fecha exacta del primer cobro y se explica cómo cancelar. ⚠️ Volver a prometerlo solo cuando exista el correo de aviso (y antes de vender el plan anual en EE. UU.: aviso previo a la renovación anual, ley de California).
+  2. Privacidad decía que recopilamos ubicación, peso y mensajes del Consejero → no es así (Destinos solo abre Google Maps; el texto de las preguntas no se guarda). Corregido.
+  3. La medición de uso (registro de eventos y canal de origen) funcionaba sin permiso → ahora hay **aviso de cookies con "Aceptar" y "Rechazar" igual de fáciles**; nada de medición se guarda ni envía antes de aceptar; al rechazar se borra lo guardado. Se cambia la elección en /cookies. Probado en el navegador.
+  4. Términos exigían 18+ pero el registro no lo pedía → la casilla de aceptación ahora incluye "declaro tener 18 años o más".
+  5. Reembolsos decía que había un enlace directo para cancelar en la app y no existía → nuevo botón en Cuenta "Cancelar o gestionar mi suscripción en Hotmart".
+- **Agregado**: proveedores Vercel y Resend; Anthropic no entrena con datos de la API; borrado de cuenta al instante y qué queda (compras por ley tributaria, uso y errores anónimos); derechos LGPD/UE/California; licencia de uso; propiedad de las respuestas de la IA; "no es servicio de emergencias"; aviso "la IA puede equivocarse" visible junto al Consejero y al escáner.
+- Garantía coherente en todo: 7 días gratis + 7 días de garantía Hotmart (landing = planes = términos = reembolsos).
+- ⚠️ Pendiente humano: revisión por abogado en Chile antes de lanzar (versión 1.1 y traducciones EN/PT); confirmar con contador el % de impuesto (boleta de honorarios / IVA por servicios digitales).

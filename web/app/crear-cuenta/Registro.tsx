@@ -39,7 +39,7 @@ export default function Registro() {
   async function crear(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!terminos) { setError(t("Para crear tu cuenta necesitas aceptar los Términos y la Política de privacidad.", "To create your account you need to accept the Terms and the Privacy Policy.", "Para criar sua conta você precisa aceitar os Termos e a Política de Privacidade.")); return; }
+    if (!terminos) { setError(t("Para crear tu cuenta necesitas aceptar los Términos y la Política de privacidad, y tener 18 años o más.", "To create your account you need to accept the Terms and the Privacy Policy, and be 18 or older.", "Para criar sua conta você precisa aceitar os Termos e a Política de Privacidade, e ter 18 anos ou mais.")); return; }
     if (clave.length < 8) { setError(claveCorta); return; }
     setEnviando(true);
     const consentimientos: Consentimiento[] = [
@@ -97,9 +97,9 @@ export default function Registro() {
         <label className="check">
           <input type="checkbox" checked={terminos} onChange={(e) => setTerminos(e.target.checked)} />
           <span>{t("Acepto los ", "I accept the ", "Aceito os ")}<Link href={legal("/terminos")} target="_blank">{t("Términos", "Terms", "Termos")}</Link>{t(" y la ", " and the ", " e a ")}<Link href={legal("/privacidad")} target="_blank">{t("Política de privacidad", "Privacy Policy", "Política de Privacidade")}</Link>{t(
-            ", incluido que mis datos se guarden en Brasil y la IA los procese en EE. UU.",
-            ", including that my data is stored in Brazil and processed by AI in the USA.",
-            ", incluindo que meus dados sejam guardados no Brasil e processados pela IA nos EUA.")}</span>
+            ", declaro tener 18 años o más y acepto que mis datos se guarden en Brasil y la IA los procese en EE. UU.",
+            ", confirm I am 18 or older, and agree that my data is stored in Brazil and processed by AI in the USA.",
+            ", declaro ter 18 anos ou mais e aceito que meus dados sejam guardados no Brasil e processados pela IA nos EUA.")}</span>
         </label>
         <label className="check">
           <input type="checkbox" checked={novedades} onChange={(e) => setNovedades(e.target.checked)} />

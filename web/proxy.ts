@@ -3,7 +3,7 @@ import { createServerClient } from "@supabase/ssr";
 import { esIdioma, idiomaDeNavegador } from "@/lib/idiomas";
 
 // Páginas públicas que tienen versión en /en y /pt.
-const CON_VERSION = ["/", "/terminos", "/privacidad", "/reembolsos", "/contacto"];
+const CON_VERSION = ["/", "/terminos", "/privacidad", "/reembolsos", "/cookies", "/aviso-ia", "/contacto"];
 
 // 1) Página de ventas y legales: lleva a cada persona a su idioma (el que eligió, o el de su celular).
 // 2) Mantiene viva la sesión de Supabase y protege la zona privada (/inicio).
@@ -54,5 +54,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/terminos", "/privacidad", "/reembolsos", "/contacto", "/inicio/:path*", "/admin", "/entrar", "/crear-cuenta", "/auth/:path*"],
+  matcher: ["/", "/terminos", "/privacidad", "/reembolsos", "/cookies", "/aviso-ia", "/contacto", "/inicio/:path*", "/admin", "/entrar", "/crear-cuenta", "/auth/:path*"],
 };

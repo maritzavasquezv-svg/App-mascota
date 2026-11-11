@@ -154,7 +154,7 @@ export default function Ventas({ i }: { i: Idioma }) {
       <a className="btn" href="/empezar">{t("Empezar mis 7 días gratis", "Start my 7 free days", "Começar meus 7 dias grátis")}</a>
     </div>
   </div>
-  <p className="letra">{t("Hoy no pagas nada. Te avisamos 2 días antes de que termine la prueba.", "You pay nothing today. We remind you 2 days before the trial ends.", "Hoje você não paga nada. Avisamos 2 dias antes de o teste terminar.")}</p>
+  <p className="letra">{t("Hoy no pagas nada. Se renueva automáticamente: si cancelas en Hotmart antes de que terminen los 7 días, no se te cobra.", "You pay nothing today. It renews automatically: cancel in Hotmart before the 7 days end and you won't be charged.", "Hoje você não paga nada. Renova automaticamente: se cancelar na Hotmart antes dos 7 dias, não é cobrado.")}</p>
 </div></section>
 
 {/* 7. GARANTÍA */}
@@ -205,7 +205,7 @@ export default function Ventas({ i }: { i: Idioma }) {
 {/* 10. FOOTER LEGAL */}
 <footer><div className="wrap">
   <a className="marca" href="#"><img src="/marca/isotipo-kopeet-180.png" alt="" />Kopeet</a>
-  <nav className="legal"><a href={L("/terminos")}>{t("Términos y condiciones", "Terms and conditions", "Termos e condições")}</a><a href={L("/privacidad")}>{t("Política de privacidad", "Privacy policy", "Política de privacidade")}</a><a href={L("/reembolsos")}>{t("Reembolsos", "Refunds", "Reembolsos")}</a><a href={L("/contacto")}>{t("Contacto", "Contact", "Contato")}</a></nav>
+  <nav className="legal"><a href={L("/terminos")}>{t("Términos y condiciones", "Terms and conditions", "Termos e condições")}</a><a href={L("/privacidad")}>{t("Política de privacidad", "Privacy policy", "Política de privacidade")}</a><a href={L("/reembolsos")}>{t("Reembolsos", "Refunds", "Reembolsos")}</a><a href={L("/cookies")}>{t("Cookies", "Cookies", "Cookies")}</a><a href={L("/aviso-ia")}>{t("Aviso sobre la IA", "AI notice", "Aviso sobre a IA")}</a><a href={L("/contacto")}>{t("Contacto", "Contact", "Contato")}</a></nav>
   <p className="aviso">{t("Kopeet es una guía educativa y preventiva. ", "Kopeet is an educational, preventive guide. ", "O Kopeet é um guia educativo e preventivo. ")}<b>{t("No reemplaza la consulta con un médico veterinario.", "It does not replace a visit to a veterinarian.", "Não substitui a consulta com um médico veterinário.")}</b>{t(" Ante una emergencia, acude de inmediato a una veterinaria.", " In an emergency, go to a vet clinic right away.", " Em uma emergência, procure imediatamente uma veterinária.")}</p>
   <p>© 2026 Kopeet AI. {t("Pagos procesados por Hotmart.", "Payments processed by Hotmart.", "Pagamentos processados pela Hotmart.")}</p>
 </div></footer>

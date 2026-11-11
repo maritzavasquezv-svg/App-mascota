@@ -83,6 +83,7 @@ export default function Escaner({ perro, alActualizar }: { perro: Perro; alActua
         <p className="mezcla">{perro.raza_declarada ? <><small>{t("Según la foto:", "From the photo:", "Pela foto:")}</small> {est.mezcla}</> : est.mezcla}</p>
         <div className="datos-est"><span><b>{est.edad_aprox}</b>{t("edad aprox.", "approx. age", "idade aprox.")}</span><span><b>{valor(est.tamano_adulto)}</b>{t("tamaño adulto", "adult size", "tamanho adulto")}</span><span><b>{est.peso_adulto_kg}</b>{t("peso adulto", "adult weight", "peso adulto")}</span></div>
         <p className="nota">{est.nota}</p>
+        <p className="aviso-vet">{t("Estimación hecha con IA a partir de una foto: puede equivocarse. No reemplaza al veterinario.", "AI estimate from a photo: it can be wrong. It does not replace your vet.", "Estimativa feita com IA a partir de uma foto: pode errar. Não substitui o veterinário.")}</p>
       </>) : <p className="vacio">{t("Estimamos su raza o mezcla, su edad y su tamaño de adulto con su foto.", "We estimate breed or mix, age and adult size from the photo.", "Estimamos raça ou mistura, idade e tamanho adulto pela foto.")}</p>}
       <div className="botones-min">
         <button onClick={analizar} disabled={estado === "analizando"}>{estado === "analizando"

@@ -5,7 +5,7 @@ import FijarIdioma from "@/components/FijarIdioma";
 import { tr, type Idioma } from "@/lib/idiomas";
 import "@/app/legal.css";
 
-export type DocLegal = "terminos" | "privacidad" | "reembolsos" | "contacto";
+export type DocLegal = "terminos" | "privacidad" | "reembolsos" | "cookies" | "aviso-ia" | "contacto";
 
 /** Cabecera y pie comunes de las páginas legales, en el idioma de la página. */
 export default function MarcoLegal({ i, doc, children }: { i: Idioma; doc: DocLegal; children: React.ReactNode }) {
@@ -15,6 +15,8 @@ export default function MarcoLegal({ i, doc, children }: { i: Idioma; doc: DocLe
     ["terminos", t("Términos y condiciones", "Terms and conditions", "Termos e condições")],
     ["privacidad", t("Política de privacidad", "Privacy policy", "Política de privacidade")],
     ["reembolsos", t("Reembolsos y cancelación", "Refunds and cancellation", "Reembolsos e cancelamento")],
+    ["cookies", t("Cookies", "Cookies", "Cookies")],
+    ["aviso-ia", t("Aviso sobre la IA", "AI notice", "Aviso sobre a IA")],
     ["contacto", t("Contacto", "Contact", "Contato")],
   ];
   return (

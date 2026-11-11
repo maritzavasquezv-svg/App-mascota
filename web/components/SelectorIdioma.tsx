@@ -3,7 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { IDIOMAS, cambiarIdioma, useT, type Idioma } from "@/lib/i18n";
 
 // Rutas que tienen versión propia por idioma: /en/... y /pt/... (página de ventas y legales).
-const CON_VERSION = ["/", "/terminos", "/privacidad", "/reembolsos", "/contacto"];
+const CON_VERSION = ["/", "/terminos", "/privacidad", "/reembolsos", "/cookies", "/aviso-ia", "/contacto"];
 
 const NOMBRES: Record<Idioma, string> = { es: "Español", en: "English", pt: "Português" };
 
