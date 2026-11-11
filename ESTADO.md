@@ -297,3 +297,9 @@ Aprobado.
 - La fundadora vende como **persona natural** con su inscripción de primera categoría en el SII (al día; giro ampliado para servicios digitales). No crea SpA.
 - Publicado en Términos (1), Privacidad (1), Contacto y pie de las páginas legales, en 3 idiomas: nombre, **RUT 15.333.434-K** y domicilio **solo "Santiago de Chile"** (sin comuna ni calle, por decisión de privacidad; la dirección completa se usa solo si el abogado/contador confirma que la ley la exige en la web).
 - Privacidad versión 1.4 (11 nov 2026): Brevo (Francia, UE) agregado como proveedor de los correos de la cuenta.
+
+### Seguridad: arreglos menores (11 de noviembre de 2026) ✅
+- Registros de salud: al editar, el perro tiene que ser de la persona (política `eventos propios: editar` con chequeo de dueño). Probado: edición propia OK; cambiar a un perro ajeno → bloqueado (42501).
+- Métricas: `registrar_evento` con tope general de 3.000 eventos por hora (además del tope por sesión). Archivo `web/supabase/seguridad_menor.sql`.
+- "Leaked password protection" de Supabase: solo existe en el plan Pro (pagado); queda para cuando haya ventas.
+- Quedan sin hacer (bajo riesgo): mover `pg_net` fuera de `public` y comparación del hottok en tiempo constante.
