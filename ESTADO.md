@@ -295,4 +295,4 @@ Aprobado.
 
 ### Identificación de la vendedora (11 de noviembre de 2026) ✅
 - La fundadora vende como **persona natural** con su inscripción de primera categoría en el SII (al día; giro ampliado para servicios digitales). No crea SpA.
-- Publicado en Términos (1), Privacidad (1), Contacto y pie de las páginas legales, en 3 idiomas: nombre, **RUT 15.333.434-K** y domicilio **solo comuna: Maipú, Santiago de Chile** (sin calle, por decisión de privacidad; la dirección completa se usa solo si el abogado/contador confirma que la ley la exige en la web).
+- Publicado en Términos (1), Privacidad (1), Contacto y pie de las páginas legales, en 3 idiomas: nombre, **RUT 15.333.434-K** y domicilio **solo "Santiago de Chile"** (sin comuna ni calle, por decisión de privacidad; la dirección completa se usa solo si el abogado/contador confirma que la ley la exige en la web).

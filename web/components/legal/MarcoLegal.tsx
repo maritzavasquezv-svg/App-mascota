@@ -37,7 +37,7 @@ export default function MarcoLegal({ i, doc, children }: { i: Idioma; doc: DocLe
       <footer><div className="w">
         <nav>{enlaces.map(([d, texto]) => <a key={d} href={L(`/${d}`)} aria-current={d === doc ? "page" : undefined}>{texto}</a>)}</nav>
         <p>{t("Kopeet es una guía educativa y preventiva. No reemplaza la consulta con un médico veterinario.", "Kopeet is an educational, preventive guide. It does not replace a visit to a veterinarian.", "O Kopeet é um guia educativo e preventivo. Não substitui a consulta com um médico veterinário.")}</p>
-        <p>© 2026 Kopeet AI · Maritza Pilar Vásquez Valencia · RUT 15.333.434-K · Maipú, Santiago de Chile.</p>
+        <p>© 2026 Kopeet AI · Maritza Pilar Vásquez Valencia · RUT 15.333.434-K · Santiago de Chile.</p>
       </div></footer>
     </div>
   );
