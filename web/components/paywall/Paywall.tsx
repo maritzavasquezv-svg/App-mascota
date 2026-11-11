@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Bell, Check, CreditCard, Lock, ShieldCheck, X } from "lucide-react";
-import { contarRespuestas, etiquetaEdad, etiquetaOrigen, fechasPrueba, leer, minutosEjercicio, nombreDe, preocupacion, type Respuestas } from "@/lib/onboarding";
+import { HORAS, contarRespuestas, etiquetaEdad, etiquetaOrigen, fechasPrueba, leer, minutosEjercicio, nombreDe, preocupacion, type Respuestas } from "@/lib/onboarding";
 import { useT } from "@/lib/i18n";
 import SelectorIdioma from "@/components/SelectorIdioma";
 import { registrarEvento } from "@/lib/eventos";
@@ -32,6 +32,7 @@ export default function Paywall() {
   const quien = t(sinNombre ? "de tu perro" : `de ${nombre}`, sinNombre ? "your dog's" : `${nombre}'s`, sinNombre ? "do seu cão" : `de ${nombre}`);
   const salir = () => router.push("/");
   const detalle = [etiquetaOrigen(r.origen, idioma), etiquetaEdad(r.edad, idioma)].filter(Boolean).join(" · ");
+  const horaPaseo = HORAS.find((h) => h.id === r.hora)?.hora ?? null;
 
   const cabeza = (
     <div className="cabeza">
@@ -56,11 +57,25 @@ export default function Paywall() {
             {detalle && <p className="sub">{detalle.charAt(0).toUpperCase() + detalle.slice(1)}</p>}
             <div className="resumen">
               <div><span>{t("Ejercicio de hoy", "Today's exercise", "Exercício de hoje")}</span><b>{minutosEjercicio(r.edad)} min</b></div>
-              <div><span>{t("Avisos", "Reminders", "Avisos")}</span><b>{r.hora ? t("Cada día a tu hora", "Every day at your time", "Todo dia no seu horário") : t("Cuando los actives", "When you turn them on", "Quando você ativar")}</b></div>
-              {r.preocupaciones[0] && <div><span>{t("Primero en su plan", "First in the plan", "Primeiro no plano")}</span><b>{preocupacion(r.preocupaciones[0], idioma)}</b></div>}
-              <div className="bloq"><span><Lock size={14} /> {t("Ración diaria", "Daily food", "Ração diária")}</span><b>{t("Según su peso", "Based on weight", "Conforme o peso")}</b></div>
-              <div className="bloq"><span><Lock size={14} /> {t("Vacunas", "Vaccines", "Vacinas")}</span><b>{t("Calendario completo", "Full calendar", "Calendário completo")}</b></div>
-              <div className="bloq"><span><Lock size={14} /> {t("Adaptación", "Settling in", "Adaptação")}</span><b>{t("Plan de 1 mes", "1-month plan", "Plano de 1 mês")}</b></div>
+              <div><span>{t("Avisos", "Reminders", "Avisos")}</span><b>{horaPaseo
+                ? t(`Cada día a las ${horaPaseo}`, `Every day at ${horaPaseo}`, `Todo dia às ${horaPaseo}`)
+                : t("Cuando los actives", "When you turn them on", "Quando você ativar")}</b></div>
+              {r.preocupaciones[0] && <div><span>{t("Primero en su plan", "First in the plan", "Primeiro no plano")}</span><b>{preocupacion(r.preocupaciones[0], idioma)}{r.preocupaciones.length > 1 ? t(` y ${r.preocupaciones.length - 1} más`, ` and ${r.preocupaciones.length - 1} more`, ` e mais ${r.preocupaciones.length - 1}`) : ""}</b></div>}
+              <div className="bloq"><span><Lock size={14} /> {t("Ración diaria", "Daily food", "Ração diária")}</span><b>{r.edad === "cachorro"
+                ? t("3 a 4 comidas al día, según su peso", "3 to 4 meals a day, based on weight", "3 a 4 refeições por dia, conforme o peso")
+                : r.edad === "adulto" || r.edad === "senior"
+                  ? t("2 comidas al día, según su peso", "2 meals a day, based on weight", "2 refeições por dia, conforme o peso")
+                  : t("Según su peso", "Based on weight", "Conforme o peso")}</b></div>
+              <div className="bloq"><span><Lock size={14} /> {t("Vacunas", "Vaccines", "Vacinas")}</span><b>{r.edad === "cachorro"
+                ? t("Serie de cachorro y refuerzos", "Puppy series and boosters", "Série de filhote e reforços")
+                : r.edad === "senior"
+                  ? t("Refuerzos y control cada 6 meses", "Boosters and a checkup every 6 months", "Reforços e consulta a cada 6 meses")
+                  : r.edad === "adulto"
+                    ? t("Refuerzos de cada año", "Yearly boosters", "Reforços anuais")
+                    : t("Calendario completo", "Full calendar", "Calendário completo")}</b></div>
+              <div className="bloq"><span><Lock size={14} /> {t("Adaptación", "Settling in", "Adaptação")}</span><b>{r.origen === "refugio" || r.origen === "calle"
+                ? t("1 mes, pensado para perros rescatados", "1 month, designed for rescued dogs", "1 mês, pensado para cães resgatados")
+                : t("Plan de 1 mes", "1-month plan", "Plano de 1 mês")}</b></div>
             </div>
             <p className="nota">{t(`Hecho con tus ${contarRespuestas(r)} respuestas.`, `Made with your ${contarRespuestas(r)} answers.`, `Feito com suas ${contarRespuestas(r)} respostas.`)}</p>
             <div className="espacio" />
