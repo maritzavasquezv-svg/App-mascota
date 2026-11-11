@@ -272,3 +272,15 @@ Aprobado.
   4. Registrar la marca "Kopeet" en INAPI.
   5. Correos de novedades: cada envío debe incluir forma de darse de baja (Ley 19.496 art. 28 B).
   6. Revisión final por abogado en Chile (versión 1.2 y traducciones).
+
+### Auditoría de seguridad (11 de noviembre de 2026) ✅ arreglos publicados
+- Resultado: 0 críticos. Bien: sin claves en código ni historial; RLS en todas las tablas (anónimo no lee nada); funciones admin protegidas; panel protegido en servidor; plan y límites de IA en servidor; fotos privadas (5 MB, solo imágenes); borrar cuenta borra de verdad; HTTPS + HSTS; npm audit 0 vulnerabilidades.
+- **Arreglado (migración `hotmart_seguridad`, archivo `web/supabase/hotmart_seguridad.sql`)**:
+  - Cancelar la suscripción mantiene el acceso hasta el fin del período pagado (usa `date_next_charge` de Hotmart; si no viene, la última compra + 1 mes/1 año).
+  - Avisos de Hotmart desordenados: uno más antiguo no cambia el acceso (nueva columna `suscripciones.evento_en`); una compra reembolsada no se reactiva con un aviso repetido.
+  - Intentos con hottok falso: se guardan máx. 30 por hora.
+  - Probado con compras simuladas dentro de una transacción deshecha (6/6 casos ok).
+- **Cabeceras de seguridad** en `web/next.config.ts`: X-Frame-Options DENY, frame-ancestors 'none', nosniff, Referrer-Policy, Permissions-Policy.
+- Nota: el MRR del panel cuenta como activa a una suscripción cancelada que aún está en su período pagado (hasta que vence).
+- ⚠️ Pendiente de la fundadora: (1) SMTP propio en Supabase (sin él los correos de cuenta no llegan a clientes); (2) activar "Leaked password protection" en Supabase → Authentication.
+- Recomendados sin hacer: tope global a `registrar_evento`, chequear perro propio al editar `eventos_salud`, mover `pg_net` fuera de public, comparación de hottok en tiempo constante.
