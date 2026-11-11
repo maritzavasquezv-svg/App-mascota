@@ -46,14 +46,15 @@ export async function POST(req: NextRequest) {
     }
   }
   try {
-    const est = await estimarPerro(b64, tipo as "image/jpeg" | "image/png" | "image/webp", contexto, i);
-    await supabase.from("usos_ia").insert({ tipo: "escaner" });
+    const { estimacion: est, uso } = await estimarPerro(b64, tipo as "image/jpeg" | "image/png" | "image/webp", contexto, i);
+    await supabase.from("usos_ia").insert({ tipo: "escaner", ...uso });
     if (!est) return NextResponse.json({ error: tr(i, "No pudimos analizar esta foto. Prueba con otra.", "We couldn't analyze this photo. Try another one.", "Não conseguimos analisar esta foto. Tente outra.") }, { status: 422 });
     if (!est.es_perro) return NextResponse.json({ error: tr(i, "No vemos un perro con claridad en la foto. Prueba otra de frente y con buena luz.", "We can't clearly see a dog in the photo. Try another one, facing the camera in good light.", "Não vemos um cão com clareza na foto. Tente outra de frente e com boa luz.") }, { status: 422 });
     if (datos.data.perroId) await supabase.from("perros").update({ estimacion: est }).eq("id", datos.data.perroId);
     return NextResponse.json({ estimacion: est });
   } catch (error) {
     console.error("escaner", error);
+    await supabase.rpc("registrar_error", { p_origen: "escaner", p_mensaje: error instanceof Error ? error.message : String(error) });
     return NextResponse.json({ error: mensajeErrorIA(error, i) }, { status: 502 });
   }
 }

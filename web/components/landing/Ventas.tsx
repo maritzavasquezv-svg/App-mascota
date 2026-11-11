@@ -2,6 +2,7 @@
 import EfectosLanding from "@/components/landing/EfectosLanding";
 import SelectorIdioma from "@/components/SelectorIdioma";
 import FijarIdioma from "@/components/FijarIdioma";
+import { EventoAlAbrir } from "@/components/Analitica";
 import { tr, type Idioma } from "@/lib/idiomas";
 
 /** Página de ventas en el idioma indicado (/, /en, /pt). */
@@ -11,6 +12,7 @@ export default function Ventas({ i }: { i: Idioma }) {
   return (
     <div className="lp">
       <FijarIdioma i={i} />
+      <EventoAlAbrir nombre="pagina_ventas" />
 
 
 <header className="top"><div className="wrap">

@@ -26,7 +26,7 @@ async function dataUrlABlob(dataUrl: string): Promise<Blob> {
  * los crea con lo que la persona respondió (metadatos del registro + datos guardados en el navegador).
  */
 export async function completarRegistro(supabase: SupabaseClient, user: User): Promise<void> {
-  const meta = (user.user_metadata ?? {}) as { onboarding?: Partial<Respuestas>; plan?: string; consentimientos?: Consentimiento[]; locale?: string };
+  const meta = (user.user_metadata ?? {}) as { onboarding?: Partial<Respuestas>; plan?: string; consentimientos?: Consentimiento[]; locale?: string; origen?: string | null; nombre?: string };
   const pendiente = leerPendiente();
 
   // 1) Consentimientos (solo si no hay ninguno registrado todavía)
@@ -43,6 +43,8 @@ export async function completarRegistro(supabase: SupabaseClient, user: User): P
   await supabase.from("perfiles").upsert({
     id: user.id, hora_paseo: ob.hora ?? null, avisos: ob.avisos ?? "sin-respuesta",
     plan_elegido: pendiente?.plan ?? meta.plan ?? null,
+    ...(meta.origen ? { origen: meta.origen } : {}),
+    ...(meta.nombre ? { nombre: meta.nombre } : {}),
   });
 
   // 3) Primer perro (solo si no tiene ninguno)

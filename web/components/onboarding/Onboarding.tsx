@@ -9,6 +9,7 @@ import {
 } from "@/lib/onboarding";
 import { useT } from "@/lib/i18n";
 import SelectorIdioma from "@/components/SelectorIdioma";
+import { registrarEvento } from "@/lib/eventos";
 
 const TOTAL = 8;
 
@@ -23,6 +24,7 @@ export default function Onboarding() {
 
   useEffect(() => { guardar(r); }, [r]);
   useEffect(() => { if (paso === 1) nombreRef.current?.focus(); }, [paso]);
+  useEffect(() => { registrarEvento("onboarding_paso", { paso }); }, [paso]);
 
   // Paso 8: el plan "se arma" frente a la persona y luego pasa al paywall
   useEffect(() => {

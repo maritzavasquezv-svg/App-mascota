@@ -7,6 +7,7 @@ import { ArrowLeft, Camera, Check } from "lucide-react";
 import { crearCliente } from "@/lib/supabase/cliente";
 import { EDADES, ORIGENES, reducirFoto, type Edad, type Origen } from "@/lib/onboarding";
 import { useT } from "@/lib/i18n";
+import { registrarEvento } from "@/lib/eventos";
 
 export default function SumarPerro() {
   const router = useRouter();
@@ -38,6 +39,7 @@ export default function SumarPerro() {
     const { data, error } = await s.from("perros").insert({ usuario_id: user.id, nombre: nombre.trim(), origen, edad, foto_ruta: fotoRuta }).select("id").single();
     setGuardando(false);
     if (error) { setError(t("No pudimos guardar a tu perro. Intenta de nuevo.", "We couldn't save your dog. Try again.", "Não conseguimos salvar seu cão. Tente de novo.")); return; }
+    registrarEvento("perro_creado");
     try { window.localStorage.setItem("kopeet-perro-activo", data.id); } catch { /* nada */ }
     router.push("/inicio");
   }

@@ -9,6 +9,7 @@ import RutinaHoy from "@/components/app/RutinaHoy";
 import AvisoPlan, { usePlan } from "@/components/app/AvisoPlan";
 import { minutosEjercicio } from "@/lib/onboarding";
 import { locale, useT } from "@/lib/i18n";
+import { registrarEvento } from "@/lib/eventos";
 import {
   TIPOS_EVENTO, diasEnCasa, enDias, fechaCorta, hoyISO, minutosDelDia, racha,
   type EventoSalud, type Registro,
@@ -69,7 +70,8 @@ export default function Inicio() {
 
   async function agregar(tipo: Registro["tipo"], minutos?: number) {
     const { error } = await crearCliente().from("registros").insert({ perro_id: activo!.id, tipo, minutos: minutos ?? null, fecha: hoyISO() });
-    if (error) setAviso(t("No pudimos guardar. Intenta de nuevo.", "We couldn't save. Try again.", "Não conseguimos salvar. Tente de novo.")); else void cargar(activo!.id);
+    if (error) setAviso(t("No pudimos guardar. Intenta de nuevo.", "We couldn't save. Try again.", "Não conseguimos salvar. Tente de novo."));
+    else { registrarEvento("rutina", { tipo }); void cargar(activo!.id); }
   }
   async function deshacer(tipo: Registro["tipo"]) {
     const ult = registros.filter((r) => r.tipo === tipo && r.fecha === hoyISO()).at(-1);

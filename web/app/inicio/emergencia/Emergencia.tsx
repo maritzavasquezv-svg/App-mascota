@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { AlertTriangle, MapPin, Phone } from "lucide-react";
 import { mapa } from "@/lib/app-datos";
 import { IDIOMAS, useT, type Txt } from "@/lib/i18n";
+import { EventoAlAbrir } from "@/components/Analitica";
 
 // El motivo llega desde el Consejero en el idioma de la persona; se busca en los tres.
 const CONSEJOS: { motivo: Txt; consejo: Txt }[] = [
@@ -34,6 +35,7 @@ export default function Emergencia() {
   const consejo = CONSEJOS.find((c) => IDIOMAS.some((i) => c.motivo[i] === motivo))?.consejo[idioma];
   return (
     <div className="cuerpo entra">
+      <EventoAlAbrir nombre="emergencia_abierta" />
       <div className="emer">
         <div className="emer-icono"><AlertTriangle size={34} /></div>
         <p className="emer-et">{t("Emergencia", "Emergency", "Emergência")}</p>

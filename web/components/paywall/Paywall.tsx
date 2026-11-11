@@ -7,6 +7,7 @@ import { ArrowLeft, Bell, Check, CreditCard, Lock, ShieldCheck, X } from "lucide
 import { contarRespuestas, etiquetaEdad, etiquetaOrigen, fechasPrueba, leer, minutosEjercicio, nombreDe, preocupacion, type Respuestas } from "@/lib/onboarding";
 import { useT } from "@/lib/i18n";
 import SelectorIdioma from "@/components/SelectorIdioma";
+import { registrarEvento } from "@/lib/eventos";
 
 type Plan = "anual" | "mensual";
 
@@ -20,6 +21,7 @@ export default function Paywall() {
   const fechas = fechasPrueba(hoy, idioma);
 
   useEffect(() => { window.scrollTo(0, 0); }, [pantalla]);
+  useEffect(() => { registrarEvento("plan_visto"); }, []);
 
   const sinNombre = !r.nombre.trim();
   const nombre = nombreDe(r, idioma);
@@ -95,7 +97,7 @@ export default function Paywall() {
               </button>
             </div>
             <div className="espacio" />
-            <Link className="cta azul" href={`/crear-cuenta?plan=${plan}`}>{t(`Empezar el plan ${quien} gratis`, `Start ${quien} plan for free`, `Começar o plano ${quien} grátis`)}</Link>
+            <Link className="cta azul" href={`/crear-cuenta?plan=${plan}`} onClick={() => registrarEvento("plan_elegido", { plan })}>{t(`Empezar el plan ${quien} gratis`, `Start ${quien} plan for free`, `Começar o plano ${quien} grátis`)}</Link>
             <p className="letra">
               <b>{t("Hoy no pagas nada.", "You pay nothing today.", "Hoje você não paga nada.")}</b>{" "}
               {plan === "anual"

@@ -5,6 +5,7 @@ import { AlertTriangle, ChevronRight, Send, Siren } from "lucide-react";
 import { usePerros } from "@/components/app/usePerros";
 import type { RespuestaConsejero } from "@/lib/app-datos";
 import { useT } from "@/lib/i18n";
+import { registrarEvento } from "@/lib/eventos";
 
 interface Mensaje { de: "yo" | "kopeet"; texto?: string; resp?: RespuestaConsejero; ia?: boolean; plan?: boolean }
 const LUCES = { rojo: "#e53935", amarillo: "#f4b400", verde: "#22b35e" } as const;
@@ -24,6 +25,7 @@ export default function Consejero() {
     setChat((c) => [...c, { de: "yo", texto: pregunta }]);
     setTexto("");
     setPensando(true);
+    registrarEvento("consejero");
     try {
       const res = await fetch("/api/consejero", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pregunta, perroId: activo?.id, idioma }) });
       const d = await res.json();

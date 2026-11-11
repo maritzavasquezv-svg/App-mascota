@@ -1,57 +1,36 @@
-"use client";
-/* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { clienteConSesion } from "@/lib/supabase/servidor";
+import PanelAdmin from "./PanelAdmin";
 import "../flujo.css";
+import "./admin.css";
 
-interface Resumen {
-  totales: { cuentas: number; confirmadas: number; perros: number; usosIaHoy: number };
-  planes: { activa: number; cancelada: number; reembolsada: number; vencida: number };
-  usuarios: { email: string; creado: string; confirmado: boolean; ultimoIngreso: string | null; estado: string; plan: string | null }[];
-}
-const fecha = (s: string | null) => (s ? new Intl.DateTimeFormat("es-CL", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }).format(new Date(s)) : "—");
+export const metadata: Metadata = { title: "Panel · Kopeet", robots: { index: false, follow: false } };
 
-export default function Admin() {
-  const [datos, setDatos] = useState<Resumen | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetch("/api/admin/resumen").then(async (r) => {
-      const d = await r.json();
-      if (!r.ok) setError(r.status === 403 ? "Esta página es solo para la administración de Kopeet." : d.error ?? "No pudimos cargar el panel.");
-      else setDatos(d as Resumen);
-    }).catch(() => setError("No pudimos cargar el panel."));
-  }, []);
-
-  return (
-    <main className="flujo">
-      <div className="marco admin">
-        <div className="cabeza"><Link className="atras" href="/inicio" aria-label="Volver"><ArrowLeft size={18} /></Link><img src="/marca/isotipo-kopeet-180.png" alt="" /><b>Panel de Kopeet</b></div>
-        {error && <p className="error" role="alert">{error}</p>}
-        {!datos && !error && <p className="sub">Cargando…</p>}
-        {datos && (<div className="cuerpo entra">
-          <div className="kpis">
-            <div><b>{datos.totales.cuentas}</b><span>cuentas</span></div>
-            <div><b>{datos.planes.activa}</b><span>planes activos</span></div>
-            <div><b>{datos.totales.perros}</b><span>perros</span></div>
-            <div><b>{datos.totales.usosIaHoy}</b><span>usos de IA hoy</span></div>
-          </div>
-          <p className="nota">Confirmadas: {datos.totales.confirmadas} · Canceladas: {datos.planes.cancelada} · Reembolsadas: {datos.planes.reembolsada} · Vencidas: {datos.planes.vencida}</p>
-          <section className="tarjeta">
-            <p className="tarjeta-tit"><span>Usuarios ({datos.usuarios.length})</span></p>
-            <div className="tabla-usuarios">
-              {datos.usuarios.map((u) => (
-                <div key={u.email}>
-                  <b>{u.email}</b>
-                  <span>Alta {fecha(u.creado)} · Último ingreso {fecha(u.ultimoIngreso)}{u.confirmado ? "" : " · sin confirmar"}</span>
-                  <em className={`estado ${u.estado.replace(" ", "-")}`}>{u.estado}{u.plan ? ` · ${u.plan}` : ""}</em>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>)}
+/** Verificación EN EL SERVIDOR: si no es administradora, no se entrega nada del panel. */
+async function Guardia() {
+  const supabase = await clienteConSesion();
+  const { data: { user } } = await supabase.auth.getUser();
+  const { data: admin } = user ? await supabase.rpc("es_admin") : { data: false };
+  if (!admin) {
+    return (
+      <div className="cuerpo entra">
+        <h1>Esta página es privada</h1>
+        <p className="sub">Solo la administración de Kopeet puede verla.</p>
+        <Link className="cta azul" href="/inicio">Volver a la app</Link>
       </div>
+    );
+  }
+  return <PanelAdmin correo={user!.email ?? ""} />;
+}
+
+export default function PaginaAdmin() {
+  return (
+    <main className="panel-admin">
+      <Suspense fallback={<p className="pa-cargando">Cargando el panel…</p>}>
+        <Guardia />
+      </Suspense>
     </main>
   );
 }

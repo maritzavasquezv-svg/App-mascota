@@ -1,47 +1,21 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { timingSafeEqual } from "node:crypto";
-import { clienteAdmin } from "@/lib/supabase/servidor";
+import { clientePublico } from "@/lib/supabase/servidor";
 
-// Hotmart avisa aquí cada compra, cancelación o reembolso.
-// Se verifica con el "hottok" secreto del producto (variable HOTMART_HOTTOK).
-const ESTADOS: Record<string, "activa" | "cancelada" | "reembolsada" | "vencida"> = {
-  PURCHASE_APPROVED: "activa",
-  PURCHASE_COMPLETE: "activa",
-  PURCHASE_REFUNDED: "reembolsada",
-  PURCHASE_CHARGEBACK: "reembolsada",
-  PURCHASE_PROTEST: "reembolsada",
-  PURCHASE_CANCELED: "cancelada",
-  SUBSCRIPTION_CANCELLATION: "cancelada",
-  PURCHASE_EXPIRED: "vencida",
-  PURCHASE_DELAYED: "vencida",
-};
-
-function hottokValido(recibido: string | null): boolean {
-  const esperado = process.env.HOTMART_HOTTOK;
-  if (!esperado || !recibido) return false;
-  const a = Buffer.from(recibido), b = Buffer.from(esperado);
-  return a.length === b.length && timingSafeEqual(a, b);
-}
-
+// Hotmart avisa aquí cada compra, renovación, cancelación o reembolso.
+// Todo lo hace la función hotmart_recibir() de la base: valida el hottok (que la dueña guarda en el panel),
+// guarda la venta con sus montos y comisiones, y activa o corta el plan de esa persona.
 export async function POST(req: NextRequest) {
-  if (!hottokValido(req.headers.get("x-hotmart-hottok"))) return NextResponse.json({ error: "no autorizado" }, { status: 401 });
+  const cuerpo = (await req.json().catch(() => null)) as Record<string, unknown> | null;
+  if (!cuerpo) return NextResponse.json({ error: "cuerpo inválido" }, { status: 400 });
+  // Hotmart manda el hottok en la cabecera X-HOTMART-HOTTOK (y en versiones antiguas, dentro del cuerpo).
+  const hottok = req.headers.get("x-hotmart-hottok") ?? (typeof cuerpo.hottok === "string" ? cuerpo.hottok : null);
 
-  const cuerpo = await req.json().catch(() => null) as {
-    event?: string;
-    data?: { buyer?: { email?: string }; purchase?: { transaction?: string; recurrence_number?: number }; subscription?: { plan?: { name?: string } } };
-  } | null;
-  const evento = cuerpo?.event ?? "";
-  const email = cuerpo?.data?.buyer?.email?.trim().toLowerCase();
-  const estado = ESTADOS[evento];
-  if (!email || !estado) return NextResponse.json({ ok: true, ignorado: evento || "sin evento" });
-
-  const nombrePlan = (cuerpo?.data?.subscription?.plan?.name ?? "").toLowerCase();
-  const plan = nombrePlan.includes("anual") ? "anual" : nombrePlan.includes("mensual") ? "mensual" : null;
-
-  const { error } = await clienteAdmin().from("suscripciones").upsert({
-    email, estado, plan, hotmart_transaccion: cuerpo?.data?.purchase?.transaction ?? null,
-    ultimo_evento: evento, actualizado_en: new Date().toISOString(),
-  });
-  if (error) { console.error("hotmart", error); return NextResponse.json({ error: "no se pudo guardar" }, { status: 500 }); }
-  return NextResponse.json({ ok: true });
+  const { data, error } = await clientePublico().rpc("hotmart_recibir", { p_hottok: hottok, p_payload: cuerpo });
+  if (error) {
+    console.error("hotmart", error.code, error.message);
+    return NextResponse.json({ error: "no se pudo guardar" }, { status: 500 }); // Hotmart reintenta
+  }
+  const r = data as { ok: boolean; motivo?: string };
+  if (!r.ok) return NextResponse.json({ error: r.motivo }, { status: r.motivo === "hottok" ? 401 : 503 });
+  return NextResponse.json(r);
 }

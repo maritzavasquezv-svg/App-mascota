@@ -8,6 +8,7 @@ import { leer, nombreDe } from "@/lib/onboarding";
 import { guardarPendiente, type Consentimiento } from "@/lib/registro";
 import { useT } from "@/lib/i18n";
 import SelectorIdioma from "@/components/SelectorIdioma";
+import { leerOrigen, registrarEvento } from "@/lib/eventos";
 
 export default function Registro() {
   const router = useRouter();
@@ -52,13 +53,14 @@ export default function Registro() {
       options: {
         emailRedirectTo: `${window.location.origin}/auth/listo`,
         data: {
-          plan, consentimientos, locale: navigator.language, idioma,
+          plan, consentimientos, locale: navigator.language, idioma, origen: leerOrigen(),
           onboarding: { nombre: r.nombre, origen: r.origen, edad: r.edad, preocupaciones: r.preocupaciones, hora: r.hora, avisos: r.avisos },
         },
       },
     });
     setEnviando(false);
     if (error) { setError(traducirError(error.message)); return; }
+    registrarEvento("cuenta_creada", { plan });
     if (data.session) { router.push("/entrar?error=enlace"); return; }
     else setRevisaCorreo(true);
   }

@@ -2,6 +2,7 @@
 import { ExternalLink } from "lucide-react";
 import { mapa } from "@/lib/app-datos";
 import { useT, type Txt } from "@/lib/i18n";
+import { registrarEvento } from "@/lib/eventos";
 
 interface Lugar { emoji: string; nombre: Txt; detalle: Txt; busqueda: Txt }
 const GRUPOS: { titulo: Txt; lugares: Lugar[] }[] = [
@@ -34,7 +35,7 @@ export default function Destinos() {
           <p className="tarjeta-tit"><span>{g.titulo[idioma]}</span></p>
           <div className="destinos">
             {g.lugares.map((l) => (
-              <a key={l.nombre.es} href={mapa(l.busqueda[idioma])} target="_blank" rel="noopener noreferrer">
+              <a key={l.nombre.es} href={mapa(l.busqueda[idioma])} target="_blank" rel="noopener noreferrer" onClick={() => registrarEvento("destino_abierto", { lugar: l.emoji })}>
                 <span className="dest-emoji" aria-hidden="true">{l.emoji}</span>
                 <span className="dest-tx"><b>{l.nombre[idioma]}</b><em>{l.detalle[idioma]}</em></span>
                 <ExternalLink size={15} />

@@ -8,6 +8,7 @@ import { usePerros } from "@/components/app/usePerros";
 import SelectorPerros from "@/components/app/SelectorPerros";
 import { hoyISO, racha, type Registro } from "@/lib/app-datos";
 import { useT, type Txt } from "@/lib/i18n";
+import { registrarEvento } from "@/lib/eventos";
 
 const PASOS: { t: Txt; d: Txt }[] = [
   { t: { es: "Llévalo a su lugar apenas despierte", en: "Take them to their spot as soon as they wake up", pt: "Leve ao lugar certo assim que acordar" },
@@ -57,7 +58,7 @@ export default function Bano() {
 
   async function loHizo() {
     const { error } = await crearCliente().from("registros").insert({ perro_id: activo!.id, tipo: "bano", fecha: hoyISO() });
-    if (!error) { await cargar(activo!.id); if (n + (hoyHecho ? 0 : 1) >= 7) setFestejo(true); }
+    if (!error) { registrarEvento("rutina", { tipo: "bano" }); await cargar(activo!.id); if (n + (hoyHecho ? 0 : 1) >= 7) setFestejo(true); }
   }
 
   return (

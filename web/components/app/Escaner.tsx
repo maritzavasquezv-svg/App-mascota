@@ -4,6 +4,7 @@ import { BadgeCheck, Pencil, RefreshCw, Sparkles } from "lucide-react";
 import { crearCliente } from "@/lib/supabase/cliente";
 import type { Perro } from "@/lib/app-datos";
 import { useT } from "@/lib/i18n";
+import { registrarEvento } from "@/lib/eventos";
 import SubirFoto from "@/components/app/SubirFoto";
 
 // Valores fijos que la IA devuelve en español; se traducen al mostrarlos.
@@ -27,6 +28,7 @@ export default function Escaner({ perro, alActualizar }: { perro: Perro; alActua
   async function analizar() {
     if (!perro.foto_ruta) return;
     setEstado("analizando"); setError(null);
+    registrarEvento("escaner");
     const noLee = t("No pudimos leer la foto.", "We couldn't read the photo.", "Não conseguimos ler a foto.");
     try {
       const { data, error: e } = await crearCliente().storage.from("fotos-perros").download(perro.foto_ruta);

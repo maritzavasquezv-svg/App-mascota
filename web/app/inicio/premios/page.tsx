@@ -7,6 +7,7 @@ import SelectorPerros from "@/components/app/SelectorPerros";
 import { minutosEjercicio } from "@/lib/onboarding";
 import { premios, type EventoSalud, type Registro } from "@/lib/app-datos";
 import { useT } from "@/lib/i18n";
+import { EventoAlAbrir } from "@/components/Analitica";
 
 const ICONOS: Record<string, React.ReactNode> = {
   "primer-paseo": <Award size={26} />, "pelota-oro": <Trophy size={26} />, "hueso-dorado": <Bone size={26} />,
@@ -34,6 +35,7 @@ export default function Premios() {
 
   return (
     <div className="cuerpo entra">
+      <EventoAlAbrir nombre="premios_vistos" />
       <p className="fecha-hoy">{t("Pared de premios", "Rewards wall", "Mural de prêmios")}</p>
       <h1>{t(`Los premios de ${activo.nombre || "tu perro"}`, `${activo.nombre || "Your dog"}'s rewards`, `Os prêmios de ${activo.nombre || "seu cão"}`)}</h1>
       <SelectorPerros perros={perros} fotos={fotos} activoId={activo.id} elegir={elegir} />

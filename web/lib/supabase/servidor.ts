@@ -13,10 +13,12 @@ export async function clienteConSesion() {
   );
 }
 
-/** Cliente con la clave SECRETA de Supabase (salta RLS). Solo para el webhook de Hotmart. */
-export function clienteAdmin() {
-  // trim(): al copiar y pegar a veces se cuela un espacio o salto de línea, que rompe la cabecera HTTP.
-  const clave = process.env.SUPABASE_SECRET_KEY?.trim();
-  if (!clave) throw new Error("Falta SUPABASE_SECRET_KEY en las variables del servidor");
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, clave, { auth: { persistSession: false, autoRefreshToken: false } });
+/**
+ * Cliente sin sesión, con la clave pública. Lo usan el aviso de Hotmart (que se valida con su hottok dentro
+ * de la base) y el envío de enlaces de acceso. Ya no hace falta la clave secreta de Supabase.
+ */
+export function clientePublico(flujo: "pkce" | "implicit" = "pkce") {
+  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, {
+    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false, flowType: flujo },
+  });
 }

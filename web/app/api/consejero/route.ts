@@ -44,12 +44,13 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const r = await consultarConsejero(pregunta, contexto, i);
-    await supabase.from("usos_ia").insert({ tipo: "consejero" });
+    const { respuesta: r, uso } = await consultarConsejero(pregunta, contexto, i);
+    await supabase.from("usos_ia").insert({ tipo: "consejero", ...uso });
     if (!r) return NextResponse.json({ respuesta: reglas, fuente: "reglas" });
     return NextResponse.json({ respuesta: r, fuente: "ia" });
   } catch (error) {
     console.error("consejero", error);
+    await supabase.rpc("registrar_error", { p_origen: "consejero", p_mensaje: error instanceof Error ? error.message : String(error) });
     return NextResponse.json({ respuesta: { ...reglas, pasos: [mensajeErrorIA(error, i), ...reglas.pasos] }, fuente: "reglas" });
   }
 }

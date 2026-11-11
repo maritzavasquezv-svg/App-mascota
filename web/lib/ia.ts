@@ -15,6 +15,29 @@ const ia = () => (cliente ??= new Anthropic());
 // Si la IA declina por seguridad, el servidor de Anthropic reintenta con otro modelo adecuado.
 const FALLBACK = { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" as const };
 
+// ---------------- Costo real de cada llamada ----------------
+// Precios en US$ por millón de tokens (lista oficial de Anthropic, nov 2026). El modelo de respaldo
+// (server-side fallback) puede responder en lugar del principal: se cobra según el modelo que respondió.
+const PRECIOS: Record<string, { entrada: number; salida: number; cacheLee: number; cacheEscribe: number }> = {
+  "claude-opus-5-5": { entrada: 4, salida: 20, cacheLee: 0.2, cacheEscribe: 5 },
+  "claude-opus-5": { entrada: 5, salida: 25, cacheLee: 0.5, cacheEscribe: 6.25 },
+  "claude-opus-4-8": { entrada: 5, salida: 25, cacheLee: 0.5, cacheEscribe: 6.25 },
+  "claude-sonnet-5-5": { entrada: 2, salida: 10, cacheLee: 0.1, cacheEscribe: 2.5 },
+  "claude-sonnet-5": { entrada: 2, salida: 10, cacheLee: 0.2, cacheEscribe: 2.5 },
+};
+
+export interface UsoIA { modelo: string; tokens_entrada: number; tokens_salida: number; tokens_cache: number; costo_usd: number | null }
+
+function medirUso(r: { model: string; usage: { input_tokens: number; output_tokens: number; cache_read_input_tokens?: number | null; cache_creation_input_tokens?: number | null } }): UsoIA {
+  const u = r.usage;
+  const lee = u.cache_read_input_tokens ?? 0, escribe = u.cache_creation_input_tokens ?? 0;
+  const precio = PRECIOS[r.model] ?? Object.entries(PRECIOS).find(([k]) => r.model.startsWith(k))?.[1];
+  const costo = precio
+    ? (u.input_tokens * precio.entrada + u.output_tokens * precio.salida + lee * precio.cacheLee + escribe * precio.cacheEscribe) / 1_000_000
+    : null; // modelo sin precio conocido: el panel lo muestra como "Sin datos"
+  return { modelo: r.model, tokens_entrada: u.input_tokens + escribe, tokens_salida: u.output_tokens, tokens_cache: lee, costo_usd: costo };
+}
+
 // ---------------- Consejero ----------------
 export const RespuestaConsejero = z.object({
   luz: z.enum(["verde", "amarillo", "rojo"]).describe("verde = observar en casa; amarillo = consultar al veterinario pronto; rojo = ir al veterinario ya"),
@@ -32,7 +55,7 @@ Clasificas cada consulta con un semáforo:
 - verde: dudas de conducta, rutina, alimentación o adaptación sin señales de alarma. Da pasos prácticos.
 Reglas: no diagnostiques enfermedades ni recetes medicamentos ni dosis; ante la duda entre dos colores, elige el más precavido; si es cachorro o senior, sé más precavido.`;
 
-export async function consultarConsejero(pregunta: string, contexto: string, idioma: Idioma = "es"): Promise<RespuestaConsejero | null> {
+export async function consultarConsejero(pregunta: string, contexto: string, idioma: Idioma = "es"): Promise<{ respuesta: RespuestaConsejero | null; uso: UsoIA }> {
   const r = await ia().beta.messages.parse({
     model: MODELO_IA,
     max_tokens: 4000,
@@ -41,8 +64,9 @@ export async function consultarConsejero(pregunta: string, contexto: string, idi
     system: [{ type: "text", text: SISTEMA_CONSEJERO, cache_control: { type: "ephemeral" } }],
     messages: [{ role: "user", content: `Idioma de la respuesta (título, pasos y motivo): ${NOMBRE_IDIOMA[idioma]}.\n${contexto}\n\nConsulta: ${pregunta}` }],
   });
-  if (r.stop_reason === "refusal") return null;
-  return r.parsed_output ?? null;
+  const uso = medirUso(r);
+  if (r.stop_reason === "refusal") return { respuesta: null, uso };
+  return { respuesta: r.parsed_output ?? null, uso };
 }
 
 // ---------------- Escáner por foto ----------------
@@ -66,7 +90,7 @@ Identifica la raza más probable según los rasgos visibles, sin suponer de ante
 - Si la imagen es un dibujo o ilustración, igual describe la raza que representa, baja la confianza y menciónalo en la nota.
 Estima etapa de vida, edad aproximada, tamaño y peso adulto con rangos. Escribe mezcla, edad_aprox, peso_adulto_kg y nota en el idioma que se indica en la consulta, sin juzgar; los campos de lista (confianza, etapa, tamano_adulto) siempre con los valores exactos permitidos. Si no se ve un perro con claridad, marca es_perro en false.`;
 
-export async function estimarPerro(imagenBase64: string, tipo: "image/jpeg" | "image/png" | "image/webp", contexto = "", idioma: Idioma = "es"): Promise<EstimacionPerro | null> {
+export async function estimarPerro(imagenBase64: string, tipo: "image/jpeg" | "image/png" | "image/webp", contexto = "", idioma: Idioma = "es"): Promise<{ estimacion: EstimacionPerro | null; uso: UsoIA }> {
   const r = await ia().beta.messages.parse({
     model: MODELO_IA,
     max_tokens: 4000,
@@ -78,8 +102,9 @@ export async function estimarPerro(imagenBase64: string, tipo: "image/jpeg" | "i
       { type: "text", text: `Idioma de los textos: ${NOMBRE_IDIOMA[idioma]}.\n${contexto ? `Lo que dice la dueña: ${contexto}\n\n` : ""}Estima la raza o mezcla, la etapa de vida, la edad y el tamaño adulto de este perro.` },
     ] }],
   });
-  if (r.stop_reason === "refusal") return null;
-  return r.parsed_output ?? null;
+  const uso = medirUso(r);
+  if (r.stop_reason === "refusal") return { estimacion: null, uso };
+  return { estimacion: r.parsed_output ?? null, uso };
 }
 
 export function mensajeErrorIA(error: unknown, i: Idioma = "es"): string {
