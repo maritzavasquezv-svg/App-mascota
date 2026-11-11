@@ -10,7 +10,7 @@ export const PERROS_FAMILIAR = 4;
 export const PLANES: Record<PlanId, { familiar: boolean; anual: boolean; total: number; porMes: number; ahorro: number | null }> = {
   anual: { familiar: false, anual: true, total: 49.99, porMes: 4.17, ahorro: 40 },
   mensual: { familiar: false, anual: false, total: 6.99, porMes: 6.99, ahorro: null },
-  familiar_anual: { familiar: true, anual: true, total: 69.99, porMes: 5.83, ahorro: 42 },
+  familiar_anual: { familiar: true, anual: true, total: 69.99, porMes: 5.83, ahorro: 41 },
   familiar_mensual: { familiar: true, anual: false, total: 9.99, porMes: 9.99, ahorro: null },
 };
 

@@ -258,3 +258,17 @@ Aprobado.
 ### Advertencia antes de borrar la cuenta (11 de noviembre de 2026) ✅
 - En Cuenta → Borrar mi cuenta: aviso visible "Antes de borrar tu cuenta, cancela tu suscripción en Hotmart; borrar la cuenta no detiene los cobros", con enlace a Hotmart (3 idiomas).
 - Si la persona tiene una suscripción pagada activa, además debe marcar "Ya cancelé mi suscripción en Hotmart" para poder borrar.
+
+### Revisión legal con foco en Chile (11 de noviembre de 2026) ✅ publicada (legales versión 1.2)
+- Pedido: "revisa todo lo legal, estoy en Chile, no debe vulnerar ninguna ley".
+- **Garantía de 7 → 10 días** en toda la app y páginas (3 idiomas): cumple el **derecho a retracto** de compras por internet de la Ley N° 19.496 (10 días). ⚠️ En Hotmart configurar la garantía del producto en **10 días** (Hotmart permite 7 a 30).
+- **Términos** (evitar cláusulas abusivas, art. 16 Ley 19.496): cambio de precio o de términos solo con aviso previo (30 días) y aceptación, o cancelación sin costo con devolución de lo no usado; suspensión de cuentas con aviso y motivo; reclamos ante **Sernac o Juzgado de Policía Local** del domicilio del consumidor (art. 50 A), en vez de "tribunales de Santiago"; precio total con impuestos visible antes de pagar; la responsabilidad que la ley no permite excluir no se excluye.
+- **Privacidad**: reclamos ante la Agencia de Protección de Datos Personales (Ley 21.719).
+- **Publicidad** (art. 28, publicidad engañosa): se quitó la cifra sin respaldo "~50 h al año"; ahorro del plan familiar corregido a 41% (real: 41,6%).
+- ⚠️ Pendiente humano (no se puede resolver con código):
+  1. Reglamento de Comercio Electrónico (D.S. 6/2021): publicar **RUT y domicilio** del proveedor en Contacto/Términos (o constituir empresa y usar sus datos). Decisión de la fundadora.
+  2. **Inicio de actividades en el SII** y forma de documentar cada venta (boleta) antes de vender: con contador.
+  3. Revisar con abogado si el precio debe mostrarse también en pesos chilenos (CLP) a clientes en Chile.
+  4. Registrar la marca "Kopeet" en INAPI.
+  5. Correos de novedades: cada envío debe incluir forma de darse de baja (Ley 19.496 art. 28 B).
+  6. Revisión final por abogado en Chile (versión 1.2 y traducciones).

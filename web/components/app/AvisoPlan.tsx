@@ -29,9 +29,9 @@ export default function AvisoPlan({ plan }: { plan: Plan | null }) {
     <section className="tarjeta aviso-plan">
       <p className="tarjeta-tit"><span><Sparkles size={15} /> {textoEstado ?? t("Activa tu plan", "Activate your plan", "Ative seu plano")}</span></p>
       <p className="vacio">{t("Con el plan, el ", "With the plan, the ", "Com o plano, o ")}<b>{t("Consejero responde con IA", "Advisor answers with AI", "Conselheiro responde com IA")}</b>{t(" cualquier duda y el ", " any question and the ", " qualquer dúvida e o ")}<b>{t("escáner", "scanner", "scanner")}</b>{t(
-        " estima su raza, edad y tamaño. 7 días gratis y garantía Hotmart de 7 días.",
-        " estimates breed, age and size. 7 days free and a 7-day Hotmart guarantee.",
-        " estima raça, idade e tamanho. 7 dias grátis e garantia Hotmart de 7 dias.")}</p>
+        " estima su raza, edad y tamaño. 7 días gratis y garantía Hotmart de 10 días.",
+        " estimates breed, age and size. 7 days free and a 10-day Hotmart guarantee.",
+        " estima raça, idade e tamanho. 7 dias grátis e garantia Hotmart de 10 dias.")}</p>
       <div className="botones-min" style={{ justifyContent: "flex-start" }}>
         {enlaces.map((p, n) => <a key={p} className={`mini-cta${n % 2 ? " suave" : ""}`} href={plan.pagar[p]!} target="_blank" rel="noopener noreferrer">{resumenPlan(p, idioma)}</a>)}
         {!enlaces.length && <span className="nota">{t("Los pagos se activan muy pronto.", "Payments open very soon.", "Os pagamentos serão ativados em breve.")}</span>}
