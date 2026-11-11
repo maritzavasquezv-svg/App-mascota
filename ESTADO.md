@@ -206,7 +206,7 @@ Aprobado.
 
 ### Tres idiomas: español, inglés y portugués (10 de noviembre de 2026) ✅
 - Pedido de la fundadora: "colocarle idiomas español y inglés" → "Todo", "Automático + botón", "con un botón", "y también portugués".
-- **Botón ES · EN · PT** en: página de ventas (arriba), inicio del plan (paso 1), pantalla de planes, crear cuenta, entrar, recuperar contraseña, legales y **Cuenta → Idioma** dentro de la app.
+- **Botón ES · EN · PT con banderas** (Chile, EE. UU., Brasil; en celular se ven solo las banderas en la cabecera) en: página de ventas (arriba), inicio del plan (paso 1), pantalla de planes, crear cuenta, entrar, recuperar contraseña, legales y **Cuenta → Idioma** dentro de la app.
 - **Automático**: la primera vez se usa el idioma del celular (es → español, pt → portugués, cualquier otro → inglés). La elección queda guardada en la cookie `idioma`.
 - **Página de ventas y legales con dirección propia**: `/` (español), `/en`, `/pt`, y `/en/terminos`, `/pt/privacidad`, etc. Quien entra a `/` con el celular en inglés o portugués va solo a su versión.
 - **Toda la app traducida**: Hoy (rutina, adaptación, veterinario), Orina y heces, Consejero, Emergencia, Premios, Destinos (las búsquedas de Google Maps también van en el idioma), Cuenta, sumar/editar perro, escáner y avisos de error.

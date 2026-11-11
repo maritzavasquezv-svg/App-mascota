@@ -211,7 +211,11 @@ footer .aviso{background:#fff;border-radius:14px;padding:12px 14px;font-size:12.
 
 /* ---------- Botón de idioma ES / EN / PT ---------- */
 .selector-idioma { display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: #e6ebf3; flex-shrink: 0; }
-.selector-idioma button { border: 0; background: transparent; font: inherit; font-size: 12px; font-weight: 700; letter-spacing: .02em; padding: 5px 8px; min-width: 32px; min-height: 28px; border-radius: 999px; color: #4a5878; cursor: pointer; }
+.selector-idioma button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; border: 0; background: transparent; font: inherit; font-size: 12px; font-weight: 700; letter-spacing: .02em; padding: 5px 8px; min-width: 32px; min-height: 30px; border-radius: 999px; color: #4a5878; cursor: pointer; }
+.selector-idioma .bandera { width: 20px; height: 14px; border-radius: 3px; flex-shrink: 0; box-shadow: 0 0 0 1px rgb(15 27 61 / .12); }
+.selector-idioma button[aria-pressed="false"] .bandera { opacity: .75; }
+/* En celulares chicos, en las cabeceras con poco espacio se muestran solo las banderas */
+@media (max-width: 420px) { .lp .top .selector-idioma .cod, .legal .top .selector-idioma .cod, .flujo .cabeza .selector-idioma .cod { display: none; } }
 .selector-idioma button[aria-pressed="true"] { background: #fff; color: #2f6bff; box-shadow: 0 1px 3px rgb(15 27 61 / .15); }
 .selector-idioma button:focus-visible { outline: 2px solid #2f6bff; outline-offset: 1px; }
 .lp .top-der { margin-left: auto; display: flex; align-items: center; gap: 12px; }
