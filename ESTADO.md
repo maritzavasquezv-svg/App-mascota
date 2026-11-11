@@ -292,3 +292,7 @@ Aprobado.
 - Claves VAPID generadas por la propia función y guardadas en `privado.secretos` (nadie las copió).
 - Probado: función responde 200 y rechaza sin clave (401); lógica de paseo, salud, racha y prueba con datos simulados en transacción deshecha (sin repetidos). Privacidad actualizada (versión 1.3).
 - ✅ Probado en el celular de la fundadora (Motorola Android, Chrome): se activó en Cuenta y llegó el aviso de prueba (enviados 1, fallidos 0). Pendiente: probar en iPhone instalado en la pantalla de inicio.
+
+### Identificación de la vendedora (11 de noviembre de 2026) ✅
+- La fundadora vende como **persona natural** con su inscripción de primera categoría en el SII (al día; giro ampliado para servicios digitales). No crea SpA.
+- Publicado en Términos (1), Privacidad (1), Contacto y pie de las páginas legales, en 3 idiomas: nombre, **RUT 15.333.434-K** y domicilio **solo comuna: Maipú, Santiago de Chile** (sin calle, por decisión de privacidad; la dirección completa se usa solo si el abogado/contador confirma que la ley la exige en la web).
