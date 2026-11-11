@@ -285,10 +285,10 @@ Aprobado.
 - ⚠️ Pendiente de la fundadora: (1) SMTP propio en Supabase (sin él los correos de cuenta no llegan a clientes); (2) activar "Leaked password protection" en Supabase → Authentication.
 - Recomendados sin hacer: tope global a `registrar_evento`, chequear perro propio al editar `eventos_salud`, mover `pg_net` fuera de public, comparación de hottok en tiempo constante.
 
-### Recordatorios por notificación push (11 de noviembre de 2026) ✅ publicado, falta probar en un celular real
+### Recordatorios por notificación push (11 de noviembre de 2026) ✅ publicado y probado en celular real
 - Pedido de la fundadora: recordatorios gratis (WhatsApp queda para cuando haya ventas: cuesta por mensaje y requiere cuenta de Meta y número propio). El recorrido inicial ya pedía permiso de avisos pero nunca se enviaban: ahora sí.
 - **Avisos**: paseo a la hora elegida (7, 13, 18 o 21 h, si hoy no anotó ejercicio) · vacunas/desparasitación/controles 3 días antes y el mismo día a las 10:00 · racha a las 20:00 si lleva 2+ días y hoy no anotó · aviso de prueba. Hora local de cada persona; 3 idiomas; nunca se repite (tabla `push_enviados`).
 - **Piezas**: `app/manifest.ts` (app instalable; en iPhone es obligatorio instalarla para recibir avisos) · `public/sw.js` · `lib/avisos.ts` · `components/app/Recordatorios.tsx` (tarjeta en Hoy si no están activos, cerrable; tarjeta completa en Cuenta con apagar y "Enviar aviso de prueba"; se conecta solo al abrir la app si ya dio permiso) · SQL `web/supabase/avisos_push.sql` · función Edge `enviar-avisos` (`web/supabase/functions/`, sin JWT, protegida con clave interna `push_cron`) · pg_cron `kopeet-avisos-push` cada 15 min.
 - Claves VAPID generadas por la propia función y guardadas en `privado.secretos` (nadie las copió).
 - Probado: función responde 200 y rechaza sin clave (401); lógica de paseo, salud, racha y prueba con datos simulados en transacción deshecha (sin repetidos). Privacidad actualizada (versión 1.3).
-- ⚠️ Falta: prueba en un celular real (Cuenta → Activar avisos → Enviar aviso de prueba).
+- ✅ Probado en el celular de la fundadora (Motorola Android, Chrome): se activó en Cuenta y llegó el aviso de prueba (enviados 1, fallidos 0). Pendiente: probar en iPhone instalado en la pantalla de inicio.
