@@ -4,7 +4,7 @@ import type { Idioma } from "@/lib/idiomas";
 const M = <a href="mailto:maritzavasquezv@gmail.com">maritzavasquezv@gmail.com</a>;
 
 const ES = (<>
-<header className="cab"><span className="eyebrow">Tus datos</span><h1>Política de privacidad</h1><p className="fecha">Última actualización: 11 de noviembre de 2026 · Versión 1.2</p>
+<header className="cab"><span className="eyebrow">Tus datos</span><h1>Política de privacidad</h1><p className="fecha">Última actualización: 11 de noviembre de 2026 · Versión 1.3</p>
 <div className="resumen"><b className="t">En pocas palabras</b><ul><li>Guardamos solo lo necesario para cuidar a tu perro.</li><li>No vendemos tus datos ni los usamos para publicidad.</li><li>Tus datos se guardan en Brasil y la IA los procesa en EE. UU.</li><li>Medimos el uso de la app solo si lo aceptas.</li><li>Puedes borrar tu cuenta tú misma, al instante, desde la app.</li></ul></div></header>
 <section className="b"><h2><span className="n">1</span>Quién es responsable de tus datos</h2><p>La responsable es <b>Maritza Pilar Vásquez Valencia</b>, persona natural con domicilio en Santiago, Chile. Contacto para temas de privacidad: {M}.</p><p>Tratamos tus datos conforme a la Ley N° 19.628 sobre Protección de la Vida Privada de Chile y sus modificaciones, incluida la Ley N° 21.719.</p></section>
 <section className="b"><h2><span className="n">2</span>Qué datos guardamos y para qué</h2><table><tbody><tr><th>Dato</th><th>Para qué</th></tr>
@@ -14,6 +14,7 @@ const ES = (<>
 <tr><td>Fotos de tus perros</td><td>Mostrarlas en su plan y estimar su mezcla, edad y tamaño con IA.</td></tr>
 <tr><td>Preguntas que le haces al Consejero</td><td>Se envían a la IA para responderte. <b>No guardamos el texto</b> de tus preguntas: solo que hubo una consulta y cuánto costó.</td></tr>
 <tr><td>Hora de paseo, idioma y plan elegido</td><td>Enviarte recordatorios a tu hora y mostrarte la app en tu idioma.</td></tr>
+<tr><td>Permiso de avisos de tu celular: una dirección técnica de notificaciones, tu zona horaria e idioma (solo si activas los avisos)</td><td>Enviarte los recordatorios del paseo, vacunas y racha. Los entrega el servicio de notificaciones de tu navegador (Google, Apple o Mozilla). Puedes apagarlos en Cuenta.</td></tr>
 <tr><td>Lo que aceptaste al crear tu cuenta, con fecha y versión</td><td>Poder demostrar tu consentimiento.</td></tr>
 <tr><td>Compras: correo, plan, montos, comisiones y estado de la suscripción (los avisa Hotmart)</td><td>Activar tu plan y llevar la contabilidad. <b>Nunca vemos ni guardamos tu tarjeta</b>: el pago lo procesa Hotmart.</td></tr>
 <tr><td>Medición de uso (solo si aceptas en el aviso de cookies): acciones dentro de la app, con un identificador anónimo del navegador, y de dónde llegaste (por ejemplo, Instagram)</td><td>Saber qué se usa y qué mejorar.</td></tr>
@@ -37,7 +38,7 @@ const ES = (<>
 </>);
 
 const EN = (<>
-<header className="cab"><span className="eyebrow">Your data</span><h1>Privacy policy</h1><p className="fecha">Last updated: November 11, 2026 · Version 1.2</p>
+<header className="cab"><span className="eyebrow">Your data</span><h1>Privacy policy</h1><p className="fecha">Last updated: November 11, 2026 · Version 1.3</p>
 <div className="resumen"><b className="t">In short</b><ul><li>We keep only what’s needed to care for your dog.</li><li>We don’t sell your data or use it for advertising.</li><li>Your data is stored in Brazil and processed by AI in the USA.</li><li>We measure app usage only if you accept.</li><li>You can delete your account yourself, instantly, in the app.</li></ul></div></header>
 <section className="b"><h2><span className="n">1</span>Who is responsible for your data</h2><p>The data controller is <b>Maritza Pilar Vásquez Valencia</b>, an individual based in Santiago, Chile. Privacy contact: {M}.</p><p>We process your data in accordance with Chile’s Law No. 19.628 on the Protection of Private Life and its amendments, including Law No. 21.719.</p></section>
 <section className="b"><h2><span className="n">2</span>What data we keep and why</h2><table><tbody><tr><th>Data</th><th>What for</th></tr>
@@ -47,6 +48,7 @@ const EN = (<>
 <tr><td>Photos of your dogs</td><td>Show them in the plan and estimate mix, age and size with AI.</td></tr>
 <tr><td>Questions you ask the Advisor</td><td>Sent to the AI to answer you. <b>We don’t store the text</b> of your questions: only that a question was asked and what it cost.</td></tr>
 <tr><td>Walk time, language and chosen plan</td><td>Send reminders at your time and show the app in your language.</td></tr>
+<tr><td>Your phone’s notification permission: a technical notification address, your time zone and language (only if you turn on reminders)</td><td>Send walk, vaccine and streak reminders. They are delivered by your browser’s notification service (Google, Apple or Mozilla). You can turn them off in Account.</td></tr>
 <tr><td>What you accepted when signing up, with date and version</td><td>Prove your consent.</td></tr>
 <tr><td>Purchases: email, plan, amounts, fees and subscription status (reported by Hotmart)</td><td>Activate your plan and keep the books. <b>We never see or store your card</b>: payment is processed by Hotmart.</td></tr>
 <tr><td>Usage measurement (only if you accept in the cookie notice): actions in the app, with an anonymous browser ID, and where you came from (e.g., Instagram)</td><td>Learn what’s used and what to improve.</td></tr>
@@ -70,7 +72,7 @@ const EN = (<>
 </>);
 
 const PT = (<>
-<header className="cab"><span className="eyebrow">Seus dados</span><h1>Política de privacidade</h1><p className="fecha">Última atualização: 11 de novembro de 2026 · Versão 1.2</p>
+<header className="cab"><span className="eyebrow">Seus dados</span><h1>Política de privacidade</h1><p className="fecha">Última atualização: 11 de novembro de 2026 · Versão 1.3</p>
 <div className="resumen"><b className="t">Em poucas palavras</b><ul><li>Guardamos só o necessário para cuidar do seu cão.</li><li>Não vendemos seus dados nem os usamos para publicidade.</li><li>Seus dados ficam no Brasil e a IA os processa nos EUA.</li><li>Medimos o uso do app só se você aceitar.</li><li>Você pode apagar sua conta sozinha, na hora, pelo app.</li></ul></div></header>
 <section className="b"><h2><span className="n">1</span>Quem é responsável pelos seus dados</h2><p>A responsável é <b>Maritza Pilar Vásquez Valencia</b>, pessoa física com domicílio em Santiago, Chile. Contato para privacidade: {M}.</p><p>Tratamos seus dados de acordo com a Lei chilena nº 19.628 sobre Proteção da Vida Privada e suas modificações, incluída a Lei nº 21.719. Se você está no Brasil, também respeitamos os direitos previstos na LGPD (Lei nº 13.709/2018).</p></section>
 <section className="b"><h2><span className="n">2</span>Quais dados guardamos e para quê</h2><table><tbody><tr><th>Dado</th><th>Para quê</th></tr>
@@ -80,6 +82,7 @@ const PT = (<>
 <tr><td>Fotos dos seus cães</td><td>Mostrá-las no plano e estimar mistura, idade e tamanho com IA.</td></tr>
 <tr><td>Perguntas que você faz ao Conselheiro</td><td>São enviadas à IA para responder. <b>Não guardamos o texto</b> das perguntas: só que houve uma consulta e quanto custou.</td></tr>
 <tr><td>Horário do passeio, idioma e plano escolhido</td><td>Enviar lembretes no seu horário e mostrar o app no seu idioma.</td></tr>
+<tr><td>Permissão de avisos do seu celular: um endereço técnico de notificações, seu fuso horário e idioma (só se você ativar os avisos)</td><td>Enviar os lembretes de passeio, vacinas e sequência. São entregues pelo serviço de notificações do seu navegador (Google, Apple ou Mozilla). Você pode desativá-los em Conta.</td></tr>
 <tr><td>O que você aceitou ao criar a conta, com data e versão</td><td>Comprovar seu consentimento.</td></tr>
 <tr><td>Compras: e-mail, plano, valores, comissões e status da assinatura (informados pela Hotmart)</td><td>Ativar seu plano e fazer a contabilidade. <b>Nunca vemos nem guardamos seu cartão</b>: o pagamento é processado pela Hotmart.</td></tr>
 <tr><td>Medição de uso (só se você aceitar no aviso de cookies): ações no app, com um identificador anônimo do navegador, e de onde você veio (por exemplo, Instagram)</td><td>Saber o que é usado e o que melhorar.</td></tr>

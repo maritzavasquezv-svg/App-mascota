@@ -150,3 +150,9 @@
 .aviso-cobro svg { flex-shrink: 0; color: #b7791f; margin-top: 2px; }
 .aviso-cobro p { margin: 0; font-size: 13.5px; line-height: 1.45; }
 .aviso-cobro a { color: #2f6bff; font-weight: 700; white-space: nowrap; }
+
+/* Recordatorios (notificaciones push) */
+.flujo .avisos-tarjeta .cerrar-mini { border: 0; background: var(--soft); color: var(--muted); width: 28px; height: 28px; border-radius: 50%; display: inline-grid; place-items: center; cursor: pointer; }
+.flujo .avisos-tarjeta .botones-min button:disabled { opacity: .6; cursor: default; }
+.flujo .pasos-ios { margin: 8px 0 0; padding-left: 20px; font-size: 13.5px; line-height: 1.6; color: var(--ink, inherit); }
+.flujo .pasos-ios svg { vertical-align: -2px; }

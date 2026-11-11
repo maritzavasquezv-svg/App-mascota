@@ -7,6 +7,7 @@ import SelectorPerros from "@/components/app/SelectorPerros";
 import Escaner from "@/components/app/Escaner";
 import RutinaHoy from "@/components/app/RutinaHoy";
 import AvisoPlan, { usePlan } from "@/components/app/AvisoPlan";
+import Recordatorios from "@/components/app/Recordatorios";
 import { minutosEjercicio } from "@/lib/onboarding";
 import { locale, useT } from "@/lib/i18n";
 import { registrarEvento } from "@/lib/eventos";
@@ -99,6 +100,7 @@ export default function Inicio() {
       <SelectorPerros perros={perros} fotos={fotos} activoId={activo.id} elegir={elegir} />
       <a className="enlace-raza" href={`/inicio/editar-perro?id=${activo.id}`} style={{ marginTop: 4 }}><Pencil size={13} /> {t(`Editar o borrar a ${nombre}`, `Edit or delete ${nombre}`, `Editar ou apagar ${nombre}`)}</a>
       <AvisoPlan plan={plan} />
+      <Recordatorios compacta />
       <Escaner perro={activo} alActualizar={recargar} />
 
       <section className="tarjeta">

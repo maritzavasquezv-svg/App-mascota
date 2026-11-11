@@ -9,6 +9,7 @@ import { useT } from "@/lib/i18n";
 import SelectorIdioma from "@/components/SelectorIdioma";
 import { nombrePlan, PLANES, precio, esPlan } from "@/lib/planes";
 import { PasarAFamiliar, useLimitePerros } from "@/components/app/LimitePerros";
+import Recordatorios from "@/components/app/Recordatorios";
 
 export default function Cuenta() {
   const router = useRouter();
@@ -81,6 +82,7 @@ export default function Cuenta() {
           <div><span><Languages size={14} /> {t("Idioma", "Language", "Idioma")}</span><SelectorIdioma /></div>
         </div>
         {lim && lim.limite < 4 && lim.actuales >= lim.limite && <PasarAFamiliar lim={lim} plan={estadoPlan} />}
+        <Recordatorios />
         <a className="cta" href="https://consumer.hotmart.com/" target="_blank" rel="noopener noreferrer" style={{ marginTop: 14 }}>{t("Cancelar o gestionar mi suscripción en Hotmart", "Cancel or manage my subscription in Hotmart", "Cancelar ou gerenciar minha assinatura na Hotmart")}</a>
         <p className="nota">{t("Entra con el mismo correo con el que pagaste → Mis compras → Kopeet. Más detalles en ", "Sign in with the email you paid with → My purchases → Kopeet. More details in ", "Entre com o e-mail usado no pagamento → Minhas compras → Kopeet. Mais detalhes em ")}<Link href={idioma === "es" ? "/reembolsos" : `/${idioma}/reembolsos`}>{t("Reembolsos y cancelación", "Refunds and cancellation", "Reembolsos e cancelamento")}</Link>.</p>
 
