@@ -4,7 +4,7 @@ import type { Idioma } from "@/lib/idiomas";
 const M = <a href="mailto:maritzavasquezv@gmail.com">maritzavasquezv@gmail.com</a>;
 
 const ES = (<>
-<header className="cab"><span className="eyebrow">Tus datos</span><h1>Política de privacidad</h1><p className="fecha">Última actualización: 11 de noviembre de 2026 · Versión 1.3</p>
+<header className="cab"><span className="eyebrow">Tus datos</span><h1>Política de privacidad</h1><p className="fecha">Última actualización: 11 de noviembre de 2026 · Versión 1.4</p>
 <div className="resumen"><b className="t">En pocas palabras</b><ul><li>Guardamos solo lo necesario para cuidar a tu perro.</li><li>No vendemos tus datos ni los usamos para publicidad.</li><li>Tus datos se guardan en Brasil y la IA los procesa en EE. UU.</li><li>Medimos el uso de la app solo si lo aceptas.</li><li>Puedes borrar tu cuenta tú misma, al instante, desde la app.</li></ul></div></header>
 <section className="b"><h2><span className="n">1</span>Quién es responsable de tus datos</h2><p>La responsable es <b>Maritza Pilar Vásquez Valencia</b>, RUT 15.333.434-K, persona natural con domicilio en Santiago de Chile. Contacto para temas de privacidad: {M}.</p><p>Tratamos tus datos conforme a la Ley N° 19.628 sobre Protección de la Vida Privada de Chile y sus modificaciones, incluida la Ley N° 21.719.</p></section>
 <section className="b"><h2><span className="n">2</span>Qué datos guardamos y para qué</h2><table><tbody><tr><th>Dato</th><th>Para qué</th></tr>
@@ -26,6 +26,7 @@ const ES = (<>
 <tr><td><b>Vercel</b></td><td>Aloja la app y la página web</td><td>Estados Unidos</td></tr>
 <tr><td><b>Anthropic</b></td><td>Inteligencia artificial del escáner y del Consejero</td><td>Estados Unidos</td></tr>
 <tr><td><b>Hotmart</b></td><td>Pagos, suscripción y reembolsos</td><td>Brasil</td></tr>
+<tr><td><b>Brevo</b></td><td>Envío de los correos de tu cuenta (confirmarla y crear una contraseña nueva)</td><td>Francia (Unión Europea)</td></tr>
 <tr><td><b>Resend</b></td><td>Envío de correos de Kopeet (cuando los usemos)</td><td>Estados Unidos</td></tr></tbody></table><p><b>No vendemos tus datos</b> ni los usamos para publicidad de terceros. No usamos píxeles de Facebook, Google ni TikTok.</p></section>
 <section className="b"><h2><span className="n">5</span>Datos fuera de Chile</h2><p>Tus datos se guardan en Brasil y la inteligencia artificial los procesa en Estados Unidos. Esto es una <b>transferencia internacional</b> de datos, que aceptas al crear tu cuenta. Según sus condiciones comerciales, Anthropic no usa los datos que recibe por su API para entrenar sus modelos.</p><div className="aviso">No escribas en el Consejero datos sensibles tuyos o de otras personas (contraseñas, datos bancarios o de salud de personas).</div></section>
 <section className="b"><h2><span className="n">6</span>Cuánto tiempo los guardamos</h2><ul><li>Mientras tengas tu cuenta activa.</li><li>Si borras tu cuenta, se eliminan <b>al instante</b> tu cuenta, tus perros, sus fotos, su rutina, tus consentimientos y tus usos de IA.</li><li>Los registros de uso y de errores quedan <b>anónimos</b> (ya no se pueden ligar a ti).</li><li>Los registros de compras (correo, plan y montos) se guardan el tiempo que exige la ley tributaria (en Chile, hasta 6 años).</li></ul></section>
@@ -38,7 +39,7 @@ const ES = (<>
 </>);
 
 const EN = (<>
-<header className="cab"><span className="eyebrow">Your data</span><h1>Privacy policy</h1><p className="fecha">Last updated: November 11, 2026 · Version 1.3</p>
+<header className="cab"><span className="eyebrow">Your data</span><h1>Privacy policy</h1><p className="fecha">Last updated: November 11, 2026 · Version 1.4</p>
 <div className="resumen"><b className="t">In short</b><ul><li>We keep only what’s needed to care for your dog.</li><li>We don’t sell your data or use it for advertising.</li><li>Your data is stored in Brazil and processed by AI in the USA.</li><li>We measure app usage only if you accept.</li><li>You can delete your account yourself, instantly, in the app.</li></ul></div></header>
 <section className="b"><h2><span className="n">1</span>Who is responsible for your data</h2><p>The data controller is <b>Maritza Pilar Vásquez Valencia</b>, Chilean tax ID (RUT) 15.333.434-K, an individual based in Santiago, Chile. Privacy contact: {M}.</p><p>We process your data in accordance with Chile’s Law No. 19.628 on the Protection of Private Life and its amendments, including Law No. 21.719.</p></section>
 <section className="b"><h2><span className="n">2</span>What data we keep and why</h2><table><tbody><tr><th>Data</th><th>What for</th></tr>
@@ -60,6 +61,7 @@ const EN = (<>
 <tr><td><b>Vercel</b></td><td>Hosts the app and website</td><td>United States</td></tr>
 <tr><td><b>Anthropic</b></td><td>Artificial intelligence for the scanner and the Advisor</td><td>United States</td></tr>
 <tr><td><b>Hotmart</b></td><td>Payments, subscription and refunds</td><td>Brazil</td></tr>
+<tr><td><b>Brevo</b></td><td>Sending your account emails (confirming it and creating a new password)</td><td>France (European Union)</td></tr>
 <tr><td><b>Resend</b></td><td>Sending Kopeet emails (when we use them)</td><td>United States</td></tr></tbody></table><p><b>We don’t sell your data</b> or use it for third-party advertising. We don’t use Facebook, Google or TikTok pixels.</p></section>
 <section className="b"><h2><span className="n">5</span>Data outside Chile</h2><p>Your data is stored in Brazil and processed by artificial intelligence in the United States. This is an <b>international data transfer</b>, which you accept when creating your account. Under its commercial terms, Anthropic does not use data received through its API to train its models.</p><div className="aviso">Don’t type sensitive information about yourself or others into the Advisor (passwords, bank details or people’s health data).</div></section>
 <section className="b"><h2><span className="n">6</span>How long we keep it</h2><ul><li>While your account is active.</li><li>If you delete your account, your account, dogs, photos, routine, consents and AI usage are erased <b>instantly</b>.</li><li>Usage and error logs become <b>anonymous</b> (they can no longer be linked to you).</li><li>Purchase records (email, plan and amounts) are kept as long as tax law requires (in Chile, up to 6 years).</li></ul></section>
@@ -72,7 +74,7 @@ const EN = (<>
 </>);
 
 const PT = (<>
-<header className="cab"><span className="eyebrow">Seus dados</span><h1>Política de privacidade</h1><p className="fecha">Última atualização: 11 de novembro de 2026 · Versão 1.3</p>
+<header className="cab"><span className="eyebrow">Seus dados</span><h1>Política de privacidade</h1><p className="fecha">Última atualização: 11 de novembro de 2026 · Versão 1.4</p>
 <div className="resumen"><b className="t">Em poucas palavras</b><ul><li>Guardamos só o necessário para cuidar do seu cão.</li><li>Não vendemos seus dados nem os usamos para publicidade.</li><li>Seus dados ficam no Brasil e a IA os processa nos EUA.</li><li>Medimos o uso do app só se você aceitar.</li><li>Você pode apagar sua conta sozinha, na hora, pelo app.</li></ul></div></header>
 <section className="b"><h2><span className="n">1</span>Quem é responsável pelos seus dados</h2><p>A responsável é <b>Maritza Pilar Vásquez Valencia</b>, RUT 15.333.434-K, pessoa física com domicílio em Santiago, Chile. Contato para privacidade: {M}.</p><p>Tratamos seus dados de acordo com a Lei chilena nº 19.628 sobre Proteção da Vida Privada e suas modificações, incluída a Lei nº 21.719. Se você está no Brasil, também respeitamos os direitos previstos na LGPD (Lei nº 13.709/2018).</p></section>
 <section className="b"><h2><span className="n">2</span>Quais dados guardamos e para quê</h2><table><tbody><tr><th>Dado</th><th>Para quê</th></tr>
@@ -94,6 +96,7 @@ const PT = (<>
 <tr><td><b>Vercel</b></td><td>Hospeda o app e o site</td><td>Estados Unidos</td></tr>
 <tr><td><b>Anthropic</b></td><td>Inteligência artificial do scanner e do Conselheiro</td><td>Estados Unidos</td></tr>
 <tr><td><b>Hotmart</b></td><td>Pagamentos, assinatura e reembolsos</td><td>Brasil</td></tr>
+<tr><td><b>Brevo</b></td><td>Envio dos e-mails da sua conta (confirmá-la e criar uma nova senha)</td><td>França (União Europeia)</td></tr>
 <tr><td><b>Resend</b></td><td>Envio de e-mails do Kopeet (quando usarmos)</td><td>Estados Unidos</td></tr></tbody></table><p><b>Não vendemos seus dados</b> nem os usamos para publicidade de terceiros. Não usamos pixels do Facebook, Google ou TikTok.</p></section>
 <section className="b"><h2><span className="n">5</span>Dados fora do Chile</h2><p>Seus dados são guardados no Brasil e processados pela inteligência artificial nos Estados Unidos. Isso é uma <b>transferência internacional</b> de dados, que você aceita ao criar sua conta. Pelas condições comerciais da Anthropic, os dados recebidos pela sua API não são usados para treinar seus modelos.</p><div className="aviso">Não escreva no Conselheiro dados sensíveis seus ou de outras pessoas (senhas, dados bancários ou de saúde de pessoas).</div></section>
 <section className="b"><h2><span className="n">6</span>Por quanto tempo guardamos</h2><ul><li>Enquanto sua conta estiver ativa.</li><li>Se você apagar sua conta, são eliminados <b>na hora</b> sua conta, seus cães, as fotos, a rotina, seus consentimentos e seus usos de IA.</li><li>Os registros de uso e de erros ficam <b>anônimos</b> (não podem mais ser ligados a você).</li><li>Os registros de compras (e-mail, plano e valores) são guardados pelo tempo que a lei fiscal exige (no Chile, até 6 anos).</li></ul></section>
