@@ -16,6 +16,8 @@ const Accion = z.discriminatedUnion("accion", [
   z.object({ accion: z.literal("resend"), valor: z.string().trim().min(10).max(200) }),
   z.object({ accion: z.literal("resumenPrueba") }),
   z.object({ accion: z.literal("estadoResumen") }),
+  z.object({ accion: z.literal("boletas") }),
+  z.object({ accion: z.literal("marcarBoleta"), id: z.string().uuid(), hecha: z.boolean() }),
 ]);
 
 /** Envía un enlace para entrar sin contraseña. Si la persona no tiene cuenta, se crea al abrirlo. */
@@ -67,6 +69,12 @@ export async function POST(req: NextRequest) {
       r = e; datos = e.data;
       break;
     }
+    case "boletas": {
+      const e = await supabase.rpc("admin_boletas");
+      r = e; datos = e.data;
+      break;
+    }
+    case "marcarBoleta": r = await supabase.rpc("admin_marcar_boleta", { p_id: a.id, p_hecha: a.hecha }); break;
     case "darAcceso":
       r = await supabase.rpc("admin_dar_acceso", { p_email: a.email, p_nombre: a.nombre ?? "", p_motivo: a.motivo, p_dias: a.dias });
       if (!r.error && a.enviar) {

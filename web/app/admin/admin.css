@@ -140,3 +140,11 @@
 /* Resumen semanal */
 .pa-pasos { margin: 4px 0 12px; padding-left: 20px; display: grid; gap: 6px; font-size: 13px; line-height: 1.45; color: #33415f; }
 .pa-boton.secundario { background: #fff; color: #2f6bff; border: 1.5px solid #2f6bff; width: 100%; }
+
+/* Boletas por emitir */
+.pa-boletas { display: grid; gap: 8px; }
+.pa-boleta { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px solid #e6ebf3; border-radius: 12px; flex-wrap: wrap; }
+.pa-boleta small { display: block; color: #6b7590; font-size: 12.5px; margin-top: 2px; word-break: break-all; }
+.pa-boleta.hecha { opacity: .75; margin-top: 8px; }
+.pa-hechas { margin-top: 12px; }
+.pa-hechas summary { cursor: pointer; font-weight: 600; font-size: 13.5px; }

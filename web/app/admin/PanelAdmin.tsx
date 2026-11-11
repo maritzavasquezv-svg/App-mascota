@@ -208,6 +208,7 @@ function Ventas({ d, mes }: { d: Panel; mes: string }) {
       <Kpi titulo="MRR" valor={v.activas.pagadas ? usd(v.activas.mrr) : <SinDatos />} nota={v.activas.mrrSinMonto ? `${v.activas.mrrSinMonto} suscripciones sin monto registrado` : "Anual se cuenta como 1/12 por mes"} />
       <Kpi titulo="Reembolsos" valor={v.bajas.reembolsos} nota={v.bajas.reembolsos ? `${usd(v.bajas.montoReembolsado)} devueltos` : "Ninguno este mes"} tono={v.bajas.reembolsos ? "mal" : undefined} />
     </div>
+    <BoletasPorEmitir />
     <Tarjeta titulo="Ingresos de los últimos 12 meses">
       <Barras datos={serie} destacar={mesCorto(mes)} formato={(x) => `$${Math.round(x)}`} />
     </Tarjeta>
@@ -343,6 +344,55 @@ function IA({ d }: { d: Panel }) {
 }
 
 // ---------- Personas ----------
+interface Boleta { id: string; fecha: string; email: string; plan?: string | null; moneda: string | null; monto: number | null; reembolsada?: boolean; emitida?: string }
+
+/** Cada cobro aprobado por Hotmart necesita su boleta del SII. La dueña la hace en el SII y la marca aquí. */
+function BoletasPorEmitir() {
+  const [b, setB] = useState<{ pendientes: Boleta[]; hechas: Boleta[] } | null>(null);
+  const [version, setVersion] = useState(0);
+  const [ocupado, setOcupado] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    let vivo = true;
+    fetch("/api/admin/accion", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ accion: "boletas" }) })
+      .then((r) => r.json()).then((d) => { if (vivo && d?.datos) setB(d.datos); }).catch(() => {});
+    return () => { vivo = false; };
+  }, [version]);
+  async function marcar(id: string, hecha: boolean) {
+    setOcupado(id); setError(null);
+    try { await accion({ accion: "marcarBoleta", id, hecha }); setVersion((v) => v + 1); }
+    catch (e) { setError((e as Error).message); } finally { setOcupado(null); }
+  }
+  const monto = (x: Boleta) => (x.monto === null ? "Sin monto" : `${x.moneda ?? ""} ${fmtNum.format(x.monto)}`.trim());
+  const fecha = (s: string) => new Intl.DateTimeFormat("es-CL", { day: "numeric", month: "short", year: "numeric" }).format(new Date(s));
+  const n = b?.pendientes.length ?? 0;
+  return (
+    <Tarjeta titulo={`Boletas por emitir${b ? ` (${n})` : ""}`} ayuda="Cada cobro de Hotmart necesita su boleta. Hazla en el SII (sii.cl → Servicios online → Boleta electrónica) con estos datos y márcala como hecha. Si el monto está en dólares, conviértelo a pesos con el dólar del día del cobro.">
+      {!b ? <p className="pa-vacio">Cargando…</p> : n === 0 ? <p className="pa-vacio">No tienes boletas pendientes.</p> : (
+        <div className="pa-boletas">
+          {b.pendientes.map((x) => (
+            <div key={x.id} className="pa-boleta">
+              <div><b>{fecha(x.fecha)}</b> · {monto(x)}<small>{x.email}{x.plan ? ` · ${x.plan.replace("_", " ")}` : ""}{x.reembolsada ? " · ⚠ reembolsada: pregunta al contador si igual va boleta" : ""}</small></div>
+              <button className="pa-boton" disabled={ocupado === x.id} onClick={() => marcar(x.id, true)}>Ya hice la boleta</button>
+            </div>
+          ))}
+        </div>
+      )}
+      {error && <p className="pa-nota mal">{error}</p>}
+      {b && b.hechas.length > 0 && (
+        <details className="pa-hechas"><summary>Últimas boletas marcadas ({b.hechas.length})</summary>
+          {b.hechas.map((x) => (
+            <div key={x.id} className="pa-boleta hecha">
+              <div>{fecha(x.fecha)} · {monto(x)}<small>{x.email}</small></div>
+              <button className="pa-boton secundario" disabled={ocupado === x.id} onClick={() => marcar(x.id, false)}>Deshacer</button>
+            </div>
+          ))}
+        </details>
+      )}
+    </Tarjeta>
+  );
+}
+
 async function accion(cuerpo: Record<string, unknown>) {
   const r = await fetch("/api/admin/accion", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo) });
   const d = await r.json().catch(() => ({}));
