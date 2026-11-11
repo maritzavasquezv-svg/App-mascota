@@ -303,3 +303,8 @@ Aprobado.
 - Métricas: `registrar_evento` con tope general de 3.000 eventos por hora (además del tope por sesión). Archivo `web/supabase/seguridad_menor.sql`.
 - "Leaked password protection" de Supabase: solo existe en el plan Pro (pagado); queda para cuando haya ventas.
 - Quedan sin hacer (bajo riesgo): mover `pg_net` fuera de `public` y comparación del hottok en tiempo constante.
+
+### Correos: Brevo apagado temporalmente (11 de noviembre de 2026, noche)
+- Con el SMTP de Brevo activo, Supabase no podía enviar NINGÚN correo (Brevo responde "535 Authentication failed": la cuenta nueva aún no está habilitada). La fundadora no podía recuperar su contraseña.
+- Se desactivó "Enable custom SMTP" en Supabase → vuelve el correo integrado de Supabase (límite 2 correos por hora; solo llega a correos del equipo del proyecto). El correo de recuperación se envió OK (HTTP 200).
+- Los datos de Brevo (servidor, usuario) quedan anotados aquí para volver a activarlo cuando Brevo habilite la cuenta: smtp-relay.brevo.com, puerto 587, remitente Kopeet. Habrá que pegar de nuevo la clave SMTP.
