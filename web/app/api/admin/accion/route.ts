@@ -13,6 +13,9 @@ const Accion = z.discriminatedUnion("accion", [
   z.object({ accion: z.literal("quitarAcceso"), email: z.string().trim().email() }),
   z.object({ accion: z.literal("reenviar"), email: z.string().trim().email(), nombre: z.string().trim().max(80).optional() }),
   z.object({ accion: z.literal("resolverError"), id: z.number().int() }),
+  z.object({ accion: z.literal("resend"), valor: z.string().trim().min(10).max(200) }),
+  z.object({ accion: z.literal("resumenPrueba") }),
+  z.object({ accion: z.literal("estadoResumen") }),
 ]);
 
 /** Envía un enlace para entrar sin contraseña. Si la persona no tiene cuenta, se crea al abrirlo. */
@@ -40,6 +43,7 @@ export async function POST(req: NextRequest) {
   const origen = req.nextUrl.origin;
   let r: { error: { message: string } | null } = { error: null };
   let aviso: string | null = null;
+  let datos: unknown = null;
 
   switch (a.accion) {
     case "ajustes": r = await supabase.rpc("admin_guardar_ajustes", { p_impuesto: a.impuesto, p_infra: a.infra, p_email: a.email }); break;
@@ -48,6 +52,21 @@ export async function POST(req: NextRequest) {
     case "hottok": r = await supabase.rpc("admin_guardar_hottok", { p_valor: a.valor }); break;
     case "quitarAcceso": r = await supabase.rpc("admin_quitar_acceso", { p_email: a.email }); break;
     case "resolverError": r = await supabase.rpc("admin_resolver_error", { p_id: a.id }); break;
+    case "resend": {
+      r = await supabase.rpc("admin_guardar_resend", { p_valor: a.valor });
+      if (r.error && /clave_invalida/.test(r.error.message)) return NextResponse.json({ error: "Esa no parece una API key de Resend. Debe empezar con «re_»." }, { status: 400 });
+      break;
+    }
+    case "resumenPrueba": {
+      r = await supabase.rpc("admin_enviar_resumen_prueba");
+      if (r.error && /falta_resend/.test(r.error.message)) return NextResponse.json({ error: "Primero pega tu API key de Resend." }, { status: 400 });
+      break;
+    }
+    case "estadoResumen": {
+      const e = await supabase.rpc("admin_estado_resumen");
+      r = e; datos = e.data;
+      break;
+    }
     case "darAcceso":
       r = await supabase.rpc("admin_dar_acceso", { p_email: a.email, p_nombre: a.nombre ?? "", p_motivo: a.motivo, p_dias: a.dias });
       if (!r.error && a.enviar) {
@@ -64,5 +83,5 @@ export async function POST(req: NextRequest) {
     console.error("admin accion", a.accion, r.error.message);
     return NextResponse.json({ error: "No se pudo guardar. Intenta de nuevo." }, { status: 500 });
   }
-  return NextResponse.json({ ok: true, aviso });
+  return NextResponse.json({ ok: true, aviso, datos });
 }

@@ -136,3 +136,7 @@
 .pa-error small { color: #8a94ab; }
 .pa-error p { margin: 4px 0 0; font-size: 12.5px; color: #4a5878; overflow-wrap: anywhere; }
 .pa-error.resuelto { opacity: .5; }
+
+/* Resumen semanal */
+.pa-pasos { margin: 4px 0 12px; padding-left: 20px; display: grid; gap: 6px; font-size: 13px; line-height: 1.45; color: #33415f; }
+.pa-boton.secundario { background: #fff; color: #2f6bff; border: 1.5px solid #2f6bff; width: 100%; }

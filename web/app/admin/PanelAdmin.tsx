@@ -443,6 +443,73 @@ function Salud({ d, alCambiar, irA }: { d: Panel; alCambiar: () => void; irA: (s
   </>);
 }
 
+// ---------- Resumen semanal por correo ----------
+interface EstadoResumen { claveGuardada: boolean; programado: boolean; destinatarios: string[] | null;
+  ultimo: { fecha: string; prueba: boolean; estado: "enviado" | "error" | "pendiente"; codigo: number | null; detalle: string | null } | null }
+
+function ResumenCorreo() {
+  const [estado, setEstado] = useState<EstadoResumen | null>(null);
+  const [clave, setClave] = useState("");
+  const [msg, setMsg] = useState<{ ok: boolean; texto: string } | null>(null);
+  const [ocupado, setOcupado] = useState(false);
+  const [version, setVersion] = useState(0);
+
+  useEffect(() => {
+    let vivo = true;
+    fetch("/api/admin/accion", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ accion: "estadoResumen" }) })
+      .then((r) => r.json()).then((d) => { if (vivo && d?.datos) setEstado(d.datos as EstadoResumen); }).catch(() => {});
+    return () => { vivo = false; };
+  }, [version]);
+
+  // Si el último envío quedó "pendiente", vuelve a mirar en unos segundos
+  useEffect(() => {
+    if (estado?.ultimo?.estado !== "pendiente") return;
+    const t = setTimeout(() => setVersion((v) => v + 1), 4000);
+    return () => clearTimeout(t);
+  }, [estado]);
+
+  async function guardarClave(e: React.FormEvent) {
+    e.preventDefault(); setMsg(null); setOcupado(true);
+    try { await accion({ accion: "resend", valor: clave }); setClave(""); setMsg({ ok: true, texto: "API key guardada. Ahora envíate uno de prueba." }); setVersion((v) => v + 1); }
+    catch (err) { setMsg({ ok: false, texto: (err as Error).message }); } finally { setOcupado(false); }
+  }
+  async function probar() {
+    setMsg(null); setOcupado(true);
+    try { await accion({ accion: "resumenPrueba" }); setMsg({ ok: true, texto: "Enviando… revisa tu Gmail en un minuto (mira también Spam o Promociones)." }); setVersion((v) => v + 1); }
+    catch (err) { setMsg({ ok: false, texto: (err as Error).message }); } finally { setOcupado(false); }
+  }
+
+  const u = estado?.ultimo;
+  return (
+    <Tarjeta titulo="Resumen semanal por correo" ayuda="Cada lunes a las 9:00 (hora de Chile) te llega un correo con lo que vendiste, lo que te quedó limpio, los usuarios nuevos, el costo de la IA y los avisos importantes.">
+      {estado && (
+        <div className="pa-mini">
+          <div className={estado.claveGuardada ? "bien" : "mal"}><span>Conectado a Resend</span><b>{estado.claveGuardada ? "Sí" : "No"}</b></div>
+          <div className={estado.programado ? "bien" : ""}><span>Envío de los lunes</span><b>{estado.programado ? "Programado" : "Sin programar"}</b></div>
+          <div><span>Se envía a</span><b style={{ fontSize: 13 }}>{estado.destinatarios?.join(", ") ?? "—"}</b></div>
+          <div className={u?.estado === "error" ? "mal" : u?.estado === "enviado" ? "bien" : ""}><span>Último envío</span>
+            <b>{!u ? "Ninguno aún" : u.estado === "enviado" ? "✓ Enviado" : u.estado === "error" ? "✗ Falló" : "Enviando…"}</b>
+            {u && <small>{fechaHora(u.fecha)}{u.prueba ? " · prueba" : ""}{u.detalle ? ` · ${u.detalle}` : ""}</small>}</div>
+        </div>
+      )}
+      {!estado?.claveGuardada && (
+        <ol className="pa-pasos">
+          <li>Entra a <b>resend.com</b> y crea una cuenta gratis <b>con tu Gmail</b> (maritzavasquezv@gmail.com). Tiene que ser ese mismo correo.</li>
+          <li>En el menú de la izquierda toca <b>API Keys</b> → <b>Create API Key</b>. Ponle de nombre «Kopeet» y deja el permiso «Sending access».</li>
+          <li>Copia la clave (empieza con <b>re_</b>) y pégala aquí abajo. Se guarda en privado: no queda en el código ni en Vercel.</li>
+        </ol>
+      )}
+      <form className="pa-form" onSubmit={guardarClave}>
+        <label>API key de Resend<input type="password" autoComplete="off" value={clave} onChange={(e) => setClave(e.target.value)}
+          placeholder={estado?.claveGuardada ? "Pegar una nueva para reemplazarla" : "re_…"} minLength={10} required /></label>
+        <button className="pa-boton" disabled={ocupado}>Guardar API key</button>
+      </form>
+      {estado?.claveGuardada && <button className="pa-boton secundario" style={{ marginTop: 10 }} onClick={probar} disabled={ocupado}>Enviarme uno de prueba ahora</button>}
+      {msg && <p className={msg.ok ? "aviso-ok" : "error"} role="status">{msg.texto}</p>}
+    </Tarjeta>
+  );
+}
+
 // ---------- Ajustes ----------
 function Ajustes({ d, mes, alCambiar }: { d: Panel; mes: string; alCambiar: () => void }) {
   const c = d.costos;
@@ -489,6 +556,8 @@ function Ajustes({ d, mes, alCambiar }: { d: Panel; mes: string; alCambiar: () =
     <Tarjeta titulo="Enlaces para medir cada canal" ayuda="Usa estos enlaces en tus publicaciones y anuncios; así sabrás de dónde llega cada persona.">
       <ul className="pa-enlaces">{["instagram", "tiktok", "facebook", "youtube"].map((x) => <li key={x}><code>{base}/?origen={x}</code></li>)}</ul>
     </Tarjeta>
+
+    <ResumenCorreo />
 
     <Tarjeta titulo="Conectar Hotmart" ayuda="Cuando crees el producto en Hotmart: copia su «hottok» (Herramientas → Webhooks) y pégalo aquí. Luego, en Hotmart, crea un webhook con la dirección de abajo.">
       <p className="pa-nota">Estado: <b>{d.salud.hottokGuardado ? "✓ hottok guardado" : "Sin conectar"}</b></p>

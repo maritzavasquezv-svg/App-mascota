@@ -234,3 +234,10 @@ Aprobado.
 - "Sumar perro" y "Cuenta" muestran "X de Y perros" y una tarjeta para pasar al Plan Familiar.
 - Hotmart: el nombre del plan debe incluir "Familiar" (p. ej. "Kopeet Familiar Anual"). Enlaces de pago nuevos en Vercel cuando existan: `NEXT_PUBLIC_HOTMART_PAGO_FAMILIAR_ANUAL` y `NEXT_PUBLIC_HOTMART_PAGO_FAMILIAR_MENSUAL`.
 - Probado en la base: plan familiar desde Hotmart, bloqueo del 2º perro sin plan, hasta 4 con familiar.
+
+### Resumen semanal por correo (11 de noviembre de 2026) 🟡 listo, falta la API key de Resend
+- Cada **lunes 12:00 UTC** (9:00 en Chile en verano, 8:00 en invierno) llega a las administradoras un correo: vendiste X, te quedaron Y limpios (ingresos − Hotmart − afiliados − impuestos − IA − servidores/correos y publicidad prorrateados a 7 días), usuarios nuevos, activos de la semana, usos y costo de IA, cancelaciones, reembolsos y avisos (IA > 20% de ventas, Hotmart con errores, costos > ventas, 5+ errores, pagos fallidos) o "✅ Todo en orden". "Sin datos" donde no hay dato.
+- Todo dentro de Supabase: extensiones **pg_cron** (tarea `kopeet-resumen-semanal`) y **pg_net** (envío a la API de Resend). Funciones `privado.resumen_semanal_datos()` y `privado.enviar_resumen_semanal()`; desde el panel: `admin_guardar_resend`, `admin_enviar_resumen_prueba`, `admin_estado_resumen` (todas exigen administradora). SQL en `web/supabase/resumen_semanal.sql`.
+- La API key de Resend se pega una vez en **/admin → Ajustes → Resumen semanal por correo** (queda en `privado.secretos`, no en Vercel). Remitente `onboarding@resend.dev`: sin dominio propio, Resend solo envía al correo dueño de la cuenta, por eso la cuenta Resend debe crearse con maritzavasquezv@gmail.com.
+- Probado en transacción con rollback: correo en español, asunto y cifras correctos, destinatario la administradora, tarea programada activa.
+- Pendiente: que la fundadora cree la cuenta Resend, pegue la key y reciba el correo de prueba.
