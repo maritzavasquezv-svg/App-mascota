@@ -313,3 +313,11 @@ Aprobado.
 - Nota: la auditoría R2 de más arriba está desactualizada: el recorrido ya tenía barra de progreso en todos los pasos, nombre del perro, animación "armando tu plan" y "hecho con tus N respuestas".
 - **Pantalla del plan (/plan)**: las filas ahora usan las respuestas: hora exacta del aviso (p. ej. "Cada día a las 21:00"), preocupaciones ("Llora de noche y 1 más"), ración según edad (cachorro 3–4 comidas; adulto/senior 2), vacunas según edad (serie de cachorro / refuerzo anual / control cada 6 meses en senior), adaptación "pensada para perros rescatados" si viene de refugio o calle. Probado en el navegador, sin desborde en celular.
 - **Panel → Ventas → "Boletas por emitir"**: una fila por cobro aprobado de Hotmart (evento PURCHASE_APPROVED; no se duplica con PURCHASE_COMPLETE), con fecha, monto y moneda, correo y plan; aviso si la compra fue reembolsada. Botón "Ya hice la boleta" (y "Deshacer"). Columna nueva `ventas.boleta_emitida_en`; funciones `admin_boletas()` y `admin_marcar_boleta()` protegidas con `exigir_admin`. Archivo `web/supabase/boletas.sql`. Probado con venta simulada (transacción deshecha). Sin revisar visualmente: requiere la sesión de la fundadora.
+
+### Prueba automática de correos (12 de noviembre de 2026)
+- Se pidió un correo de recuperación por la API (`/auth/v1/recover`): HTTP 200. Según los registros de Supabase, salió desde `noreply@mail.app.supabase.io` (el correo **integrado** de Supabase), porque el SMTP de Brevo sigue apagado desde la noche del 11 nov.
+- Por eso esta prueba **no** verifica Brevo. Brevo sigue sin probar: para probarlo hay que volver a activar "Enable custom SMTP" con la clave SMTP y repetir el envío. Si vuelve el error "535 Authentication failed", escribir al soporte de Brevo para que activen el envío SMTP de la cuenta.
+
+### Garantía 10 → 15 días (12 de noviembre de 2026) ✅
+- En Hotmart no existe la opción de 10 días; la fundadora eligió **15 días**. Se cambió toda la app (venta, planes, aviso del plan, Términos 1.3 y Reembolsos 1.3) a 15 días. Las referencias al derecho a retracto legal siguen diciendo 10 días (es lo que dice la ley; la garantía lo amplía).
+- La carpeta para el abogado (Word/PDF/Doc) todavía dice 10 días: actualizar si se le entrega.

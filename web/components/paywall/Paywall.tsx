@@ -89,7 +89,7 @@ export default function Paywall() {
               <div className="hito"><span className="ic"><Bell size={16} /></span><div><b>{fechas.aviso}</b><p>{t("Último buen momento para decidir: si no te sirve, cancela en Hotmart.", "A good moment to decide: if it isn't for you, cancel in Hotmart.", "Bom momento para decidir: se não servir, cancele na Hotmart.")}</p></div></div>
               <div className="hito"><span className="ic"><CreditCard size={16} /></span><div><b>{fechas.cobro}</b><p>{t("Se cobra el plan que elijas. Cancela antes y no pagas nada.", "The plan you choose is charged. Cancel before and you pay nothing.", "É cobrado o plano que você escolher. Cancele antes e não paga nada.")}</p></div></div>
             </div>
-            <div className="garantia"><ShieldCheck size={26} /><div><b>{t("Garantía Hotmart de 10 días", "10-day Hotmart guarantee", "Garantia Hotmart de 10 dias")}</b><span>{t("Si no te sirve, te devolvemos el dinero.", "If it doesn't help, we refund your money.", "Se não servir, devolvemos seu dinheiro.")}</span></div></div>
+            <div className="garantia"><ShieldCheck size={26} /><div><b>{t("Garantía Hotmart de 15 días", "15-day Hotmart guarantee", "Garantia Hotmart de 15 dias")}</b><span>{t("Si no te sirve, te devolvemos el dinero.", "If it doesn't help, we refund your money.", "Se não servir, devolvemos seu dinheiro.")}</span></div></div>
             <div className="espacio" />
             <button className="cta" onClick={() => setPantalla(3)}>{t("Elegir mi plan", "Choose my plan", "Escolher meu plano")}</button>
           </>)}
@@ -125,7 +125,7 @@ export default function Paywall() {
                 `Em ${fechas.cobro} é cobrado ${precio(PLANES[plan].total, idioma)} (${nombrePlan(plan, "pt").toLowerCase()}).`)}{" "}
               {t("Se renueva automáticamente; cancela cuando quieras.", "Renews automatically; cancel anytime.", "Renova automaticamente; cancele quando quiser.")}
             </p>
-            <p className="garantia-mini"><ShieldCheck size={15} /> {t("Garantía Hotmart de 10 días", "10-day Hotmart guarantee", "Garantia Hotmart de 10 dias")}</p>
+            <p className="garantia-mini"><ShieldCheck size={15} /> {t("Garantía Hotmart de 15 días", "15-day Hotmart guarantee", "Garantia Hotmart de 15 dias")}</p>
             <button className="secundario" onClick={salir}>{t("Ahora no", "Not now", "Agora não")}</button>
           </>)}
         </div>
