@@ -328,3 +328,5 @@ Aprobado.
 - Imágenes del producto en la carpeta raíz: "Kopeet - imagen Hotmart (opcion A/B).png".
 - Área de Miembros: módulo "Bienvenida" con la clase publicada "Cómo entrar a Kopeet" (enlace a /entrar, usar el mismo correo del pago). Registro finalizado y enviado a aprobación de Hotmart.
 - Falta: hottok + webhook (requiere entrar al panel de Kopeet), enlaces de pago de cada plan en Vercel.
+- ✅ 12 nov 2026: hottok guardado en el panel; webhook "Kopeet app" registrado en Hotmart (URL /api/webhooks/hotmart, versión 2.0.0, 16 eventos). Prueba de Hotmart recibida OK (todos los eventos aceptados, el filtro de avisos antiguos funcionó). Datos de prueba del comprador falso de Hotmart (@example.com) borrados con permiso de la fundadora: ventas y suscripciones quedan en 0.
+- Falta para vender: aprobación del producto por Hotmart, enlaces de pago de los 4 planes en Vercel (NEXT_PUBLIC_HOTMART_PAGO_MENSUAL, _ANUAL, _FAMILIAR_MENSUAL, _FAMILIAR_ANUAL), correos a clientes (Brevo sin activar), compra de prueba.
