@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { clienteConSesion } from "@/lib/supabase/servidor";
 import { estadoPlan } from "@/lib/plan";
+import { PAGOS_HOTMART } from "@/lib/pagos";
 
 // Dice a la app si la persona tiene el plan activo, y los enlaces de pago de Hotmart.
 export async function GET() {
@@ -11,10 +12,10 @@ export async function GET() {
   return NextResponse.json({
     ...e,
     pagar: {
-      anual: process.env.NEXT_PUBLIC_HOTMART_PAGO_ANUAL || null,
-      mensual: process.env.NEXT_PUBLIC_HOTMART_PAGO_MENSUAL || null,
-      familiar_anual: process.env.NEXT_PUBLIC_HOTMART_PAGO_FAMILIAR_ANUAL || null,
-      familiar_mensual: process.env.NEXT_PUBLIC_HOTMART_PAGO_FAMILIAR_MENSUAL || null,
+      anual: process.env.NEXT_PUBLIC_HOTMART_PAGO_ANUAL || PAGOS_HOTMART.anual,
+      mensual: process.env.NEXT_PUBLIC_HOTMART_PAGO_MENSUAL || PAGOS_HOTMART.mensual,
+      familiar_anual: process.env.NEXT_PUBLIC_HOTMART_PAGO_FAMILIAR_ANUAL || PAGOS_HOTMART.familiar_anual,
+      familiar_mensual: process.env.NEXT_PUBLIC_HOTMART_PAGO_FAMILIAR_MENSUAL || PAGOS_HOTMART.familiar_mensual,
     },
   });
 }
