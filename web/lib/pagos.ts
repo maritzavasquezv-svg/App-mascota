@@ -7,7 +7,7 @@ import type { PlanId } from "@/lib/planes";
  */
 export const PAGOS_HOTMART: Record<PlanId, string | null> = {
   mensual: "https://pay.hotmart.com/X108464213R?off=vjnh580u",
-  anual: null,
-  familiar_mensual: null,
-  familiar_anual: null,
+  anual: "https://pay.hotmart.com/X108464213R?off=7msi35ai",
+  familiar_mensual: "https://pay.hotmart.com/X108464213R?off=dcw66idx",
+  familiar_anual: "https://pay.hotmart.com/X108464213R?off=u6189f3d",
 };
