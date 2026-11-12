@@ -332,3 +332,8 @@ Aprobado.
 - Falta para vender: aprobación del producto por Hotmart, enlaces de pago de los 4 planes en Vercel (NEXT_PUBLIC_HOTMART_PAGO_MENSUAL, _ANUAL, _FAMILIAR_MENSUAL, _FAMILIAR_ANUAL), correos a clientes (Brevo sin activar), compra de prueba.
 - ✅ 12 nov 2026: producto **aprobado** por Hotmart ("Ventas activas"). Enlace del plan Mensual en la app (`web/lib/pagos.ts`, código de oferta `vjnh580u`, probado: abre el pago mensual). Enlaces de los 4 planes en `web/lib/pagos.ts` (Links de divulgación → elegir el plan en la lista): Mensual vjnh580u, Anual 7msi35ai, Familiar Mensual dcw66idx, Familiar Anual u6189f3d. Probados: cada uno abre su plan y precio.
 - ✅ Descripción del producto en Hotmart corregida a "15 días de garantía" (verificado).
+
+### Correos a clientes con Gmail (12 de noviembre de 2026) ✅
+- Brevo seguía rechazando (535) y no hay respuesta aún; la fundadora decidió usar su **Gmail como SMTP**: Supabase → Authentication → Emails → SMTP: smtp.gmail.com, puerto 587, usuario y remitente maritzavasquezv@gmail.com, nombre "Kopeet", contraseña de aplicación de Google "Kopeet" (la pegó ella; verificación en 2 pasos ya estaba activa).
+- Prueba: correo de recuperación enviado con respuesta 200 (con SMTP fallando Supabase responde 500). Límite de Gmail ≈ 500 correos/día; límite configurado en Supabase 30/hora.
+- Cuando haya dominio propio: cambiar a un servicio con hola@kopeet.cl (Brevo o Resend).
