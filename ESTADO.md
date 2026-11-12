@@ -322,8 +322,9 @@ Aprobado.
 - En Hotmart no existe la opción de 10 días; la fundadora eligió **15 días**. Se cambió toda la app (venta, planes, aviso del plan, Términos 1.3 y Reembolsos 1.3) a 15 días. Las referencias al derecho a retracto legal siguen diciendo 10 días (es lo que dice la ley; la garantía lo amplía).
 - La carpeta para el abogado (Word/PDF/Doc) todavía dice 10 días: actualizar si se le entrega.
 
-### Hotmart: producto creado (12 de noviembre de 2026) 🟡 en borrador
+### Hotmart: producto creado (12 de noviembre de 2026) 🟡 enviado a aprobación
 - Cuenta de la fundadora activada como productora (entidad individual, VAT ID = RUT). Producto **Kopeet** (ID 8954817), formato **Suscripción**, idioma español, país Chile, garantía **15 días**.
 - 4 planes revisados por captura: Kopeet Mensual (mensual, US$6,99), Kopeet Anual (anual, US$49,99), Kopeet Familiar Mensual (mensual, US$9,99), Kopeet Familiar Anual (anual, US$69,99); todos con 7 días de prueba, pago al contado, cobro hasta que el cliente cancele. "Cambio de plan" desactivado.
 - Imágenes del producto en la carpeta raíz: "Kopeet - imagen Hotmart (opcion A/B).png".
-- Falta: contenido del Área de Miembros (una página "Cómo entrar a Kopeet"), Finalizar registro, hottok + webhook (requiere entrar al panel), enlaces de pago en Vercel.
+- Área de Miembros: módulo "Bienvenida" con la clase publicada "Cómo entrar a Kopeet" (enlace a /entrar, usar el mismo correo del pago). Registro finalizado y enviado a aprobación de Hotmart.
+- Falta: hottok + webhook (requiere entrar al panel de Kopeet), enlaces de pago de cada plan en Vercel.
