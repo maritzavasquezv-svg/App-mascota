@@ -17,7 +17,7 @@ begin
                                and x.evento in ('PURCHASE_REFUNDED', 'PURCHASE_CHARGEBACK', 'PURCHASE_PROTEST'))
       ) order by v.fecha)
       from public.ventas v
-      where v.evento = 'PURCHASE_APPROVED' and v.boleta_emitida_en is null), '[]'::jsonb),
+      where v.evento = 'PURCHASE_APPROVED' and v.boleta_emitida_en is null and coalesce(v.bruto, 1) > 0), '[]'::jsonb),  -- los cobros de $0 (inicio de la prueba gratis) no llevan boleta
     'hechas', coalesce((
       select jsonb_agg(h order by (h ->> 'emitida') desc) from (
         select jsonb_build_object('id', v.id, 'fecha', v.fecha, 'email', v.email, 'moneda', v.moneda, 'monto', v.bruto,

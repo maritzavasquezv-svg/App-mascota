@@ -337,3 +337,8 @@ Aprobado.
 - Brevo seguía rechazando (535) y no hay respuesta aún; la fundadora decidió usar su **Gmail como SMTP**: Supabase → Authentication → Emails → SMTP: smtp.gmail.com, puerto 587, usuario y remitente maritzavasquezv@gmail.com, nombre "Kopeet", contraseña de aplicación de Google "Kopeet" (la pegó ella; verificación en 2 pasos ya estaba activa).
 - Prueba: correo de recuperación enviado con respuesta 200 (con SMTP fallando Supabase responde 500). Límite de Gmail ≈ 500 correos/día; límite configurado en Supabase 30/hora.
 - Cuando haya dominio propio: cambiar a un servicio con hola@kopeet.cl (Brevo o Resend).
+
+### Compra de prueba con un amigo (12 de noviembre de 2026) ✅
+- El amigo creó su cuenta (correo de confirmación llegó vía Gmail SMTP: cuenta confirmada) y compró el plan **anual** en Hotmart con el mismo correo. Hotmart envió PURCHASE_APPROVED con monto US$0 (inicio de la prueba de 7 días; próximo cobro ~19 nov 2026) → suscripción **activa, plan anual** en la app.
+- Ajuste: "Boletas por emitir" ya no muestra cobros de $0 (inicio de prueba gratis).
+- Falta probar: cancelación durante la prueba (debe mantener acceso hasta el fin de la prueba y no cobrar).
