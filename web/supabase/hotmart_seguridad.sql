@@ -22,7 +22,7 @@ returns jsonb language plpgsql security definer set search_path = '' as $$
 declare
   esperado text := (select valor from privado.secretos where clave = 'hotmart_hottok');
   ev text := coalesce(p_payload ->> 'event', '');
-  correo text := lower(trim(p_payload #>> '{data,buyer,email}'));
+  correo text := lower(trim(coalesce(p_payload #>> '{data,buyer,email}', p_payload #>> '{data,subscriber,email}')));  -- la cancelación de suscripción trae el correo en "subscriber"
   trx text := p_payload #>> '{data,purchase,transaction}';
   nombre_plan text := lower(coalesce(p_payload #>> '{data,subscription,plan,name}', p_payload #>> '{data,product,name}', ''));
   com jsonb := coalesce(p_payload #> '{data,commissions}', '[]'::jsonb);
