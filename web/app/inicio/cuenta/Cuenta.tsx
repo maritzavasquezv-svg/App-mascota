@@ -10,6 +10,7 @@ import SelectorIdioma from "@/components/SelectorIdioma";
 import { nombrePlan, PLANES, precio, esPlan } from "@/lib/planes";
 import { PasarAFamiliar, useLimitePerros } from "@/components/app/LimitePerros";
 import Recordatorios from "@/components/app/Recordatorios";
+import CancelarSuscripcion from "@/components/app/CancelarSuscripcion";
 
 export default function Cuenta() {
   const router = useRouter();
@@ -83,7 +84,8 @@ export default function Cuenta() {
         </div>
         {lim && lim.limite < 4 && lim.actuales >= lim.limite && <PasarAFamiliar lim={lim} plan={estadoPlan} />}
         <Recordatorios />
-        <a className="cta" href="https://consumer.hotmart.com/" target="_blank" rel="noopener noreferrer" style={{ marginTop: 14 }}>{t("Cancelar o gestionar mi suscripción en Hotmart", "Cancel or manage my subscription in Hotmart", "Cancelar ou gerenciar minha assinatura na Hotmart")}</a>
+        <CancelarSuscripcion plan={estadoPlan} />
+        <a className="cta" href="https://consumer.hotmart.com/" target="_blank" rel="noopener noreferrer" style={{ marginTop: 14 }}>{t("Ver o gestionar mi suscripción en Hotmart", "View or manage my subscription in Hotmart", "Ver ou gerenciar minha assinatura na Hotmart")}</a>
         <p className="nota">{t("Entra con el mismo correo con el que pagaste → Mis compras → Kopeet → Mostrar detalles → Configurar forma de pago → Cancelar suscripción. Más detalles en ", "Sign in with the email you paid with → My purchases → Kopeet → Show details → Set up payment → Cancel subscription. More details in ", "Entre com o e-mail usado no pagamento → Minhas compras → Kopeet → Mostrar detalhes → Configurar forma de pagamento → Cancelar assinatura. Mais detalhes em ")}<Link href={idioma === "es" ? "/reembolsos" : `/${idioma}/reembolsos`}>{t("Reembolsos y cancelación", "Refunds and cancellation", "Reembolsos e cancelamento")}</Link>.</p>
 
         {estadoPlan?.admin && <Link className="cta azul" href="/admin" style={{ marginTop: 18 }}>{t("Panel de administración", "Admin panel", "Painel de administração")}</Link>}

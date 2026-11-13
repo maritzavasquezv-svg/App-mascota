@@ -7,13 +7,16 @@ export function esAdmin(email?: string | null): boolean {
   return Boolean(email && lista.includes(email.toLowerCase()));
 }
 
-export interface EstadoPlan { activo: boolean; admin: boolean; estado: string | null; plan: string | null }
+export interface EstadoPlan { activo: boolean; admin: boolean; estado: string | null; plan: string | null; origen: string | null; cancelada: boolean; vence: string | null }
 
 /** El plan está activo si Hotmart avisó una compra vigente, si la dueña dio acceso a mano (y no venció), o si es administradora. */
 export async function estadoPlan(supabase: SupabaseClient, user: User): Promise<EstadoPlan> {
   const admin = esAdmin(user.email);
-  const { data } = await supabase.from("suscripciones").select("estado,plan,vence_en").maybeSingle();
+  const { data } = await supabase.from("suscripciones").select("estado,plan,vence_en,origen,ultimo_evento").maybeSingle();
   const vencio = Boolean(data?.vence_en && new Date(data.vence_en) < new Date());
   const estado = vencio ? "vencida" : data?.estado ?? null;
-  return { activo: admin || estado === "activa", admin, estado, plan: data?.plan ?? null };
+  return {
+    activo: admin || estado === "activa", admin, estado, plan: data?.plan ?? null,
+    origen: data?.origen ?? null, cancelada: data?.ultimo_evento === "SUBSCRIPTION_CANCELLATION", vence: data?.vence_en ?? null,
+  };
 }

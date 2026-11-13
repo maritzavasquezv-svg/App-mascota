@@ -156,3 +156,11 @@
 .flujo .avisos-tarjeta .botones-min button:disabled { opacity: .6; cursor: default; }
 .flujo .pasos-ios { margin: 8px 0 0; padding-left: 20px; font-size: 13.5px; line-height: 1.6; color: var(--ink, inherit); }
 .flujo .pasos-ios svg { vertical-align: -2px; }
+
+/* Cancelar la suscripción con un clic */
+.flujo .cancelar-caja { margin-top: 14px; }
+.flujo .cancelar-caja p { font-size: 14px; line-height: 1.5; margin: 0 0 8px; }
+.flujo .cancelar-caja .botones-min .peligro { background: #c62828; color: #fff; }
+.flujo .cancelada-ok { display: flex; gap: 8px; align-items: flex-start; margin-top: 14px; background: #eaf7ee; border: 1px solid #b9e3c6; border-radius: 14px; padding: 11px 12px; color: #1d5b33; }
+.flujo .cancelada-ok svg { flex-shrink: 0; margin-top: 2px; }
+.flujo .cancelada-ok p { margin: 0; font-size: 14px; line-height: 1.45; }

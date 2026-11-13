@@ -393,6 +393,38 @@ function BoletasPorEmitir() {
   );
 }
 
+/** Credenciales de la API de Hotmart: permiten que el cliente cancele su suscripción con un botón dentro de Kopeet. */
+function CancelarDesdeKopeet() {
+  const [listo, setListo] = useState<boolean | null>(null);
+  const [f, setF] = useState({ clientId: "", clientSecret: "", basic: "" });
+  const [msg, setMsg] = useState<{ ok: boolean; texto: string } | null>(null);
+  const [ocupado, setOcupado] = useState(false);
+  const [version, setVersion] = useState(0);
+  useEffect(() => {
+    let vivo = true;
+    fetch("/api/admin/accion", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ accion: "hotmartApiEstado" }) })
+      .then((r) => r.json()).then((d) => { if (vivo) setListo(d?.datos === true); }).catch(() => {});
+    return () => { vivo = false; };
+  }, [version]);
+  async function guardar(e: React.FormEvent) {
+    e.preventDefault(); setMsg(null); setOcupado(true);
+    try { await accion({ accion: "hotmartApi", ...f }); setF({ clientId: "", clientSecret: "", basic: "" }); setMsg({ ok: true, texto: "Credenciales guardadas. Tus clientes ya pueden cancelar desde Kopeet." }); setVersion((v) => v + 1); }
+    catch (err) { setMsg({ ok: false, texto: (err as Error).message }); } finally { setOcupado(false); }
+  }
+  return (
+    <Tarjeta titulo="Cancelar desde Kopeet (API de Hotmart)" ayuda="Con estas credenciales, tus clientes cancelan su suscripción con un botón en Cuenta, sin entrar a Hotmart. Se crean en Hotmart → Herramientas → Credenciales Hotmart → Crear credencial → API Hotmart.">
+      <p className="pa-nota">Estado: <b>{listo === null ? "…" : listo ? "✓ Conectado: el botón de cancelar funciona" : "Sin conectar"}</b></p>
+      <form className="pa-form" onSubmit={guardar}>
+        <label>Client ID<input type="password" autoComplete="off" value={f.clientId} onChange={(e) => setF({ ...f, clientId: e.target.value })} minLength={8} required /></label>
+        <label>Client Secret<input type="password" autoComplete="off" value={f.clientSecret} onChange={(e) => setF({ ...f, clientSecret: e.target.value })} minLength={8} required /></label>
+        <label>Basic<input type="password" autoComplete="off" value={f.basic} onChange={(e) => setF({ ...f, basic: e.target.value })} minLength={8} required /></label>
+        <button className="pa-boton" disabled={ocupado}>{listo ? "Reemplazar credenciales" : "Guardar credenciales"}</button>
+      </form>
+      {msg && <p className={msg.ok ? "aviso-ok" : "error"} role="status">{msg.texto}</p>}
+    </Tarjeta>
+  );
+}
+
 async function accion(cuerpo: Record<string, unknown>) {
   const r = await fetch("/api/admin/accion", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo) });
   const d = await r.json().catch(() => ({}));
@@ -618,5 +650,7 @@ function Ajustes({ d, mes, alCambiar }: { d: Panel; mes: string; alCambiar: () =
       {nota("hottok")}
       <p className="pa-nota">Dirección del webhook para Hotmart: <code>{urlWebhook}</code></p>
     </Tarjeta>
+
+    <CancelarDesdeKopeet />
   </>);
 }

@@ -17,6 +17,8 @@ const Accion = z.discriminatedUnion("accion", [
   z.object({ accion: z.literal("resumenPrueba") }),
   z.object({ accion: z.literal("estadoResumen") }),
   z.object({ accion: z.literal("boletas") }),
+  z.object({ accion: z.literal("hotmartApi"), clientId: z.string().trim().min(8).max(200), clientSecret: z.string().trim().min(8).max(200), basic: z.string().trim().min(8).max(400) }),
+  z.object({ accion: z.literal("hotmartApiEstado") }),
   z.object({ accion: z.literal("marcarBoleta"), id: z.string().uuid(), hecha: z.boolean() }),
 ]);
 
@@ -66,6 +68,16 @@ export async function POST(req: NextRequest) {
     }
     case "estadoResumen": {
       const e = await supabase.rpc("admin_estado_resumen");
+      r = e; datos = e.data;
+      break;
+    }
+    case "hotmartApi": {
+      r = await supabase.rpc("admin_guardar_hotmart_api", { p_client_id: a.clientId, p_client_secret: a.clientSecret, p_basic: a.basic });
+      if (r.error && /credenciales_invalidas/.test(r.error.message)) return NextResponse.json({ error: "Revisa los 3 datos: parecen incompletos." }, { status: 400 });
+      break;
+    }
+    case "hotmartApiEstado": {
+      const e = await supabase.rpc("admin_hotmart_api_estado");
       r = e; datos = e.data;
       break;
     }

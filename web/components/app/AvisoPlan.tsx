@@ -4,7 +4,7 @@ import { Sparkles } from "lucide-react";
 import { useT } from "@/lib/i18n";
 import { PLANES_ID, resumenPlan, type PlanId } from "@/lib/planes";
 
-export interface Plan { activo: boolean; admin: boolean; estado: string | null; plan: string | null; pagar: Record<PlanId, string | null> }
+export interface Plan { activo: boolean; admin: boolean; estado: string | null; plan: string | null; origen?: string | null; cancelada?: boolean; vence?: string | null; pagar: Record<PlanId, string | null> }
 
 /** Lee el estado del plan una vez (para mostrar avisos y botones de pago). */
 export function usePlan() {
