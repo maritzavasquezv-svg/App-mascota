@@ -209,3 +209,17 @@
 .flujo .ing-emoji { font-style: normal; display: inline-block; width: 26px; font-size: 17px; }
 .flujo .calendario-semana { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
 .flujo .calendario-semana .comida em { white-space: nowrap; }
+/* Cabecera de receta (rediseño) */
+.flujo .receta-color { border-top: 0; overflow: hidden; padding-top: 0; }
+.flujo .receta-color .receta-cabeza { margin: 0 -16px; border-radius: 0; padding: 18px 16px 16px; gap: 14px; align-items: center;
+  background: linear-gradient(135deg, var(--f) 0%, #fff 100%); border-bottom: 1px solid var(--f); }
+.flujo .receta-plato { width: 68px; height: 68px; flex-shrink: 0; border-radius: 99px; background: #fff; display: grid; place-items: center;
+  font-size: 36px; box-shadow: 0 0 0 4px var(--c), 0 6px 16px rgba(15, 27, 61, .12); }
+.flujo .receta-info { min-width: 0; }
+.flujo .receta-info small { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #fff; background: var(--c); border-radius: 99px; padding: 2px 8px; }
+.flujo .receta-info b { display: block; font-size: 18px; line-height: 1.2; color: var(--c); margin-top: 6px; }
+.flujo .receta-ings { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.flujo .receta-ings i { font-style: normal; width: 30px; height: 30px; border-radius: 99px; background: #fff; display: grid; place-items: center; font-size: 17px; box-shadow: 0 1px 4px rgba(15, 27, 61, .1); }
+.flujo .receta-pastillas { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.flujo .receta-pastillas span { background: var(--f); color: var(--c); font-weight: 700; font-size: 13px; border-radius: 99px; padding: 6px 12px; }
+.flujo .receta-color .receta-cabeza span.receta-plato { font-size: 36px; }

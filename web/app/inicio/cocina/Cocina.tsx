@@ -57,7 +57,7 @@ const PROTEINA: { re: RegExp; color: string; fondo: string }[] = [
   { re: /cordero/, color: "#7c3aed", fondo: "#f1eaff" }, { re: /pescado|salmon/, color: "#0369a1", fondo: "#e3f3ff" },
 ];
 const estilo = (r: Receta) => PROTEINA.find((p) => p.re.test(r.id)) ?? PROTEINA[0];
-const emojisReceta = (r: Receta) => [...new Set(Object.keys(r.gramos).map((k) => EMOJI[k]).filter((e) => e && e !== "🥄" && e !== "🧂" && e !== "💧"))].slice(0, 4).join(" ");
+const emojisReceta = (r: Receta) => [...new Set(Object.keys(r.gramos).map((k) => EMOJI[k]).filter((e) => e && e !== "🥄" && e !== "🧂" && e !== "💧"))].slice(0, 5);
 const COLOR_COMIDA = ["#f59e0b", "#16a34a", "#8b5cf6", "#2f6bff"];
 
 const PROHIBIDOS: Txt = {
@@ -217,8 +217,15 @@ export default function Cocina() {
             <button key={i} role="tab" aria-selected={sem === i} className={i === semanaHoy ? "hoy" : ""} style={{ "--c": estilo(x).color, "--f": estilo(x).fondo } as React.CSSProperties} onClick={() => setSemana(i)}><span aria-hidden="true">{EMOJI[Object.keys(x.gramos)[0]]}</span>{t(`Semana ${i + 1}`, `Week ${i + 1}`, `Semana ${i + 1}`)}</button>))}</div>
 
           <section className="tarjeta receta-color" style={{ "--c": estilo(r).color, "--f": estilo(r).fondo } as React.CSSProperties}>
-            <div className="receta-cabeza"><span className="receta-emojis" aria-hidden="true">{emojisReceta(r)}</span>
-              <div><b>{r.nombre[idioma]}</b><span>{t(`${gDia} g al día · ${n} comidas de ${gComida} g`, `${gDia} g a day · ${n} meals of ${gComida} g`, `${gDia} g por dia · ${n} refeições de ${gComida} g`)}</span></div></div>
+            <div className="receta-cabeza">
+              <span className="receta-plato" aria-hidden="true">{EMOJI[Object.keys(r.gramos)[0]]}</span>
+              <div className="receta-info">
+                <small>{t(`Semana ${sem + 1}`, `Week ${sem + 1}`, `Semana ${sem + 1}`)}{r.etapa === "cachorro" ? t(" · cachorro", " · puppy", " · filhote") : ""}</small>
+                <b>{r.nombre[idioma].replace(/ \((cachorro|puppy|filhote)\)/, "")}</b>
+                <div className="receta-ings" aria-hidden="true">{emojisReceta(r).map((e) => <i key={e}>{e}</i>)}</div>
+              </div>
+            </div>
+            <div className="receta-pastillas"><span>⚖️ {gDia} g {t("al día", "a day", "por dia")}</span><span>🍽️ {n} × {gComida} g</span></div>
             <div className="calendario-semana">{DIAS.map((d, i) => (
               <div key={i}><b>{d[idioma]}</b>{nombresComidas.map((c, j) => <span key={c.es} className="comida" style={{ "--m": COLOR_COMIDA[j === n - 1 ? 3 : j] } as React.CSSProperties}><i />{c[idioma]} <em>{gComida} g</em></span>)}</div>))}</div>
             {sem === 0 && <p className="nota">{t("¿Viene de alimento comprado? Haz el cambio en 7 días: días 1–2, ¼ casero; días 3–4, la mitad; días 5–6, ¾; día 7, todo casero.", "Coming from commercial food? Switch over 7 days: days 1–2, ¼ homemade; days 3–4, half; days 5–6, ¾; day 7, all homemade.", "Vem de ração comprada? Faça a troca em 7 dias: dias 1–2, ¼ caseira; dias 3–4, metade; dias 5–6, ¾; dia 7, tudo caseiro.")}</p>}
