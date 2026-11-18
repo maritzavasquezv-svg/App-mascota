@@ -359,3 +359,8 @@ Aprobado.
 - Scripts para auditar/regenerar recetas: web/scripts/cocina (extraer.mjs, validar.mjs, optimizar.mjs, generar.mjs).
 - Términos v1.4 con cláusula de la Cocina (3 idiomas).
 - Por edad: cachorros 2–12 meses (6 recetas de crecimiento con fosfato dicálcico, 3–4 comidas), adultos y senior (8 recetas). Probada con Galia (cachorra). Colores por receta y dibujos de comida.
+
+## 18 nov 2026
+- Cuenta de auditoría maritzavasquezv+auditor@gmail.com: correo confirmado + cortesía 30 días (hasta 18 dic).
+- App hermana **Kopeet Gatos** creada y publicada: https://kopeet-gatos.vercel.app · carpeta `Desktop/app IA 1/App gatos`
+  (estado en App gatos/respaldo/ESTADO-GATOS.md). Falta Hotmart y las fotos de sus gatos.
