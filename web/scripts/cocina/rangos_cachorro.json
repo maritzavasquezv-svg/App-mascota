@@ -1,0 +1,258 @@
+{
+ "c_pollo_arroz": {
+  "pollo_trutro": [
+   350,
+   600
+  ],
+  "higado_pollo": [
+   30,
+   100
+  ],
+  "huevo": [
+   30,
+   150
+  ],
+  "arroz_blanco": [
+   80,
+   300
+  ],
+  "zanahoria": [
+   30,
+   100
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   25
+  ],
+  "sal": [
+   0.5,
+   4
+  ],
+  "carbonato_calcio": [
+   0,
+   8
+  ],
+  "fosfato_dicalcico": [
+   2,
+   20
+  ]
+ },
+ "c_vacuno_papa": {
+  "vacuno_molido": [
+   350,
+   600
+  ],
+  "higado_vacuno": [
+   30,
+   90
+  ],
+  "huevo": [
+   30,
+   150
+  ],
+  "papa": [
+   80,
+   300
+  ],
+  "zapallo": [
+   30,
+   100
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   25
+  ],
+  "sal": [
+   0.5,
+   4
+  ],
+  "carbonato_calcio": [
+   0,
+   8
+  ],
+  "fosfato_dicalcico": [
+   2,
+   20
+  ]
+ },
+ "c_pavo_camote": {
+  "pavo_molido": [
+   350,
+   600
+  ],
+  "higado_pollo": [
+   30,
+   100
+  ],
+  "camote": [
+   80,
+   300
+  ],
+  "zapallo_italiano": [
+   30,
+   100
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   25
+  ],
+  "sal": [
+   0.5,
+   4
+  ],
+  "carbonato_calcio": [
+   0,
+   8
+  ],
+  "fosfato_dicalcico": [
+   2,
+   20
+  ]
+ },
+ "c_pescado_arroz": {
+  "pescado_blanco": [
+   200,
+   500
+  ],
+  "salmon": [
+   0,
+   150
+  ],
+  "sardina": [
+   0,
+   120
+  ],
+  "higado_vacuno": [
+   20,
+   80
+  ],
+  "huevo": [
+   30,
+   150
+  ],
+  "arroz_blanco": [
+   80,
+   300
+  ],
+  "zanahoria": [
+   30,
+   100
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   20
+  ],
+  "sal": [
+   0.5,
+   4
+  ],
+  "carbonato_calcio": [
+   0,
+   8
+  ],
+  "fosfato_dicalcico": [
+   2,
+   20
+  ]
+ },
+ "c_cerdo_avena": {
+  "cerdo_lomo": [
+   350,
+   600
+  ],
+  "higado_pollo": [
+   30,
+   100
+  ],
+  "huevo": [
+   0,
+   150
+  ],
+  "avena": [
+   20,
+   100
+  ],
+  "camote": [
+   50,
+   250
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   25
+  ],
+  "sal": [
+   0.5,
+   4
+  ],
+  "carbonato_calcio": [
+   0,
+   8
+  ],
+  "fosfato_dicalcico": [
+   2,
+   20
+  ]
+ },
+ "c_cordero_papa": {
+  "cordero": [
+   350,
+   600
+  ],
+  "higado_vacuno": [
+   30,
+   90
+  ],
+  "huevo": [
+   30,
+   150
+  ],
+  "papa": [
+   80,
+   300
+  ],
+  "zanahoria": [
+   30,
+   100
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   25
+  ],
+  "sal": [
+   0.5,
+   4
+  ],
+  "carbonato_calcio": [
+   0,
+   8
+  ],
+  "fosfato_dicalcico": [
+   2,
+   20
+  ]
+ }
+}

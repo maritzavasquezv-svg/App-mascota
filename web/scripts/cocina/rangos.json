@@ -1,0 +1,326 @@
+{
+ "pollo_arroz": {
+  "pollo_trutro": [
+   350,
+   520
+  ],
+  "higado_pollo": [
+   30,
+   90
+  ],
+  "huevo": [
+   0,
+   100
+  ],
+  "arroz_blanco": [
+   150,
+   350
+  ],
+  "avena": [
+   0,
+   60
+  ],
+  "zanahoria": [
+   40,
+   120
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   20
+  ],
+  "sal": [
+   0.5,
+   3
+  ],
+  "carbonato_calcio": [
+   2,
+   9
+  ]
+ },
+ "vacuno_papa": {
+  "vacuno_molido": [
+   350,
+   520
+  ],
+  "higado_vacuno": [
+   30,
+   80
+  ],
+  "huevo": [
+   0,
+   100
+  ],
+  "papa": [
+   150,
+   350
+  ],
+  "zapallo": [
+   40,
+   120
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   20
+  ],
+  "sal": [
+   0.5,
+   3
+  ],
+  "carbonato_calcio": [
+   2,
+   9
+  ],
+  "avena": [
+   0,
+   60
+  ]
+ },
+ "pavo_camote": {
+  "pavo_molido": [
+   350,
+   520
+  ],
+  "higado_pollo": [
+   30,
+   90
+  ],
+  "camote": [
+   150,
+   350
+  ],
+  "zapallo_italiano": [
+   40,
+   120
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "arvejas": [
+   0,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   15
+  ],
+  "sal": [
+   0.5,
+   3
+  ],
+  "carbonato_calcio": [
+   2,
+   9
+  ]
+ },
+ "pescado_arroz": {
+  "pescado_blanco": [
+   300,
+   500
+  ],
+  "sardina": [
+   0,
+   80
+  ],
+  "higado_pollo": [
+   20,
+   90
+  ],
+  "huevo": [
+   0,
+   100
+  ],
+  "arroz_integral": [
+   150,
+   350
+  ],
+  "zanahoria": [
+   40,
+   120
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   20
+  ],
+  "sal": [
+   0.5,
+   3
+  ],
+  "carbonato_calcio": [
+   0,
+   8
+  ]
+ },
+ "cerdo_avena": {
+  "cerdo_lomo": [
+   300,
+   500
+  ],
+  "higado_pollo": [
+   30,
+   90
+  ],
+  "avena": [
+   30,
+   100
+  ],
+  "camote": [
+   100,
+   300
+  ],
+  "zapallo": [
+   40,
+   120
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   20
+  ],
+  "sal": [
+   0.5,
+   3
+  ],
+  "carbonato_calcio": [
+   2,
+   9
+  ]
+ },
+ "cordero_papa": {
+  "cordero": [
+   350,
+   520
+  ],
+  "higado_vacuno": [
+   30,
+   80
+  ],
+  "huevo": [
+   30,
+   120
+  ],
+  "papa": [
+   150,
+   350
+  ],
+  "zanahoria": [
+   40,
+   120
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   20
+  ],
+  "sal": [
+   0.5,
+   3
+  ],
+  "carbonato_calcio": [
+   2,
+   9
+  ]
+ },
+ "vacuno_camote": {
+  "vacuno_molido": [
+   350,
+   520
+  ],
+  "higado_vacuno": [
+   30,
+   80
+  ],
+  "huevo": [
+   30,
+   120
+  ],
+  "camote": [
+   150,
+   350
+  ],
+  "lentejas": [
+   0,
+   120
+  ],
+  "porotos_verdes": [
+   40,
+   120
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   15
+  ],
+  "sal": [
+   0.5,
+   3
+  ],
+  "carbonato_calcio": [
+   2,
+   9
+  ]
+ },
+ "pescado_papa": {
+  "salmon": [
+   60,
+   130
+  ],
+  "pescado_blanco": [
+   200,
+   400
+  ],
+  "higado_vacuno": [
+   20,
+   70
+  ],
+  "papa": [
+   150,
+   350
+  ],
+  "lentejas": [
+   0,
+   120
+  ],
+  "zapallo": [
+   40,
+   120
+  ],
+  "espinaca": [
+   20,
+   100
+  ],
+  "aceite_canola": [
+   0,
+   15
+  ],
+  "sal": [
+   0.5,
+   3
+  ],
+  "carbonato_calcio": [
+   0,
+   8
+  ]
+ }
+}

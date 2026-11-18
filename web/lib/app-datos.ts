@@ -2,7 +2,7 @@
 import type { Edad, Origen } from "@/lib/onboarding";
 import { locale, tr, type Idioma, type Txt } from "@/lib/idiomas";
 
-export interface Perro { id: string; nombre: string; origen: Origen | null; edad: Edad | null; preocupaciones: string[]; foto_ruta: string | null; creado_en: string; raza_declarada?: string | null; con_pedigri?: boolean; estimacion?: { mezcla: string; confianza: string; etapa: string; edad_aprox: string; tamano_adulto: string; peso_adulto_kg: string; nota: string } | null }
+export interface Perro { cocina?: import("./cocina/motor").DatosCocina | null; id: string; nombre: string; origen: Origen | null; edad: Edad | null; preocupaciones: string[]; foto_ruta: string | null; creado_en: string; raza_declarada?: string | null; con_pedigri?: boolean; estimacion?: { mezcla: string; confianza: string; etapa: string; edad_aprox: string; tamano_adulto: string; peso_adulto_kg: string; nota: string } | null }
 export interface Registro { id: string; perro_id: string; tipo: "ejercicio" | "bano" | "comida" | "paseo" | "juego" | "descanso"; minutos: number | null; fecha: string }
 export interface EventoSalud { id: string; perro_id: string; tipo: "vacuna" | "desparasitacion" | "control" | "otro"; titulo: string; fecha: string; hecho: boolean }
 

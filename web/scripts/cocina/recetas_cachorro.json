@@ -1,0 +1,75 @@
+{
+ "c_pollo_arroz": {
+  "pollo_trutro": 475,
+  "higado_pollo": 65,
+  "huevo": 90,
+  "arroz_blanco": 190,
+  "zanahoria": 65,
+  "espinaca": 60,
+  "aceite_canola": 12.5,
+  "sal": 2.5,
+  "carbonato_calcio": 4,
+  "fosfato_dicalcico": 10
+ },
+ "c_vacuno_papa": {
+  "vacuno_molido": 370,
+  "higado_vacuno": 90,
+  "huevo": 70,
+  "papa": 215,
+  "zapallo": 100,
+  "espinaca": 100,
+  "aceite_canola": 8,
+  "sal": 4,
+  "carbonato_calcio": 4,
+  "fosfato_dicalcico": 10
+ },
+ "c_pavo_camote": {
+  "pavo_molido": 455,
+  "higado_pollo": 100,
+  "camote": 190,
+  "zapallo_italiano": 95,
+  "espinaca": 90,
+  "aceite_canola": 10.5,
+  "sal": 4,
+  "carbonato_calcio": 3.5,
+  "fosfato_dicalcico": 10
+ },
+ "c_pescado_arroz": {
+  "pescado_blanco": 355,
+  "salmon": 80,
+  "sardina": 65,
+  "higado_vacuno": 55,
+  "huevo": 95,
+  "arroz_blanco": 195,
+  "zanahoria": 70,
+  "espinaca": 55,
+  "aceite_canola": 10.5,
+  "sal": 2,
+  "carbonato_calcio": 3.5,
+  "fosfato_dicalcico": 10
+ },
+ "c_cerdo_avena": {
+  "cerdo_lomo": 475,
+  "higado_pollo": 65,
+  "huevo": 75,
+  "avena": 60,
+  "camote": 150,
+  "espinaca": 60,
+  "aceite_canola": 12.5,
+  "sal": 2.5,
+  "carbonato_calcio": 4,
+  "fosfato_dicalcico": 10
+ },
+ "c_cordero_papa": {
+  "cordero": 460,
+  "higado_vacuno": 85,
+  "huevo": 65,
+  "papa": 215,
+  "zanahoria": 90,
+  "espinaca": 85,
+  "aceite_canola": 10.5,
+  "sal": 4,
+  "carbonato_calcio": 3.5,
+  "fosfato_dicalcico": 10
+ }
+}

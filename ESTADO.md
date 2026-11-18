@@ -350,3 +350,12 @@ Aprobado.
 - Panel → Ajustes → tarjeta "Cancelar desde Kopeet (API de Hotmart)" para pegar Client ID, Client Secret y Basic (se guardan en `privado.secretos`). SQL `web/supabase/cancelar_suscripcion.sql`.
 - Credencial "Kopeet – Producción" creada en Hotmart, pero las claves no se descargaron (el navegador del costado no guarda descargas). **Falta**: recrearla en Chrome, descargar y pegar los 3 datos en el panel. Mientras tanto, si un cliente toca el botón ve un mensaje con la alternativa (Hotmart: Mostrar detalles → Configurar forma de pago → Cancelar suscripción, o escribir al correo).
 - ✅ Kopeet queda listo para vender: cuentas y correos (Gmail SMTP), 4 enlaces de pago, activación automática por webhook, cancelación (webhook arreglado), boletas por emitir, legales para Chile.
+
+## Cocina de Kopeet (17 nov 2026) — publicada
+- Nueva sección /inicio/cocina (enlace desde Hoy): plan mensual de comida casera, 4 semanas con una receta distinta por semana, calendario lunes–domingo (desayuno y cena en gramos), ingredientes para 7 días en gramos + medida casera, pasos, suplemento diario, lista de compras semanal o mensual, transición de 7 días, alimentos prohibidos.
+- Base formal: FEDIAF 2024 (calorías = factor × peso^0,75; mínimos por 1000 kcal) + USDA FoodData Central (SR Legacy). Las 8 recetas cumplen con comida todos los mínimos FEDIAF salvo yodo, zinc, cobre, vit. D y vit. E, que la app pide cubrir con un multivitamínico (calcula cuánto por día).
+- Respeta alergias (aves, vacuno, cerdo, cordero, pescado, huevo, cereales, legumbres). No arma plan a cachorros ni a perros con enfermedad diagnosticada (deriva al veterinario).
+- Datos nuevos del perro en columna perros.cocina (jsonb, con validación). Migración aplicada en Supabase (supabase/cocina.sql).
+- Scripts para auditar/regenerar recetas: web/scripts/cocina (extraer.mjs, validar.mjs, optimizar.mjs, generar.mjs).
+- Términos v1.4 con cláusula de la Cocina (3 idiomas).
+- Por edad: cachorros 2–12 meses (6 recetas de crecimiento con fosfato dicálcico, 3–4 comidas), adultos y senior (8 recetas). Probada con Galia (cachorra). Colores por receta y dibujos de comida.

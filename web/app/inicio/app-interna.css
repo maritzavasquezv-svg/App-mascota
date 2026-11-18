@@ -164,3 +164,48 @@
 .flujo .cancelada-ok { display: flex; gap: 8px; align-items: flex-start; margin-top: 14px; background: #eaf7ee; border: 1px solid #b9e3c6; border-radius: 14px; padding: 11px 12px; color: #1d5b33; }
 .flujo .cancelada-ok svg { flex-shrink: 0; margin-top: 2px; }
 .flujo .cancelada-ok p { margin: 0; font-size: 14px; line-height: 1.45; }
+
+/* Cocina de Kopeet */
+.flujo .cocina-form .etiqueta { margin-top: 12px; }
+.flujo .cocina-form .chips { margin-top: 6px; }
+.flujo .cocina-cifras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; text-align: center; }
+.flujo .cocina-cifras div { background: var(--soft); border-radius: 14px; padding: 10px 4px; }
+.flujo .cocina-cifras b { display: block; font-size: 17px; color: var(--accent); }
+.flujo .cocina-cifras span { font-size: 12px; color: var(--muted, #5b6478); }
+.flujo .semanas-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 14px; }
+.flujo .semanas-tabs button { border: 1px solid #dbe3f0; background: #fff; border-radius: 12px; padding: 8px 2px; font-size: 13px; font-weight: 600; cursor: pointer; color: inherit; }
+.flujo .semanas-tabs button.hoy { border-color: var(--accent); }
+.flujo .semanas-tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.flujo .calendario-semana { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px; margin-top: 10px; }
+.flujo .calendario-semana div { border: 1px solid #e6ecf5; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; }
+.flujo .calendario-semana b { font-size: 13px; }
+.flujo .lista-ing { list-style: none; padding: 0; margin: 8px 0 0; }
+.flujo .lista-ing li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; border-bottom: 1px solid #eef2f8; font-size: 13.5px; }
+.flujo .lista-ing li b { white-space: nowrap; text-align: right; }
+.flujo .lista-ing li small { display: block; font-weight: 400; color: var(--muted, #5b6478); }
+.flujo .pasillo { margin: 12px 0 0; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #5b6478); }
+.flujo .pasos-cocina { margin: 6px 0 0; padding-left: 20px; font-size: 13.5px; line-height: 1.5; }
+.flujo .pasos-cocina li { margin-bottom: 6px; }
+.flujo .aviso-cocina { display: flex; gap: 10px; align-items: flex-start; background: #fff7e6; border: 1px solid #f3d9a4; }
+.flujo .aviso-cocina p { margin: 0; font-size: 13.5px; flex: 1; }
+.flujo .aviso-cocina svg { flex-shrink: 0; color: #b7791f; margin-top: 2px; }
+.flujo .cocina-hoy { display: block; color: inherit; text-decoration: none; }
+.flujo .cocina-hoy p { margin: 6px 0 0; font-size: 13.5px; line-height: 1.45; }
+/* Cocina: colores y dibujos */
+.flujo .semanas-tabs button { display: flex; flex-direction: column; align-items: center; gap: 2px; background: var(--f, #fff); border-color: var(--f, #dbe3f0); color: var(--c, inherit); }
+.flujo .semanas-tabs button span { font-size: 20px; line-height: 1; }
+.flujo .semanas-tabs button.hoy { border-color: var(--c); }
+.flujo .semanas-tabs button[aria-selected="true"] { background: var(--c); border-color: var(--c); color: #fff; }
+.flujo .receta-color { border-top: 6px solid var(--c); }
+.flujo .receta-cabeza { display: flex; align-items: center; gap: 12px; background: var(--f); border-radius: 16px; padding: 12px; }
+.flujo .receta-emojis { font-size: 30px; line-height: 1.1; letter-spacing: 2px; max-width: 46%; }
+.flujo .receta-cabeza b { display: block; font-size: 16px; color: var(--c); }
+.flujo .receta-cabeza span:not(.receta-emojis) { font-size: 12.5px; }
+.flujo .receta-color .calendario-semana div { background: #fff; border-color: var(--f); }
+.flujo .receta-color .calendario-semana b { color: var(--c); }
+.flujo .calendario-semana .comida { display: flex; align-items: center; gap: 5px; }
+.flujo .calendario-semana .comida i { width: 8px; height: 8px; border-radius: 99px; background: var(--m); flex-shrink: 0; }
+.flujo .calendario-semana .comida em { font-style: normal; font-weight: 700; margin-left: auto; }
+.flujo .ing-emoji { font-style: normal; display: inline-block; width: 26px; font-size: 17px; }
+.flujo .calendario-semana { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+.flujo .calendario-semana .comida em { white-space: nowrap; }

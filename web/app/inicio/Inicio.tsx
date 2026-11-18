@@ -8,6 +8,7 @@ import Escaner from "@/components/app/Escaner";
 import RutinaHoy from "@/components/app/RutinaHoy";
 import AvisoPlan, { usePlan } from "@/components/app/AvisoPlan";
 import Recordatorios from "@/components/app/Recordatorios";
+import CocinaHoy from "@/components/app/CocinaHoy";
 import { minutosEjercicio } from "@/lib/onboarding";
 import { locale, useT } from "@/lib/i18n";
 import { registrarEvento } from "@/lib/eventos";
@@ -118,6 +119,8 @@ export default function Inicio() {
           <em>{hechos >= meta ? t("¡Meta cumplida! 🎉", "Goal reached! 🎉", "Meta cumprida! 🎉") : t(`Faltan ${meta - hechos} min`, `${meta - hechos} min to go`, `Faltam ${meta - hechos} min`)}</em></div>
         <p className="nota" style={{ textAlign: "center" }}>{t("Suma paseo y juego. Anótalos en su rutina.", "Walks and play add up. Log them in the routine.", "Soma passeio e brincadeira. Anote na rotina.")}</p>
       </section>
+
+      <CocinaHoy perro={activo} />
 
       <RutinaHoy registros={registros} edad={activo.edad} nombre={nombre} agregar={agregar} deshacer={deshacer} />
 
