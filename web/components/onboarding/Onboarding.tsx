@@ -150,7 +150,7 @@ export default function Onboarding() {
               {r.foto
                 ? <img src={r.foto} alt={t(`Foto de ${nombre}`, `Photo of ${nombre}`, `Foto de ${nombre}`)} />
                 : (<><Camera size={34} />{t("Tomar o subir una foto", "Take or upload a photo", "Tirar ou enviar uma foto")}<small>{t("De frente y con buena luz", "Facing the camera, in good light", "De frente e com boa luz")}</small></>)}
-              <input type="file" accept="image/*" capture="environment" onChange={elegirFoto} aria-label={t("Elegir foto", "Choose photo", "Escolher foto")} />
+              <input type="file" accept="image/*" onChange={elegirFoto} aria-label={t("Elegir foto", "Choose photo", "Escolher foto")} />
             </label>
             {errorFoto && <p className="error" role="alert">{errorFoto}</p>}
             {r.foto && (
