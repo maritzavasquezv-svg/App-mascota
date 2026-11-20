@@ -364,3 +364,9 @@ Aprobado.
 - Cuenta de auditoría maritzavasquezv+auditor@gmail.com: correo confirmado + cortesía 30 días (hasta 18 dic).
 - App hermana **Kopeet Gatos** creada y publicada: https://kopeet-gatos.vercel.app · carpeta `Desktop/app IA 1/App gatos`
   (estado en App gatos/respaldo/ESTADO-GATOS.md). Falta Hotmart y las fotos de sus gatos.
+
+## 20 nov 2026 — cancelar desde la app
+- Credencial API de Hotmart "Kopeet Cancelar" creada por la fundadora y pegada en Panel → Ajustes de Kopeet y de Kopeet Gatos (misma cuenta Hotmart): ambos paneles dicen "✓ Conectado". La credencial anterior (claves expuestas en una captura) se borró.
+- El panel ahora tiene un solo cuadro: se pega el texto completo de Hotmart y se separa solo (Client ID, Secret y Basic).
+- La suscripción de prueba del amigo en Kopeet Gatos se canceló desde Hotmart; la app la registró (acceso hasta el 26-11-2026, sin cobro).
+- Sin probar aún: una cancelación real con el botón (no hay suscripción activa de prueba).
