@@ -394,3 +394,4 @@ Aprobado.
 - H11: correo de soporte en lib/contacto.ts (NEXT_PUBLIC_CORREO_SOPORTE); hoy sigue el personal hasta que exista uno de la marca.
 
 - 20 nov: Pixel de Meta ACTIVADO en Kopeet: "Kopeet web", ID 1680923340048290 (portafolio comercial Kopeet creado hoy, cuenta publicitaria 66653676). Falta: pegar el mismo ID en Hotmart (píxeles del producto Kopeet) para registrar compras. Kopeet Gatos sigue sin píxel (crear uno propio si se hacen anuncios de gatos).
+- 20 nov: el mismo píxel (1680923340048290) quedó configurado en Hotmart → Kopeet → Herramientas → Píxel de seguimiento → facebook + Instagram (marca verde). Así Meta registra también las compras.
