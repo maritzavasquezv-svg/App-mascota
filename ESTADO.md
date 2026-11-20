@@ -392,3 +392,5 @@ Aprobado.
 - 20 nov (preparado, se activa con un dato): H3 Pixel de Meta: se carga solo si existe NEXT_PUBLIC_META_PIXEL_ID en Vercel y la persona acepta cookies; PageView en cada pantalla, ViewContent (ventas), Lead (cuenta creada), InitiateCheckout (ir a pagar). Privacidad, Cookies y el aviso de cookies cambian solos a la versión "usamos el Pixel de Meta con tu permiso" (3 idiomas) cuando hay ID. Falta: el ID y pegarlo también en Hotmart (píxeles del producto).
 - H4: sección de testimonios bajo los precios (components/landing/Testimonios.tsx); no aparece mientras la lista esté vacía.
 - H11: correo de soporte en lib/contacto.ts (NEXT_PUBLIC_CORREO_SOPORTE); hoy sigue el personal hasta que exista uno de la marca.
+
+- 20 nov: Pixel de Meta ACTIVADO en Kopeet: "Kopeet web", ID 1680923340048290 (portafolio comercial Kopeet creado hoy, cuenta publicitaria 66653676). Falta: pegar el mismo ID en Hotmart (píxeles del producto Kopeet) para registrar compras. Kopeet Gatos sigue sin píxel (crear uno propio si se hacen anuncios de gatos).

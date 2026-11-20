@@ -1,6 +1,7 @@
 // Pixel de Meta (auditoría H3): carga y envío de eventos. Quien lo llama debe revisar antes el consentimiento.
-// Solo funciona si existe NEXT_PUBLIC_META_PIXEL_ID (el número del píxel, público) en Vercel.
-const ID = (process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "").replace(/\D/g, "");
+// Píxel "Kopeet web" (creado el 20 nov 2026 en el portafolio comercial Kopeet). Es público; una variable
+// NEXT_PUBLIC_META_PIXEL_ID en Vercel lo puede reemplazar.
+const ID = (process.env.NEXT_PUBLIC_META_PIXEL_ID || "1680923340048290").replace(/\D/g, "");
 export const pixelConfigurado = ID.length >= 10;
 
 type Fbq = ((...a: unknown[]) => void) & { callMethod?: (...a: unknown[]) => void; queue: unknown[][]; loaded?: boolean; version?: string; push?: unknown };
