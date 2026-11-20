@@ -4,7 +4,7 @@
 import { crearCliente } from "@/lib/supabase/cliente";
 
 export type NombreEvento =
-  | "pagina_ventas" | "onboarding_paso" | "plan_visto" | "plan_elegido" | "cuenta_creada" | "app_abierta"
+  | "pagina_ventas" | "onboarding_paso" | "plan_visto" | "plan_elegido" | "cuenta_creada" | "correo_confirmado" | "ir_a_pagar" | "app_abierta"
   | "perro_creado" | "rutina" | "consejero" | "escaner" | "premios_vistos" | "destino_abierto" | "emergencia_abierta";
 
 // ---------- Consentimiento de medición ----------

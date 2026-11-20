@@ -28,7 +28,7 @@ export default function AuthListo() {
     }
     crearCliente().auth.setSession({ access_token: access, refresh_token: refresh }).then(({ error }) => {
       if (error) { setError("sesion"); return; }
-      router.replace(tipo === "recovery" ? "/nueva-clave" : "/inicio");
+      router.replace(tipo === "recovery" ? "/nueva-clave" : tipo === "signup" ? "/pagar" : "/inicio");
       router.refresh();
     });
   }, [router]);

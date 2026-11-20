@@ -370,3 +370,12 @@ Aprobado.
 - El panel ahora tiene un solo cuadro: se pega el texto completo de Hotmart y se separa solo (Client ID, Secret y Basic).
 - La suscripción de prueba del amigo en Kopeet Gatos se canceló desde Hotmart; la app la registró (acceso hasta el 26-11-2026, sin cobro).
 - Sin probar aún: una cancelación real con el botón (no hay suscripción activa de prueba).
+
+## 20 nov 2026 — arreglos de la auditoría (Rentas Inteligentes)
+- H2: al confirmar el correo se abre /pagar con el plan elegido y un solo botón a Hotmart; aviso "Hotmart pide tu tarjeta, pero no cobra durante 7 días" con la fecha del primer cobro. "Elegir otro plan" y "Ahora no" disponibles.
+- H1: todos los botones de pago abren Hotmart con el correo de la cuenta ya escrito (probado: Hotmart lo rellena) y con xcod=id de la cuenta. La base (hotmart_recibir) activa el plan en la cuenta del xcod aunque se pague con otro correo, y guarda la equivalencia en privado.correos_hotmart para renovaciones/cancelaciones. Probado con un aviso simulado (deshecho).
+- Medición: eventos nuevos correo_confirmado e ir_a_pagar; el embudo del panel ahora llega hasta "Fueron a pagar a Hotmart".
+- H6: Consejero con claude-sonnet-5-5 (AI_MODEL_CONSEJERO), escáner sigue con AI_MODEL. Límite 10/día y 150/mes por tipo (AI_LIMITE_DIARIO, AI_LIMITE_MENSUAL), reservado de forma atómica en la base (reservar_uso_ia / completar_uso_ia). OJO: si en Vercel están AI_LIMITE_DIARIO=30 o AI_MODEL, mandan sobre el código: hay que borrarlas o cambiarlas.
+- H4: maqueta "Tus 4 perros" (Kopeet). Faltan 3 testimonios reales (los consigue la fundadora).
+- H3 (Pixel de Meta): pendiente del ID del píxel.
+- .env.example sin la clave secreta de Supabase (H11, parcial).

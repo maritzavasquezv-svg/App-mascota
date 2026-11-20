@@ -89,7 +89,7 @@ export default function Registro() {
       <div className="barra"><Link className="atras" href="/plan" aria-label={t("Volver", "Back", "Voltar")}><ArrowLeft size={18} /></Link><span style={{ flex: 1 }} /><SelectorIdioma /></div>
       <form className="cuerpo entra" onSubmit={crear} noValidate>
         <h1>{t("Crea tu cuenta para guardar el plan de ", "Create your account to save ", "Crie sua conta para salvar o plano de ")}<em>{nombre}</em>{t("", "'s plan", "")}</h1>
-        <p className="sub">{t("Plan elegido: ", "Chosen plan: ", "Plano escolhido: ")}<b>{resumenPlan(plan, idioma)}</b>. {t("Hoy no pagas nada.", "You pay nothing today.", "Hoje você não paga nada.")}</p>
+        <p className="sub">{t("Plan elegido: ", "Chosen plan: ", "Plano escolhido: ")}<b>{resumenPlan(plan, idioma)}</b>. {t("Hoy no pagas nada: Hotmart pide tu tarjeta, pero no cobra durante los 7 días gratis.", "You pay nothing today: Hotmart asks for your card, but charges nothing during the 7 free days.", "Hoje você não paga nada: a Hotmart pede seu cartão, mas não cobra nada nos 7 dias grátis.")}</p>
         <label className="etiqueta" htmlFor="correo">{t("Correo", "Email", "E-mail")}</label>
         <input id="correo" className="campo chico" type="email" autoComplete="email" required value={correo} onChange={(e) => setCorreo(e.target.value)} placeholder={t("tu@correo.com", "you@email.com", "voce@email.com")} />
         <label className="etiqueta" htmlFor="clave">{t("Contraseña", "Password", "Senha")}</label>

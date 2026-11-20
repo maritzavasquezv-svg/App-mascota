@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { clienteConSesion } from "@/lib/supabase/servidor";
-import { LIMITE_DIARIO, consultarConsejero, iaDisponible, mensajeErrorIA } from "@/lib/ia";
+import { LIMITE_DIARIO, LIMITE_MENSUAL, consultarConsejero, iaDisponible, mensajeErrorIA } from "@/lib/ia";
 import { triage } from "@/lib/app-datos";
 import { estadoPlan } from "@/lib/plan";
 import { etiquetaEdad, etiquetaOrigen, type Edad, type Origen } from "@/lib/onboarding";
@@ -28,11 +28,10 @@ export async function POST(req: NextRequest) {
   const plan = await estadoPlan(supabase, user);
   if (!plan.activo) return NextResponse.json({ respuesta: reglas, fuente: "reglas", requierePlan: true });
 
-  // 2) Límite diario por persona (controla el costo de la IA)
-  const desde = new Date(); desde.setHours(0, 0, 0, 0);
-  const { count } = await supabase.from("usos_ia").select("id", { count: "exact", head: true }).gte("creado_en", desde.toISOString());
-  if ((count ?? 0) >= LIMITE_DIARIO) {
-    const limite = tr(i, `Llegaste al límite de ${LIMITE_DIARIO} consultas de hoy. Mañana se renueva.`, `You reached today's limit of ${LIMITE_DIARIO} questions. It resets tomorrow.`, `Você atingiu o limite de ${LIMITE_DIARIO} consultas de hoje. Amanhã renova.`);
+  // 2) Límite por persona (controla el costo de la IA): se reserva en la base de forma atómica (auditoría H6).
+  const { data: reserva } = await supabase.rpc("reservar_uso_ia", { p_tipo: "consejero", p_limite_dia: LIMITE_DIARIO, p_limite_mes: LIMITE_MENSUAL });
+  if (!reserva) {
+    const limite = tr(i, `Llegaste al límite de consultas (${LIMITE_DIARIO} al día y ${LIMITE_MENSUAL} al mes). Se renueva solo.`, `You reached the question limit (${LIMITE_DIARIO} a day and ${LIMITE_MENSUAL} a month). It resets automatically.`, `Você atingiu o limite de consultas (${LIMITE_DIARIO} por dia e ${LIMITE_MENSUAL} por mês). Renova sozinho.`);
     return NextResponse.json({ respuesta: { ...reglas, pasos: [...reglas.pasos, limite] }, fuente: "reglas" });
   }
 
@@ -45,7 +44,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const { respuesta: r, uso } = await consultarConsejero(pregunta, contexto, i);
-    await supabase.from("usos_ia").insert({ tipo: "consejero", ...uso });
+    await supabase.rpc("completar_uso_ia", { p_id: reserva, p_modelo: uso.modelo, p_entrada: uso.tokens_entrada, p_salida: uso.tokens_salida, p_cache: uso.tokens_cache, p_costo: uso.costo_usd });
     if (!r) return NextResponse.json({ respuesta: reglas, fuente: "reglas" });
     return NextResponse.json({ respuesta: r, fuente: "ia" });
   } catch (error) {

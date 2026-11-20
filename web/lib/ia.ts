@@ -5,8 +5,11 @@ import { z } from "zod";
 import { NOMBRE_IDIOMA, tr, type Idioma } from "./idiomas";
 
 // Modelo configurable por variable de entorno (nunca escrito a mano en el código).
+// Auditoría H6: el Consejero usa un modelo intermedio y el modelo más capaz queda solo para el escáner (fotos).
 export const MODELO_IA = process.env.AI_MODEL || "claude-opus-5-5";
-export const LIMITE_DIARIO = Number(process.env.AI_LIMITE_DIARIO || 30);
+export const MODELO_CONSEJERO = process.env.AI_MODEL_CONSEJERO || "claude-sonnet-5-5";
+export const LIMITE_DIARIO = Number(process.env.AI_LIMITE_DIARIO || 10);
+export const LIMITE_MENSUAL = Number(process.env.AI_LIMITE_MENSUAL || 150);
 export const iaDisponible = () => Boolean(process.env.ANTHROPIC_API_KEY);
 
 let cliente: Anthropic | null = null;
@@ -57,7 +60,7 @@ Reglas: no diagnostiques enfermedades ni recetes medicamentos ni dosis; ante la 
 
 export async function consultarConsejero(pregunta: string, contexto: string, idioma: Idioma = "es"): Promise<{ respuesta: RespuestaConsejero | null; uso: UsoIA }> {
   const r = await ia().beta.messages.parse({
-    model: MODELO_IA,
+    model: MODELO_CONSEJERO,
     max_tokens: 4000,
     ...FALLBACK,
     output_config: { effort: "low", format: betaZodOutputFormat(RespuestaConsejero) },

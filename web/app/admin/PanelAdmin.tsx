@@ -276,12 +276,14 @@ function Uso({ d }: { d: Panel }) {
   const sinEventos = !u.desde;
   return (<>
     {sinEventos && <p className="pa-nota destacada">El registro de uso empezó con esta versión del panel. Los números se irán llenando a medida que la gente use Kopeet.</p>}
-    <Tarjeta titulo="Embudo: de la visita a la cuenta" ayuda="Personas (navegadores distintos) que llegaron a cada paso este mes. Donde la barra cae fuerte, ahí se va la gente.">
+    <Tarjeta titulo="Embudo: de la visita al pago" ayuda="Personas (navegadores distintos) que llegaron a cada paso este mes. Donde la barra cae fuerte, ahí se va la gente.">
       <Fila texto="Visitaron la página de ventas" valor={u.visitas} max={maxEmbudo} detalle={String(u.visitas)} />
       {u.embudo.map((e) => <Fila key={e.paso} texto={`Paso ${e.paso}: ${PASOS_ONB[e.paso - 1]}`} valor={e.sesiones} max={maxEmbudo} detalle={String(e.sesiones)} />)}
       <Fila texto="Vieron los planes" valor={u.vieronPlanes} max={maxEmbudo} detalle={String(u.vieronPlanes)} />
       <Fila texto="Eligieron un plan" valor={u.eligieronPlan} max={maxEmbudo} detalle={String(u.eligieronPlan)} />
       <Fila texto="Crearon su cuenta" valor={u.cuentas} max={maxEmbudo} detalle={String(u.cuentas)} />
+      <Fila texto="Confirmaron su correo" valor={u.personasPorAccion.correo_confirmado ?? 0} max={maxEmbudo} detalle={String(u.personasPorAccion.correo_confirmado ?? 0)} />
+      <Fila texto="Fueron a pagar a Hotmart" valor={u.personasPorAccion.ir_a_pagar ?? 0} max={maxEmbudo} detalle={String(u.personasPorAccion.ir_a_pagar ?? 0)} />
     </Tarjeta>
     <Tarjeta titulo="Lo que más hace la gente en la app" ayuda="Acción principal de Kopeet: anotar la rutina del día.">
       {acciones.length ? acciones.map(([k, n]) => <Fila key={k} texto={NOMBRES_EVENTO[k]} valor={n} max={maxAcc} detalle={`${n} veces · ${u.personasPorAccion[k] ?? 0} personas`} />)
