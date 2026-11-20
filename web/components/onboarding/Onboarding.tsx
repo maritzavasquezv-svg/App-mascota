@@ -12,6 +12,8 @@ import SelectorIdioma from "@/components/SelectorIdioma";
 import { registrarEvento } from "@/lib/eventos";
 
 const TOTAL = 8;
+// Auditoría H8: el contador muestra las 6 preguntas que promete la página de ventas (el paso 5 es un mensaje y el 8 arma el plan).
+const PREGUNTA: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 4, 6: 5, 7: 6 };
 
 export default function Onboarding() {
   const router = useRouter();
@@ -66,7 +68,7 @@ export default function Onboarding() {
         <div className="barra">
           <button className="atras" onClick={atras} aria-label={t("Volver", "Back", "Voltar")} disabled={paso === TOTAL}><ArrowLeft size={18} /></button>
           <div className="progreso" role="progressbar" aria-valuemin={1} aria-valuemax={TOTAL} aria-valuenow={paso} aria-label={t("Avance", "Progress", "Progresso")}><i style={{ width: `${(paso / TOTAL) * 100}%` }} /></div>
-          <span className="paso">{paso} {t("de", "of", "de")} {TOTAL}</span>
+          <span className="paso">{PREGUNTA[paso] ? <>{t("Pregunta", "Question", "Pergunta")} {PREGUNTA[paso]} {t("de", "of", "de")} 6</> : null}</span>
           {paso === 1 && <button className="saltar" onClick={() => { cambiar({ nombre: "" }); siguiente(); }}>{t("Saltar", "Skip", "Pular")}</button>}
         </div>
         {paso === 1 && <div className="idioma-fila"><SelectorIdioma /></div>}

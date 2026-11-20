@@ -383,3 +383,8 @@ Aprobado.
 - H5 (20 nov): si Hotmart no logra cobrar una renovación (PURCHASE_DELAYED/EXPIRED/CANCELED con plan activo), 5 días de gracia (no se extienden). La app muestra "Tu pago no pasó: actualiza tu tarjeta en Hotmart" con enlace a consumer.hotmart.com. Si el reintento se cobra, vuelve a la normalidad. Probado con avisos simulados (deshechos). Falta: aviso por correo (no hay servicio de correo para clientes activado).
 - H7: en /empezar, /plan, /crear-cuenta, /pagar y /entrar el aviso de cookies va arriba y no tapa el botón principal.
 - H9: Consejero: "Escribe qué notas en tu perro/gato…" y botón Enviar apagado sin texto.
+
+- H8 (20 nov): el contador del recorrido dice "Pregunta X de 6" (el mensaje y "armando el plan" no cuentan); el plan dice "Hecho con tus 6 respuestas" o "N de tus 6"; la ración diaria ya no tiene candado.
+- H10: textos neutros ("Te acuestas sin googlear"; en la IA "la persona" en vez de "la dueña").
+- H12: el botón "Ver o gestionar mi suscripción en Hotmart" solo aparece si el plan viene de Hotmart.
+- Pendientes de la auditoría: H3 (ID del Pixel de Meta), H4 (3 testimonios), correo de "tu pago no pasó" (H5) y correo de soporte de la marca (H11).

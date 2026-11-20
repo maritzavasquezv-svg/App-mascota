@@ -61,7 +61,7 @@ export default function Paywall() {
                 ? t(`Cada día a las ${horaPaseo}`, `Every day at ${horaPaseo}`, `Todo dia às ${horaPaseo}`)
                 : t("Cuando los actives", "When you turn them on", "Quando você ativar")}</b></div>
               {r.preocupaciones[0] && <div><span>{t("Primero en su plan", "First in the plan", "Primeiro no plano")}</span><b>{preocupacion(r.preocupaciones[0], idioma)}{r.preocupaciones.length > 1 ? t(` y ${r.preocupaciones.length - 1} más`, ` and ${r.preocupaciones.length - 1} more`, ` e mais ${r.preocupaciones.length - 1}`) : ""}</b></div>}
-              <div className="bloq"><span><Lock size={14} /> {t("Ración diaria", "Daily food", "Ração diária")}</span><b>{r.edad === "cachorro"
+              <div><span>{t("Ración diaria", "Daily food", "Ração diária")}</span><b>{r.edad === "cachorro"
                 ? t("3 a 4 comidas al día, según su peso", "3 to 4 meals a day, based on weight", "3 a 4 refeições por dia, conforme o peso")
                 : r.edad === "adulto" || r.edad === "senior"
                   ? t("2 comidas al día, según su peso", "2 meals a day, based on weight", "2 refeições por dia, conforme o peso")
@@ -77,7 +77,9 @@ export default function Paywall() {
                 ? t("1 mes, pensado para perros rescatados", "1 month, designed for rescued dogs", "1 mês, pensado para cães resgatados")
                 : t("Plan de 1 mes", "1-month plan", "Plano de 1 mês")}</b></div>
             </div>
-            <p className="nota">{t(`Hecho con tus ${contarRespuestas(r)} respuestas.`, `Made with your ${contarRespuestas(r)} answers.`, `Feito com suas ${contarRespuestas(r)} respostas.`)}</p>
+            <p className="nota">{contarRespuestas(r) >= 6
+              ? t("Hecho con tus 6 respuestas.", "Made with your 6 answers.", "Feito com suas 6 respostas.")
+              : t(`Hecho con ${contarRespuestas(r)} de tus 6 respuestas. Completa el resto después en la app.`, `Made with ${contarRespuestas(r)} of your 6 answers. Fill in the rest later in the app.`, `Feito com ${contarRespuestas(r)} das suas 6 respostas. Complete o resto depois no app.`)}</p>
             <div className="espacio" />
             <button className="cta" onClick={() => setPantalla(2)}>{t("Ver cómo empezar", "See how to start", "Ver como começar")}</button>
           </>)}

@@ -193,7 +193,7 @@ export default function Ventas({ i }: { i: Idioma }) {
     <div className="dia">
       <div><b>{t("7:00", "7 AM", "7:00")}</b>{t("Paseo con su tiempo justo de ejercicio", "A walk with just the right amount of exercise", "Passeio com o tempo certo de exercício")}</div>
       <div><b>{t("13:00", "1 PM", "13:00")}</b>{t("Su ración exacta, sin adivinar", "Their exact portion, no guessing", "A ração exata, sem adivinhar")}</div>
-      <div><b>{t("22:00", "10 PM", "22:00")}</b>{t("Te acuestas tranquila, sin googlear", "You go to bed calm, no googling", "Você deita tranquila, sem pesquisar no Google")}</div>
+      <div><b>{t("22:00", "10 PM", "22:00")}</b>{t("Te acuestas sin googlear", "You go to bed with no googling", "Você vai dormir sem pesquisar no Google")}</div>
     </div>
     <a className="btn btn-blanco" href="/empezar">{t("Crear el plan de mi perro gratis", "Create my dog's plan for free", "Criar o plano do meu cão grátis")} <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
     <div className="perros-c"><img src="/perros/recorte-border-collie.jpg" alt="" /><img src="/perros/recorte-salchicha.jpg" alt="" /><img src="/perros/recorte-arlequin.jpg" alt="" /><img src="/perros/recorte-mestiza.jpg" alt="" /></div>

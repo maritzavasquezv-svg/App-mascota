@@ -89,7 +89,7 @@ const SISTEMA_ESCANER = `Analizas fotos de perros para Kopeet, una app para perr
 Identifica la raza más probable según los rasgos visibles, sin suponer de antemano que el perro es mestizo ni que es de raza:
 - Si los rasgos coinciden claramente con una raza, nombra esa raza (por ejemplo "Border collie").
 - Si ves rasgos de varias razas, describe la mezcla. Si no se distingue ninguna, di "Mestizo" y su tamaño.
-- Usa la información que da la dueña: si dice la raza o que tiene pedigrí, esa información manda; no la contradigas, úsala para estimar tamaño, peso y etapa.
+- Usa la información que da la persona: si dice la raza o que tiene pedigrí, esa información manda; no la contradigas, úsala para estimar tamaño, peso y etapa.
 - Si la imagen es un dibujo o ilustración, igual describe la raza que representa, baja la confianza y menciónalo en la nota.
 Estima etapa de vida, edad aproximada, tamaño y peso adulto con rangos. Escribe mezcla, edad_aprox, peso_adulto_kg y nota en el idioma que se indica en la consulta, sin juzgar; los campos de lista (confianza, etapa, tamano_adulto) siempre con los valores exactos permitidos. Si no se ve un perro con claridad, marca es_perro en false.`;
 
@@ -102,7 +102,7 @@ export async function estimarPerro(imagenBase64: string, tipo: "image/jpeg" | "i
     system: SISTEMA_ESCANER,
     messages: [{ role: "user", content: [
       { type: "image", source: { type: "base64", media_type: tipo, data: imagenBase64 } },
-      { type: "text", text: `Idioma de los textos: ${NOMBRE_IDIOMA[idioma]}.\n${contexto ? `Lo que dice la dueña: ${contexto}\n\n` : ""}Estima la raza o mezcla, la etapa de vida, la edad y el tamaño adulto de este perro.` },
+      { type: "text", text: `Idioma de los textos: ${NOMBRE_IDIOMA[idioma]}.\n${contexto ? `Lo que indica la persona: ${contexto}\n\n` : ""}Estima la raza o mezcla, la etapa de vida, la edad y el tamaño adulto de este perro.` },
     ] }],
   });
   const uso = medirUso(r);

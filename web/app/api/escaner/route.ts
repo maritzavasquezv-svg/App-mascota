@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
   if (!reserva) return NextResponse.json({ error: tr(i, `Llegaste al límite de usos (${LIMITE_DIARIO} al día y ${LIMITE_MENSUAL} al mes). Se renueva solo.`, `You reached the usage limit (${LIMITE_DIARIO} a day and ${LIMITE_MENSUAL} a month). It resets automatically.`, `Você atingiu o limite de usos (${LIMITE_DIARIO} por dia e ${LIMITE_MENSUAL} por mês). Renova sozinho.`) }, { status: 429 });
 
   const [, tipo, b64] = datos.data.imagen.match(/^data:(image\/[a-z]+);base64,(.+)$/)!;
-  // Lo que la dueña ya sabe de su perro (raza, pedigrí, origen y edad) ayuda a la IA y manda sobre la foto.
+  // Lo que la persona ya sabe de su perro (raza, pedigrí, origen y edad) ayuda a la IA y manda sobre la foto.
   let contexto = "";
   if (datos.data.perroId) {
     const { data: p } = await supabase.from("perros").select("raza_declarada,con_pedigri,origen,edad").eq("id", datos.data.perroId).maybeSingle();
