@@ -395,3 +395,5 @@ Aprobado.
 
 - 20 nov: Pixel de Meta ACTIVADO en Kopeet: "Kopeet web", ID 1680923340048290 (portafolio comercial Kopeet creado hoy, cuenta publicitaria 66653676). Falta: pegar el mismo ID en Hotmart (píxeles del producto Kopeet) para registrar compras. Kopeet Gatos sigue sin píxel (crear uno propio si se hacen anuncios de gatos).
 - 20 nov: el mismo píxel (1680923340048290) quedó configurado en Hotmart → Kopeet → Herramientas → Píxel de seguimiento → facebook + Instagram (marca verde). Así Meta registra también las compras.
+
+- 20 nov: variables de IA renombradas (AI_MODELO_ESCANER, AI_MODELO_CONSEJERO, AI_LIMITE_DIA, AI_LIMITE_MES): las antiguas AI_MODEL y AI_LIMITE_DIARIO que pudieran quedar en Vercel ya no se leen, así rige el arreglo H6 (Consejero sonnet, 10/día, 150/mes) sin entrar a Vercel. Se pueden borrar de Vercel cuando se entre.

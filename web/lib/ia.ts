@@ -6,10 +6,11 @@ import { NOMBRE_IDIOMA, tr, type Idioma } from "./idiomas";
 
 // Modelo configurable por variable de entorno (nunca escrito a mano en el código).
 // Auditoría H6: el Consejero usa un modelo intermedio y el modelo más capaz queda solo para el escáner (fotos).
-export const MODELO_IA = process.env.AI_MODEL || "claude-opus-5-5";
-export const MODELO_CONSEJERO = process.env.AI_MODEL_CONSEJERO || "claude-sonnet-5-5";
-export const LIMITE_DIARIO = Number(process.env.AI_LIMITE_DIARIO || 10);
-export const LIMITE_MENSUAL = Number(process.env.AI_LIMITE_MENSUAL || 150);
+// Nombres nuevos a propósito: las variables antiguas AI_MODEL y AI_LIMITE_DIARIO (si quedaron en Vercel) ya no se leen.
+export const MODELO_IA = process.env.AI_MODELO_ESCANER || "claude-opus-5-5";
+export const MODELO_CONSEJERO = process.env.AI_MODELO_CONSEJERO || "claude-sonnet-5-5";
+export const LIMITE_DIARIO = Number(process.env.AI_LIMITE_DIA || 10);
+export const LIMITE_MENSUAL = Number(process.env.AI_LIMITE_MES || 150);
 export const iaDisponible = () => Boolean(process.env.ANTHROPIC_API_KEY);
 
 let cliente: Anthropic | null = null;
