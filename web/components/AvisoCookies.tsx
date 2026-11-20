@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { guardarConsentimiento, leerConsentimiento, suscribirConsentimiento } from "@/lib/eventos";
 import { useT } from "@/lib/i18n";
+import { pixelConfigurado } from "@/lib/pixel";
 
 /**
  * Aviso de cookies: "Aceptar" y "Rechazar" igual de fáciles. Nada de medición se guarda ni se envía
@@ -21,7 +22,9 @@ export default function AvisoCookies() {
   return (
     <div className={`aviso-cookies${arriba ? " arriba" : ""}`} role="region" aria-label={t("Aviso de cookies", "Cookie notice", "Aviso de cookies")}>
       <p>
-        {t("Usamos cookies necesarias para que Kopeet funcione. Con tu permiso, también medimos de forma anónima cómo se usa, para mejorarla. ",
+        {pixelConfigurado ? t("Usamos cookies necesarias para que Kopeet funcione. Con tu permiso, también medimos cómo se usa y usamos el Pixel de Meta para medir nuestros anuncios. ",
+          "We use necessary cookies so Kopeet works. With your permission, we also measure how it's used and use the Meta Pixel to measure our ads. ",
+          "Usamos cookies necessários para o Kopeet funcionar. Com sua permissão, também medimos como ele é usado e usamos o Pixel da Meta para medir nossos anúncios. ") : t("Usamos cookies necesarias para que Kopeet funcione. Con tu permiso, también medimos de forma anónima cómo se usa, para mejorarla. ",
           "We use necessary cookies so Kopeet works. With your permission, we also measure anonymously how it's used, to improve it. ",
           "Usamos cookies necessários para o Kopeet funcionar. Com sua permissão, também medimos de forma anônima como ele é usado, para melhorá-lo. ")}
         <Link href={ruta}>{t("Más información", "Learn more", "Saiba mais")}</Link>

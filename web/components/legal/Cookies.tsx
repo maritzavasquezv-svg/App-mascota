@@ -1,6 +1,7 @@
 import MarcoLegal from "./MarcoLegal";
 import { CambiarCookies } from "@/components/AvisoCookies";
 import { tr, type Idioma } from "@/lib/idiomas";
+import { pixelConfigurado } from "@/lib/pixel";
 
 export default function Cookies({ i }: { i: Idioma }) {
   const t = (es: string, en: string, pt: string) => tr(i, es, en, pt);
@@ -12,7 +13,9 @@ export default function Cookies({ i }: { i: Idioma }) {
         <div className="resumen"><b className="t">{t("En pocas palabras", "In short", "Em poucas palavras")}</b><ul>
           <li>{t("Solo usamos lo necesario para que la app funcione.", "We only use what’s needed for the app to work.", "Só usamos o necessário para o app funcionar.")}</li>
           <li>{t("La medición de uso se activa solo si aceptas.", "Usage measurement turns on only if you accept.", "A medição de uso só é ativada se você aceitar.")}</li>
-          <li>{t("No usamos publicidad ni píxeles de redes sociales.", "No advertising and no social media pixels.", "Sem publicidade nem pixels de redes sociais.")}</li>
+          <li>{pixelConfigurado
+            ? t("Solo si aceptas, usamos el Pixel de Meta para medir nuestros anuncios.", "Only if you accept, we use the Meta Pixel to measure our ads.", "Só se você aceitar, usamos o Pixel da Meta para medir nossos anúncios.")
+            : t("No usamos publicidad ni píxeles de redes sociales.", "No advertising and no social media pixels.", "Sem publicidade nem pixels de redes sociais.")}</li>
         </ul></div>
       </header>
       <section className="b"><h2><span className="n">1</span>{t("Qué son", "What they are", "O que são")}</h2>
@@ -31,6 +34,10 @@ export default function Cookies({ i }: { i: Idioma }) {
         <p>{t("Con tu permiso guardamos un identificador anónimo del navegador y de dónde llegaste (por ejemplo, Instagram), y registramos acciones dentro de la app (por ejemplo, «anotó la rutina»). Es medición propia de Kopeet: no la compartimos con redes sociales ni anunciantes. Si rechazas, no se guarda ni se envía nada de esto.",
           "With your permission we save an anonymous browser ID and where you came from (e.g., Instagram), and record actions in the app (e.g., “logged the routine”). It’s Kopeet’s own measurement: we don’t share it with social networks or advertisers. If you reject, none of this is saved or sent.",
           "Com sua permissão guardamos um identificador anônimo do navegador e de onde você veio (por exemplo, Instagram), e registramos ações no app (por exemplo, “anotou a rotina”). É medição própria do Kopeet: não compartilhamos com redes sociais nem anunciantes. Se recusar, nada disso é guardado nem enviado.")}</p></section>
+      {pixelConfigurado && <section className="b"><h2><span className="n">3b</span>{t("Pixel de Meta (solo si aceptas)", "Meta Pixel (only if you accept)", "Pixel da Meta (só se você aceitar)")}</h2>
+        <p>{t("Si aceptas, cargamos el Pixel de Meta (Meta Platforms, Estados Unidos). Le avisa a Meta cuando visitas la página, creas tu cuenta o vas a pagar, para saber qué anuncios funcionan y a quién mostrarlos. Meta recibe datos técnicos de tu navegador (como tu dirección IP y sus cookies). No le enviamos tu correo ni los datos de tu perro. Si rechazas, no se carga.",
+          "If you accept, we load the Meta Pixel (Meta Platforms, United States). It tells Meta when you visit the page, create your account or go to pay, so we know which ads work and who to show them to. Meta receives technical data from your browser (such as your IP address and its cookies). We don’t send it your email or your dog’s data. If you reject, it doesn’t load.",
+          "Se você aceitar, carregamos o Pixel da Meta (Meta Platforms, Estados Unidos). Ele avisa a Meta quando você visita a página, cria sua conta ou vai pagar, para sabermos quais anúncios funcionam e a quem mostrá-los. A Meta recebe dados técnicos do seu navegador (como seu endereço IP e seus cookies). Não enviamos seu e-mail nem os dados do seu cão. Se recusar, ele não é carregado.")}</p></section>}
       <section className="b"><h2><span className="n">4</span>{t("Cambiar tu elección", "Change your choice", "Mudar sua escolha")}</h2>
         <CambiarCookies />
         <p>{t("También puedes borrar las cookies desde la configuración de tu navegador. Más sobre tus datos en la ", "You can also delete cookies in your browser settings. More about your data in the ", "Você também pode apagar os cookies nas configurações do navegador. Mais sobre seus dados na ")}<a href={L("/privacidad")}>{t("Política de privacidad", "Privacy policy", "Política de privacidade")}</a>.</p></section>

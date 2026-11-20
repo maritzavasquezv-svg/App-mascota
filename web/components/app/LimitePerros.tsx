@@ -1,4 +1,5 @@
 "use client";
+import { CORREO_SOPORTE } from "@/lib/contacto";
 import { useEffect, useState } from "react";
 import { Users } from "lucide-react";
 import { crearCliente } from "@/lib/supabase/cliente";
@@ -26,9 +27,9 @@ export function PasarAFamiliar({ lim, plan }: { lim: Limite; plan: Plan | null }
     return (
       <section className="tarjeta aviso-plan">
         <p className="tarjeta-tit"><span><Users size={15} /> {t(`Tienes ${lim.actuales} perros`, `You have ${lim.actuales} dogs`, `Você tem ${lim.actuales} cães`)}</span></p>
-        <p className="vacio">{t(`El Plan Familiar cubre hasta ${PERROS_FAMILIAR} perros. Si tienes más, escríbenos a maritzavasquezv@gmail.com.`,
-          `The Family plan covers up to ${PERROS_FAMILIAR} dogs. If you have more, email us at maritzavasquezv@gmail.com.`,
-          `O Plano Familiar cobre até ${PERROS_FAMILIAR} cães. Se tiver mais, escreva para maritzavasquezv@gmail.com.`)}</p>
+        <p className="vacio">{t(`El Plan Familiar cubre hasta ${PERROS_FAMILIAR} perros. Si tienes más, escríbenos a ${CORREO_SOPORTE}.`,
+          `The Family plan covers up to ${PERROS_FAMILIAR} dogs. If you have more, email us at ${CORREO_SOPORTE}.`,
+          `O Plano Familiar cobre até ${PERROS_FAMILIAR} cães. Se tiver mais, escreva para ${CORREO_SOPORTE}.`)}</p>
       </section>
     );
   }

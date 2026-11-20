@@ -1,4 +1,5 @@
 "use client";
+import { CORREO_SOPORTE } from "@/lib/contacto";
 import { useState } from "react";
 import { CircleCheck, XCircle } from "lucide-react";
 import { crearCliente } from "@/lib/supabase/cliente";
@@ -72,9 +73,9 @@ export default function CancelarSuscripcion({ plan }: { plan: Plan | null }) {
       )}
       {paso === "error" && (
         <p className="error" role="alert">{t(
-          "No pudimos cancelar desde aquí. Hazlo en Hotmart con el botón de abajo, o escríbenos a maritzavasquezv@gmail.com y lo cancelamos por ti.",
-          "We couldn't cancel from here. Do it in Hotmart with the button below, or email us at maritzavasquezv@gmail.com and we'll cancel it for you.",
-          "Não conseguimos cancelar daqui. Faça na Hotmart com o botão abaixo, ou escreva para maritzavasquezv@gmail.com e cancelamos para você.")}</p>
+          `No pudimos cancelar desde aquí. Hazlo en Hotmart con el botón de abajo, o escríbenos a ${CORREO_SOPORTE} y lo cancelamos por ti.`,
+          `We couldn't cancel from here. Do it in Hotmart with the button below, or email us at ${CORREO_SOPORTE} and we'll cancel it for you.`,
+          `Não conseguimos cancelar daqui. Faça na Hotmart com o botão abaixo, ou escreva para ${CORREO_SOPORTE} e cancelamos para você.`)}</p>
       )}
     </div>
   );

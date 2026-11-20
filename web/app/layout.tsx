@@ -4,6 +4,7 @@ import "./globals.css";
 import IdiomaHtml from "@/components/IdiomaHtml";
 import { CapturaOrigen } from "@/components/Analitica";
 import AvisoCookies from "@/components/AvisoCookies";
+import MetaPixel from "@/components/MetaPixel";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-poppins", display: "swap" });
 
@@ -17,7 +18,7 @@ export const viewport: Viewport = { themeColor: "#f3f6fb" };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" className={poppins.variable}>
-      <body><IdiomaHtml /><CapturaOrigen />{children}<AvisoCookies /></body>
+      <body><IdiomaHtml /><CapturaOrigen />{children}<AvisoCookies /><MetaPixel /></body>
     </html>
   );
 }

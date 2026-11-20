@@ -388,3 +388,7 @@ Aprobado.
 - H10: textos neutros ("Te acuestas sin googlear"; en la IA "la persona" en vez de "la dueña").
 - H12: el botón "Ver o gestionar mi suscripción en Hotmart" solo aparece si el plan viene de Hotmart.
 - Pendientes de la auditoría: H3 (ID del Pixel de Meta), H4 (3 testimonios), correo de "tu pago no pasó" (H5) y correo de soporte de la marca (H11).
+
+- 20 nov (preparado, se activa con un dato): H3 Pixel de Meta: se carga solo si existe NEXT_PUBLIC_META_PIXEL_ID en Vercel y la persona acepta cookies; PageView en cada pantalla, ViewContent (ventas), Lead (cuenta creada), InitiateCheckout (ir a pagar). Privacidad, Cookies y el aviso de cookies cambian solos a la versión "usamos el Pixel de Meta con tu permiso" (3 idiomas) cuando hay ID. Falta: el ID y pegarlo también en Hotmart (píxeles del producto).
+- H4: sección de testimonios bajo los precios (components/landing/Testimonios.tsx); no aparece mientras la lista esté vacía.
+- H11: correo de soporte en lib/contacto.ts (NEXT_PUBLIC_CORREO_SOPORTE); hoy sigue el personal hasta que exista uno de la marca.

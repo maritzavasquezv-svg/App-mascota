@@ -3,6 +3,7 @@ import EfectosLanding from "@/components/landing/EfectosLanding";
 import SelectorIdioma from "@/components/SelectorIdioma";
 import FijarIdioma from "@/components/FijarIdioma";
 import { EventoAlAbrir } from "@/components/Analitica";
+import Testimonios from "@/components/landing/Testimonios";
 import { tr, type Idioma } from "@/lib/idiomas";
 
 /** Página de ventas en el idioma indicado (/, /en, /pt). */
@@ -156,6 +157,9 @@ export default function Ventas({ i }: { i: Idioma }) {
   </div>
   <p className="letra">{t("Hoy no pagas nada. Se renueva automáticamente: si cancelas en Hotmart antes de que terminen los 7 días, no se te cobra.", "You pay nothing today. It renews automatically: cancel in Hotmart before the 7 days end and you won't be charged.", "Hoje você não paga nada. Renova automaticamente: se cancelar na Hotmart antes dos 7 dias, não é cobrado.")}</p>
 </div></section>
+
+{/* Testimonios reales: aparecen solo cuando haya (auditoría H4) */}
+<Testimonios i={i} />
 
 {/* 7. GARANTÍA */}
 <section className="sec-alt"><div className="wrap rev">

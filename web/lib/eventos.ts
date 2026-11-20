@@ -2,6 +2,7 @@
 // Registro de uso (fuente única de la analítica del panel). Nunca rompe la app: si falla, se ignora.
 // Es medición NO esencial: solo funciona si la persona aceptó en el aviso de cookies (consentimiento "si").
 import { crearCliente } from "@/lib/supabase/cliente";
+import { rastrearPixel } from "@/lib/pixel";
 
 export type NombreEvento =
   | "pagina_ventas" | "onboarding_paso" | "plan_visto" | "plan_elegido" | "cuenta_creada" | "correo_confirmado" | "ir_a_pagar" | "app_abierta"
@@ -40,8 +41,13 @@ function sesion(): string {
   } catch { return ""; }
 }
 
+// Eventos que también se avisan al Pixel de Meta (solo si está cargado: hay ID y la persona aceptó). Auditoría H3.
+const PIXEL: Partial<Record<NombreEvento, string>> = { pagina_ventas: "ViewContent", cuenta_creada: "Lead", ir_a_pagar: "InitiateCheckout" };
+
 export function registrarEvento(nombre: NombreEvento, props: Record<string, string | number | boolean> = {}) {
   if (!permitido()) return;
+  const ev = PIXEL[nombre];
+  if (ev) rastrearPixel(ev, typeof props.plan === "string" ? { content_name: props.plan } : {});
   try {
     void crearCliente().rpc("registrar_evento", { p_nombre: nombre, p_sesion: sesion(), p_props: props }).then(() => {}, () => {});
   } catch { /* sin registro */ }

@@ -1,4 +1,5 @@
 "use client";
+import { CORREO_SOPORTE } from "@/lib/contacto";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -58,7 +59,7 @@ export default function Cuenta() {
     const { error } = await supabase.rpc("borrar_mi_cuenta");
     if (error) {
       setBorrando(false);
-      setError(t("No pudimos borrar tu cuenta. Escríbenos a maritzavasquezv@gmail.com y lo hacemos por ti.", "We couldn't delete your account. Email us at maritzavasquezv@gmail.com and we'll do it for you.", "Não conseguimos apagar sua conta. Escreva para maritzavasquezv@gmail.com e fazemos por você."));
+      setError(t("No pudimos borrar tu cuenta. Escríbenos a ${CORREO_SOPORTE} y lo hacemos por ti.", `We couldn't delete your account. Email us at ${CORREO_SOPORTE} and we'll do it for you.`, `Não conseguimos apagar sua conta. Escreva para ${CORREO_SOPORTE} e fazemos por você.`));
       return;
     }
     await supabase.auth.signOut();
