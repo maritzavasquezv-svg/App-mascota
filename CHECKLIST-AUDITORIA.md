@@ -10,7 +10,7 @@ Kopeet Gatos, Jügue y en cada app nueva. Antes de publicar o vender una app, re
 | Medición | Embudo completo hasta el pago: visita → preguntas → plan elegido → cuenta → correo confirmado → fue a pagar. | ✅ | ✅ | ⏳ |
 | H3 | Pixel de Meta solo con consentimiento de cookies (PageView, ViewContent, Lead, InitiateCheckout) + el mismo píxel en Hotmart. Textos legales en todos los idiomas. | ✅ activo | ✅ listo, sin ID | ⏳ |
 | H4 | Sección de testimonios bajo los precios; nunca testimonios inventados (oculta si no hay). Maquetas coherentes con los límites reales del plan. | ✅ (sin testimonios aún) | ✅ (sin testimonios aún) | ⏳ |
-| H5 | Si falla la tarjeta en una renovación: 5 días de gracia + aviso "Tu pago no pasó: actualiza tu tarjeta en Hotmart" (no ofrecer comprar otro plan). | ✅ | ✅ | ⏳ |
+| H5 | Si falla la tarjeta en una renovación: 5 días de gracia + aviso en la app y por correo (Gmail de soporte) "Tu pago no pasó: actualiza tu tarjeta en Hotmart" (no ofrecer comprar otro plan). Correo 2–3 días antes del primer cobro. | ✅ | ✅ | ⏳ |
 | H6 | IA: modelo intermedio para el chat, el caro solo para fotos; límite 10/día y 150/mes, descontado de forma atómica en la base. Variables con nombres nuevos (AI_MODELO_ESCANER, AI_MODELO_CONSEJERO, AI_LIMITE_DIA, AI_LIMITE_MES). | ✅ | ✅ | No usa IA |
 | H7 | El aviso de cookies nunca tapa el botón principal en el recorrido de compra (va arriba). | ✅ | ✅ | ✅ no tiene aviso (no usa cookies de medición) |
 | H8 | Lo que promete la página de ventas coincide con lo que se recorre (n.º de preguntas, pasos y respuestas) y el plan muestra al menos un dato personal sin candado. | ✅ | ✅ | ⏳ revisar al hacer el onboarding |
