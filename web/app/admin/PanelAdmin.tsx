@@ -428,7 +428,7 @@ function CancelarDesdeKopeet() {
       <form className="pa-form" onSubmit={guardar}>
         <label>Pega aquí todo el texto que te dio Hotmart (las 3 líneas)
           <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={4} autoComplete="off" spellCheck={false} required
-            style={{ WebkitTextSecurity: "disc", fontFamily: "monospace" } as React.CSSProperties} /></label>
+            style={{ WebkitTextSecurity: "disc", fontFamily: "monospace", width: "100%", border: "2px solid #a78bfa", borderRadius: 12, padding: 10, marginTop: 6, background: "#fff" } as React.CSSProperties} /></label>
         <button className="pa-boton" disabled={ocupado}>{listo ? "Reemplazar credenciales" : "Guardar credenciales"}</button>
       </form>
       {msg && <p className={msg.ok ? "aviso-ok" : "error"} role="status">{msg.texto}</p>}
