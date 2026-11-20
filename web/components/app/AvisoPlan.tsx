@@ -5,7 +5,7 @@ import { useT } from "@/lib/i18n";
 import { PLANES_ID, resumenPlan, type PlanId } from "@/lib/planes";
 import { registrarEvento } from "@/lib/eventos";
 
-export interface Plan { activo: boolean; admin: boolean; estado: string | null; plan: string | null; origen?: string | null; cancelada?: boolean; vence?: string | null; elegido?: PlanId | null; pagar: Record<PlanId, string | null> }
+export interface Plan { activo: boolean; admin: boolean; estado: string | null; plan: string | null; origen?: string | null; cancelada?: boolean; pagoFallido?: boolean; vence?: string | null; elegido?: PlanId | null; pagar: Record<PlanId, string | null> }
 
 /** Lee el estado del plan una vez (para mostrar avisos y botones de pago). */
 export function usePlan() {
@@ -21,6 +21,20 @@ export function usePlan() {
 /** Tarjeta para activar el plan (solo se muestra si no está activo). */
 export default function AvisoPlan({ plan }: { plan: Plan | null }) {
   const { t, idioma } = useT();
+  // Auditoría H5: la renovación no se pudo cobrar. Sigue con acceso unos días y se le pide actualizar la tarjeta (no comprar otro plan).
+  if (plan?.activo && plan.pagoFallido) {
+    const hasta = plan.vence ? new Date(plan.vence).toLocaleDateString({ es: "es-CL", en: "en-US", pt: "pt-BR" }[idioma], { day: "numeric", month: "long" }) : null;
+    return (
+      <section className="tarjeta aviso-plan" role="alert">
+        <p className="tarjeta-tit"><span><Sparkles size={15} /> {t("Tu pago no pasó", "Your payment didn't go through", "Seu pagamento não passou")}</span></p>
+        <p className="vacio">{t("Hotmart no pudo cobrar la renovación de tu plan. ", "Hotmart couldn't charge your plan renewal. ", "A Hotmart não conseguiu cobrar a renovação do seu plano. ")}<b>{t("Actualiza tu tarjeta en Hotmart", "Update your card in Hotmart", "Atualize seu cartão na Hotmart")}</b>{hasta ? t(` antes del ${hasta} para no perder el acceso.`, ` before ${hasta} to keep your access.`, ` antes de ${hasta} para não perder o acesso.`) : t(" para no perder el acceso.", " to keep your access.", " para não perder o acesso.")}</p>
+        <div className="botones-min" style={{ justifyContent: "flex-start" }}>
+          <a className="mini-cta" href="https://consumer.hotmart.com/" target="_blank" rel="noopener noreferrer">{t("Actualizar mi tarjeta", "Update my card", "Atualizar meu cartão")}</a>
+        </div>
+        <p className="nota">{t("Entra con el correo con que pagaste → Compras → tu suscripción → cambiar forma de pago. No compres otro plan: se duplicaría.", "Sign in with the email you paid with → Purchases → your subscription → change payment method. Don't buy another plan: it would be duplicated.", "Entre com o e-mail com que pagou → Compras → sua assinatura → alterar forma de pagamento. Não compre outro plano: ficaria duplicado.")}</p>
+      </section>
+    );
+  }
   if (!plan || plan.activo) return null;
   // El plan que eligió al registrarse va primero (botón principal).
   const enlaces = PLANES_ID.filter((p) => plan.pagar[p]).sort((a, b) => Number(b === plan.elegido) - Number(a === plan.elegido));

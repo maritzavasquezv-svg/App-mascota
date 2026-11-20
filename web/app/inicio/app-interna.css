@@ -223,3 +223,6 @@
 .flujo .receta-pastillas { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 .flujo .receta-pastillas span { background: var(--f); color: var(--c); font-weight: 700; font-size: 13px; border-radius: 99px; padding: 6px 12px; }
 .flujo .receta-color .receta-cabeza span.receta-plato { font-size: 36px; }
+
+/* Auditoría H9: el botón Enviar se ve apagado mientras no haya texto. */
+.campo-chat button:disabled { opacity: .4; cursor: not-allowed; }

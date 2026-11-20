@@ -1,6 +1,7 @@
 "use client";
 import { useSyncExternalStore } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { guardarConsentimiento, leerConsentimiento, suscribirConsentimiento } from "@/lib/eventos";
 import { useT } from "@/lib/i18n";
 
@@ -10,12 +11,15 @@ import { useT } from "@/lib/i18n";
  */
 export default function AvisoCookies() {
   const { t, idioma } = useT();
+  // Auditoría H7: en el recorrido de compra el botón principal va abajo; ahí el aviso va arriba para no taparlo.
+  const ruta0 = usePathname() ?? "";
+  const arriba = /^\/(?:(?:en|pt)\/)?(empezar|plan|crear-cuenta|pagar|entrar)(\/|$)/.test(ruta0);
   // En el servidor no se sabe la elección: se asume "ya respondió" para no mostrar el aviso de golpe y luego ocultarlo.
   const eleccion = useSyncExternalStore(suscribirConsentimiento, () => leerConsentimiento() ?? "pendiente", () => "servidor");
   if (eleccion !== "pendiente") return null;
   const ruta = idioma === "es" ? "/cookies" : `/${idioma}/cookies`;
   return (
-    <div className="aviso-cookies" role="region" aria-label={t("Aviso de cookies", "Cookie notice", "Aviso de cookies")}>
+    <div className={`aviso-cookies${arriba ? " arriba" : ""}`} role="region" aria-label={t("Aviso de cookies", "Cookie notice", "Aviso de cookies")}>
       <p>
         {t("Usamos cookies necesarias para que Kopeet funcione. Con tu permiso, también medimos de forma anónima cómo se usa, para mejorarla. ",
           "We use necessary cookies so Kopeet works. With your permission, we also measure anonymously how it's used, to improve it. ",

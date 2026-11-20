@@ -76,7 +76,7 @@ export default function Consejero() {
         {pensando && <div className="msg ia pensando">{t("Kopeet está pensando…", "Kopeet is thinking…", "O Kopeet está pensando…")}</div>}
       </div>
       <form className="campo-chat" onSubmit={enviar}>
-        <input value={texto} onChange={(e) => setTexto(e.target.value)} placeholder={t("Escribe tu duda…", "Type your question…", "Escreva sua dúvida…")} aria-label={t("Tu duda", "Your question", "Sua dúvida")} maxLength={500} />
+        <input value={texto} onChange={(e) => setTexto(e.target.value)} placeholder={t("Escribe qué notas en tu perro…", "Write what you notice in your dog…", "Escreva o que você nota no seu cão…")} aria-label={t("Tu duda", "Your question", "Sua dúvida")} maxLength={500} />
         <button type="submit" aria-label={t("Enviar", "Send", "Enviar")} disabled={!texto.trim() || pensando}><Send size={17} /></button>
       </form>
     </div>

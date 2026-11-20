@@ -379,3 +379,7 @@ Aprobado.
 - H4: maqueta "Tus 4 perros" (Kopeet). Faltan 3 testimonios reales (los consigue la fundadora).
 - H3 (Pixel de Meta): pendiente del ID del píxel.
 - .env.example sin la clave secreta de Supabase (H11, parcial).
+
+- H5 (20 nov): si Hotmart no logra cobrar una renovación (PURCHASE_DELAYED/EXPIRED/CANCELED con plan activo), 5 días de gracia (no se extienden). La app muestra "Tu pago no pasó: actualiza tu tarjeta en Hotmart" con enlace a consumer.hotmart.com. Si el reintento se cobra, vuelve a la normalidad. Probado con avisos simulados (deshechos). Falta: aviso por correo (no hay servicio de correo para clientes activado).
+- H7: en /empezar, /plan, /crear-cuenta, /pagar y /entrar el aviso de cookies va arriba y no tapa el botón principal.
+- H9: Consejero: "Escribe qué notas en tu perro/gato…" y botón Enviar apagado sin texto.

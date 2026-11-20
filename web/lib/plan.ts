@@ -7,7 +7,7 @@ export function esAdmin(email?: string | null): boolean {
   return Boolean(email && lista.includes(email.toLowerCase()));
 }
 
-export interface EstadoPlan { activo: boolean; admin: boolean; estado: string | null; plan: string | null; origen: string | null; cancelada: boolean; vence: string | null }
+export interface EstadoPlan { activo: boolean; admin: boolean; estado: string | null; plan: string | null; origen: string | null; cancelada: boolean; pagoFallido: boolean; vence: string | null }
 
 /** El plan está activo si Hotmart avisó una compra vigente, si la dueña dio acceso a mano (y no venció), o si es administradora. */
 export async function estadoPlan(supabase: SupabaseClient, user: User): Promise<EstadoPlan> {
@@ -18,5 +18,7 @@ export async function estadoPlan(supabase: SupabaseClient, user: User): Promise<
   return {
     activo: admin || estado === "activa", admin, estado, plan: data?.plan ?? null,
     origen: data?.origen ?? null, cancelada: data?.ultimo_evento === "SUBSCRIPTION_CANCELLATION", vence: data?.vence_en ?? null,
+    // Auditoría H5: Hotmart no pudo cobrar la renovación; la base da días de gracia y la app pide actualizar la tarjeta.
+    pagoFallido: estado === "activa" && ["PURCHASE_DELAYED", "PURCHASE_EXPIRED", "PURCHASE_CANCELED"].includes(data?.ultimo_evento ?? ""),
   };
 }
