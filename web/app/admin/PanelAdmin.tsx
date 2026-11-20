@@ -393,10 +393,18 @@ function BoletasPorEmitir() {
   );
 }
 
+/** Separa el texto que entrega Hotmart ("Client ID: … Client Secret: … Client Token: Basic …") en sus 3 partes. */
+function leerCredencialHotmart(texto: string): { clientId: string; clientSecret: string; basic: string } | null {
+  const id = texto.match(/Client\s*ID\s*:\s*([A-Za-z0-9-]+)/i)?.[1];
+  const secreto = texto.match(/Client\s*Secret\s*:\s*([A-Za-z0-9-]+)/i)?.[1];
+  const basic = texto.match(/Basic\s+([A-Za-z0-9+/=]+)/i)?.[1];
+  return id && secreto && basic ? { clientId: id, clientSecret: secreto, basic } : null;
+}
+
 /** Credenciales de la API de Hotmart: permiten que el cliente cancele su suscripción con un botón dentro de Kopeet. */
 function CancelarDesdeKopeet() {
   const [listo, setListo] = useState<boolean | null>(null);
-  const [f, setF] = useState({ clientId: "", clientSecret: "", basic: "" });
+  const [texto, setTexto] = useState("");
   const [msg, setMsg] = useState<{ ok: boolean; texto: string } | null>(null);
   const [ocupado, setOcupado] = useState(false);
   const [version, setVersion] = useState(0);
@@ -407,17 +415,20 @@ function CancelarDesdeKopeet() {
     return () => { vivo = false; };
   }, [version]);
   async function guardar(e: React.FormEvent) {
-    e.preventDefault(); setMsg(null); setOcupado(true);
-    try { await accion({ accion: "hotmartApi", ...f }); setF({ clientId: "", clientSecret: "", basic: "" }); setMsg({ ok: true, texto: "Credenciales guardadas. Tus clientes ya pueden cancelar desde Kopeet." }); setVersion((v) => v + 1); }
+    e.preventDefault(); setMsg(null);
+    const c = leerCredencialHotmart(texto);
+    if (!c) { setMsg({ ok: false, texto: "No encontré las 3 claves. Pega el texto completo que te dio Hotmart: debe tener Client ID, Client Secret y Client Token." }); return; }
+    setOcupado(true);
+    try { await accion({ accion: "hotmartApi", ...c }); setTexto(""); setMsg({ ok: true, texto: "Credenciales guardadas. Tus clientes ya pueden cancelar desde Kopeet." }); setVersion((v) => v + 1); }
     catch (err) { setMsg({ ok: false, texto: (err as Error).message }); } finally { setOcupado(false); }
   }
   return (
     <Tarjeta titulo="Cancelar desde Kopeet (API de Hotmart)" ayuda="Con estas credenciales, tus clientes cancelan su suscripción con un botón en Cuenta, sin entrar a Hotmart. Se crean en Hotmart → Herramientas → Credenciales Hotmart → Crear credencial → API Hotmart.">
       <p className="pa-nota">Estado: <b>{listo === null ? "…" : listo ? "✓ Conectado: el botón de cancelar funciona" : "Sin conectar"}</b></p>
       <form className="pa-form" onSubmit={guardar}>
-        <label>Client ID<input type="password" autoComplete="off" value={f.clientId} onChange={(e) => setF({ ...f, clientId: e.target.value })} minLength={8} required /></label>
-        <label>Client Secret<input type="password" autoComplete="off" value={f.clientSecret} onChange={(e) => setF({ ...f, clientSecret: e.target.value })} minLength={8} required /></label>
-        <label>Basic<input type="password" autoComplete="off" value={f.basic} onChange={(e) => setF({ ...f, basic: e.target.value })} minLength={8} required /></label>
+        <label>Pega aquí todo el texto que te dio Hotmart (las 3 líneas)
+          <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={4} autoComplete="off" spellCheck={false} required
+            style={{ WebkitTextSecurity: "disc", fontFamily: "monospace" } as React.CSSProperties} /></label>
         <button className="pa-boton" disabled={ocupado}>{listo ? "Reemplazar credenciales" : "Guardar credenciales"}</button>
       </form>
       {msg && <p className={msg.ok ? "aviso-ok" : "error"} role="status">{msg.texto}</p>}
