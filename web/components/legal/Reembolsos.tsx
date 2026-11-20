@@ -1,7 +1,7 @@
 import MarcoLegal from "./MarcoLegal";
 import type { Idioma } from "@/lib/idiomas";
 
-const M = <a href="mailto:maritzavasquezv@gmail.com">maritzavasquezv@gmail.com</a>;
+const M = <a href="mailto:soportekopeet@gmail.com">soportekopeet@gmail.com</a>;
 
 const ES = (<>
 <header className="cab"><span className="eyebrow">Sin letra chica</span><h1>Reembolsos y cancelación</h1><p className="fecha">Última actualización: 12 de noviembre de 2026 · Versión 1.3</p>

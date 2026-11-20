@@ -2,7 +2,7 @@ import MarcoLegal from "./MarcoLegal";
 import type { Idioma } from "@/lib/idiomas";
 import { pixelConfigurado } from "@/lib/pixel";
 
-const M = <a href="mailto:maritzavasquezv@gmail.com">maritzavasquezv@gmail.com</a>;
+const M = <a href="mailto:soportekopeet@gmail.com">soportekopeet@gmail.com</a>;
 
 const ES = (<>
 <header className="cab"><span className="eyebrow">Tus datos</span><h1>Política de privacidad</h1><p className="fecha">Última actualización: 11 de noviembre de 2026 · Versión 1.4</p>

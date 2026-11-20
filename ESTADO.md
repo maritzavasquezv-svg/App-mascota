@@ -398,3 +398,5 @@ Aprobado.
 
 - 20 nov: variables de IA renombradas (AI_MODELO_ESCANER, AI_MODELO_CONSEJERO, AI_LIMITE_DIA, AI_LIMITE_MES): las antiguas AI_MODEL y AI_LIMITE_DIARIO que pudieran quedar en Vercel ya no se leen, así rige el arreglo H6 (Consejero sonnet, 10/día, 150/mes) sin entrar a Vercel. Se pueden borrar de Vercel cuando se entre.
 - 20 nov: revisión de seguridad de la base tras los cambios: se cerró controlar_limite_perros (función interna del trigger) para que no se pueda llamar por la API, igual que en Gatos; probado que el trigger sigue funcionando para usuarios. Los demás avisos del linter son esperados (funciones admin_* validan es_admin; hotmart_recibir valida hottok; registrar_evento tiene lista blanca y límites). Pendiente de la fundadora: activar "Leaked password protection" en Supabase → Authentication.
+
+- 20 nov: H11 resuelto: correo de soporte de la marca soportekopeet@gmail.com (Gmail creado por la fundadora) en la app (lib/contacto.ts) y en las páginas legales (Contacto, Privacidad, Reembolsos, Términos). El panel de administración sigue mostrando su Gmail personal solo donde corresponde (cuenta de Resend).
