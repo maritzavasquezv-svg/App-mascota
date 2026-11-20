@@ -19,6 +19,9 @@ const Accion = z.discriminatedUnion("accion", [
   z.object({ accion: z.literal("boletas") }),
   z.object({ accion: z.literal("hotmartApi"), clientId: z.string().trim().min(8).max(200), clientSecret: z.string().trim().min(8).max(200), basic: z.string().trim().min(8).max(400) }),
   z.object({ accion: z.literal("hotmartApiEstado") }),
+  z.object({ accion: z.literal("gmail"), usuario: z.string().trim().email().max(120), clave: z.string().max(40) }),
+  z.object({ accion: z.literal("gmailEstado") }),
+  z.object({ accion: z.literal("gmailPrueba") }),
   z.object({ accion: z.literal("marcarBoleta"), id: z.string().uuid(), hecha: z.boolean() }),
 ]);
 
@@ -81,6 +84,17 @@ export async function POST(req: NextRequest) {
       r = e; datos = e.data;
       break;
     }
+    case "gmail": {
+      r = await supabase.rpc("admin_guardar_gmail", { p_usuario: a.usuario, p_clave: a.clave });
+      if (r.error && /16 letras|@gmail/.test(r.error.message)) return NextResponse.json({ error: r.error.message + "." }, { status: 400 });
+      break;
+    }
+    case "gmailEstado": {
+      const e = await supabase.rpc("admin_gmail_estado");
+      r = e; datos = e.data;
+      break;
+    }
+    case "gmailPrueba": r = await supabase.rpc("admin_correo_prueba"); break;
     case "boletas": {
       const e = await supabase.rpc("admin_boletas");
       r = e; datos = e.data;

@@ -395,6 +395,45 @@ function BoletasPorEmitir() {
   );
 }
 
+/** Correos a clientes por Gmail (soporte de la marca): "tu pago no pasó" y aviso antes del primer cobro. */
+function CorreosClientes() {
+  const [estado, setEstado] = useState<{ usuario: string | null; listo: boolean; enviados: number } | null>(null);
+  const [usuario, setUsuario] = useState("soportekopeet@gmail.com");
+  const [clave, setClave] = useState("");
+  const [msg, setMsg] = useState<{ ok: boolean; texto: string } | null>(null);
+  const [ocupado, setOcupado] = useState(false);
+  const [version, setVersion] = useState(0);
+  useEffect(() => {
+    let vivo = true;
+    fetch("/api/admin/accion", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ accion: "gmailEstado" }) })
+      .then((r) => r.json()).then((d) => { if (vivo && d?.datos) { setEstado(d.datos); if (d.datos.usuario) setUsuario(d.datos.usuario); } }).catch(() => {});
+    return () => { vivo = false; };
+  }, [version]);
+  async function guardar(e: React.FormEvent) {
+    e.preventDefault(); setMsg(null); setOcupado(true);
+    try { await accion({ accion: "gmail", usuario, clave }); setClave(""); setMsg({ ok: true, texto: "Clave guardada. Ahora toca \"Enviar correo de prueba\"." }); setVersion((v) => v + 1); }
+    catch (err) { setMsg({ ok: false, texto: (err as Error).message }); } finally { setOcupado(false); }
+  }
+  async function probar() {
+    setMsg(null); setOcupado(true);
+    try { await accion({ accion: "gmailPrueba" }); setMsg({ ok: true, texto: `Enviado. En 1 minuto revisa la bandeja de ${usuario}: debe llegar "Prueba de correos". Si no llega, la clave está mal escrita.` }); }
+    catch (err) { setMsg({ ok: false, texto: (err as Error).message }); } finally { setOcupado(false); }
+  }
+  return (
+    <Tarjeta titulo="Correos a clientes (Gmail)" ayuda="La app envía desde este Gmail: «Tu pago no pasó» cuando falla la tarjeta y un aviso 2–3 días antes del primer cobro. Se necesita una contraseña de aplicación de Google (16 letras), no la contraseña normal.">
+      <p className="pa-nota">Estado: <b>{estado === null ? "…" : estado.listo ? `✓ Activo desde ${estado.usuario} · ${estado.enviados} correos enviados` : "Sin conectar"}</b></p>
+      <form className="pa-form" onSubmit={guardar}>
+        <label>Correo Gmail<input type="email" value={usuario} onChange={(e) => setUsuario(e.target.value)} required /></label>
+        <label>Contraseña de aplicación (16 letras)<input type="password" autoComplete="off" value={clave} onChange={(e) => setClave(e.target.value)} required
+          style={{ border: "2px solid #a78bfa", borderRadius: 12 }} /></label>
+        <button className="pa-boton" disabled={ocupado}>{estado?.listo ? "Reemplazar clave" : "Guardar clave"}</button>
+      </form>
+      {estado?.listo && <button type="button" className="pa-boton" style={{ marginTop: 8 }} disabled={ocupado} onClick={probar}>Enviar correo de prueba</button>}
+      {msg && <p className={msg.ok ? "aviso-ok" : "error"} role="status">{msg.texto}</p>}
+    </Tarjeta>
+  );
+}
+
 /** Separa el texto que entrega Hotmart ("Client ID: … Client Secret: … Client Token: Basic …") en sus 3 partes. */
 function leerCredencialHotmart(texto: string): { clientId: string; clientSecret: string; basic: string } | null {
   const id = texto.match(/Client\s*ID\s*:\s*([A-Za-z0-9-]+)/i)?.[1];
@@ -665,5 +704,6 @@ function Ajustes({ d, mes, alCambiar }: { d: Panel; mes: string; alCambiar: () =
     </Tarjeta>
 
     <CancelarDesdeKopeet />
+    <CorreosClientes />
   </>);
 }
