@@ -75,6 +75,8 @@ export function capturarOrigen() {
     const q = new URLSearchParams(window.location.search);
     const crudo = q.get("origen") ?? q.get("utm_source") ?? q.get("ref") ?? q.get("src");
     let origen = crudo?.toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 30) || "";
+    // Instagram, Facebook y TikTok agregan sus propias marcas (utm_source=ig, fb…): se unifican con el nombre de la red.
+    origen = ({ ig: "instagram", fb: "facebook", tt: "tiktok", "l.instagram": "instagram", "m.facebook": "facebook" } as Record<string, string>)[origen] ?? origen;
     if (!origen && document.referrer) {
       const host = new URL(document.referrer).hostname.replace(/^www\./, "");
       if (!host.endsWith(window.location.hostname)) {
