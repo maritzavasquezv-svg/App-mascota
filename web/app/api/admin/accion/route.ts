@@ -22,6 +22,8 @@ const Accion = z.discriminatedUnion("accion", [
   z.object({ accion: z.literal("gmail"), usuario: z.string().trim().email().max(120), clave: z.string().max(40) }),
   z.object({ accion: z.literal("gmailEstado") }),
   z.object({ accion: z.literal("gmailPrueba") }),
+  z.object({ accion: z.literal("testimonios") }),
+  z.object({ accion: z.literal("moderarTestimonio"), id: z.string().uuid(), estado: z.enum(["aprobado", "rechazado", "pendiente"]) }),
   z.object({ accion: z.literal("marcarBoleta"), id: z.string().uuid(), hecha: z.boolean() }),
 ]);
 
@@ -95,6 +97,12 @@ export async function POST(req: NextRequest) {
       break;
     }
     case "gmailPrueba": r = await supabase.rpc("admin_correo_prueba"); break;
+    case "testimonios": {
+      const e = await supabase.rpc("admin_testimonios");
+      r = e; datos = e.data;
+      break;
+    }
+    case "moderarTestimonio": r = await supabase.rpc("admin_moderar_testimonio", { p_id: a.id, p_estado: a.estado }); break;
     case "boletas": {
       const e = await supabase.rpc("admin_boletas");
       r = e; datos = e.data;

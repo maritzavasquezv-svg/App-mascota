@@ -395,6 +395,43 @@ function BoletasPorEmitir() {
   );
 }
 
+/** Recomendaciones que dejan los clientes en la app: se publican en la página de ventas solo si la dueña las aprueba. */
+function Recomendaciones() {
+  type T = { id: string; nombre: string; ciudad: string; mascota: string; frase: string; estado: string; email: string | null; creado_en: string; foto: string | null };
+  const base = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/testimonios/`;
+  const [lista, setLista] = useState<T[] | null>(null);
+  const [version, setVersion] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    let vivo = true;
+    fetch("/api/admin/accion", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ accion: "testimonios" }) })
+      .then((r) => r.json()).then((d) => { if (vivo) setLista((d?.datos ?? []) as T[]); }).catch(() => {});
+    return () => { vivo = false; };
+  }, [version]);
+  async function moderar(id: string, estado: string) {
+    setError(null);
+    try { await accion({ accion: "moderarTestimonio", id, estado }); setVersion((v) => v + 1); } catch (e) { setError((e as Error).message); }
+  }
+  const pendientes = lista?.filter((x) => x.estado === "pendiente").length ?? 0;
+  return (
+    <Tarjeta titulo={`Recomendaciones de clientes${pendientes ? ` · ${pendientes} por revisar` : ""}`} ayuda="Las escriben tus clientes en la app (aparece al mes de uso, y siempre en Cuenta). Solo las que apruebes salen en la página de ventas, bajo los precios (máximo 6, las más nuevas).">
+      {lista === null ? <p className="pa-vacio">…</p> : !lista.length ? <p className="pa-vacio">Todavía no hay recomendaciones.</p> : lista.map((x) => (
+        <div key={x.id} style={{ borderTop: "1px solid #e6ebf3", padding: "10px 0" }}>
+          <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+            {x.foto && <img src={base + x.foto} alt="" width={64} height={64} style={{ width: 64, height: 64, borderRadius: 12, objectFit: "cover" }} />}
+            <p style={{ margin: 0 }}>“{x.frase}”</p>
+          </div>
+          <p className="pa-nota" style={{ margin: "4px 0" }}><b>{x.nombre}</b> · {x.ciudad} · {x.mascota} · {x.email ?? ""} · <b>{x.estado === "aprobado" ? "✓ Publicada" : x.estado === "rechazado" ? "No publicada" : "Por revisar"}</b></p>
+          <div style={{ display: "flex", gap: 8 }}>
+            {x.estado !== "aprobado" && <button type="button" className="pa-boton" onClick={() => moderar(x.id, "aprobado")}>Aprobar y publicar</button>}
+            {x.estado !== "rechazado" && <button type="button" className="pa-boton" style={{ background: "#e6ebf3", color: "#0f1b3d" }} onClick={() => moderar(x.id, "rechazado")}>{x.estado === "aprobado" ? "Quitar de la página" : "No publicar"}</button>}
+          </div>
+        </div>))}
+      {error && <p className="error" role="status">{error}</p>}
+    </Tarjeta>
+  );
+}
+
 /** Correos a clientes por Gmail (soporte de la marca): "tu pago no pasó" y aviso antes del primer cobro. */
 function CorreosClientes() {
   const [estado, setEstado] = useState<{ usuario: string | null; listo: boolean; enviados: number } | null>(null);
@@ -705,5 +742,6 @@ function Ajustes({ d, mes, alCambiar }: { d: Panel; mes: string; alCambiar: () =
 
     <CancelarDesdeKopeet />
     <CorreosClientes />
+    <Recomendaciones />
   </>);
 }

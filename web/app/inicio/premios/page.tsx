@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Award, Bone, Cookie, Crown, Lock, ShieldCheck, Trophy } from "lucide-react";
+import { Award, Bone, Cookie, Crown, Heart, Lock, ShieldCheck, Star, Trophy } from "lucide-react";
+import Link from "next/link";
 import { crearCliente } from "@/lib/supabase/cliente";
 import { usePerros } from "@/components/app/usePerros";
 import SelectorPerros from "@/components/app/SelectorPerros";
@@ -12,12 +13,18 @@ import { EventoAlAbrir } from "@/components/Analitica";
 const ICONOS: Record<string, React.ReactNode> = {
   "primer-paseo": <Award size={26} />, "pelota-oro": <Trophy size={26} />, "hueso-dorado": <Bone size={26} />,
   "galleta-campeona": <Cookie size={26} />, "escudo-sano": <ShieldCheck size={26} />, "corona-peludo": <Crown size={26} />,
+  "corazon-manada": <Heart size={26} />, "estrella-kopeet": <Star size={26} />,
 };
 
 export default function Premios() {
   const { perros, fotos, activo, elegir, error } = usePerros();
   const { t, idioma } = useT();
   const [datos, setDatos] = useState<{ r: Registro[]; e: EventoSalud[] } | null>(null);
+  // Medallas por recomendar Kopeet (de la cuenta, no de cada perro): dejarla y que se publique.
+  const [reco, setReco] = useState<string | null | undefined>(undefined);
+  useEffect(() => {
+    void crearCliente().from("testimonios").select("estado").maybeSingle().then(({ data }) => setReco((data?.estado as string | undefined) ?? null));
+  }, []);
 
   useEffect(() => {
     if (!activo) return;
@@ -30,7 +37,11 @@ export default function Premios() {
 
   if (error) return <p className="error" role="alert">{error}</p>;
   if (!perros || !activo) return <p className="sub">{t("Cargando…", "Loading…", "Carregando…")}</p>;
-  const lista = datos ? premios(datos.r, datos.e, minutosEjercicio(activo.edad), idioma) : [];
+  const logrado = (ok: boolean) => (ok ? t("¡Logrado!", "Achieved!", "Conquistado!") : t("Aún no", "Not yet", "Ainda não"));
+  const lista = datos ? [...premios(datos.r, datos.e, minutosEjercicio(activo.edad), idioma),
+    { id: "corazon-manada", nombre: t("Corazón de la manada", "Heart of the pack", "Coração da matilha"), detalle: t("Deja tu recomendación de Kopeet", "Leave your Kopeet recommendation", "Deixe sua recomendação do Kopeet"), ganado: Boolean(reco), avance: logrado(Boolean(reco)) },
+    { id: "estrella-kopeet", nombre: t("Estrella de Kopeet", "Kopeet star", "Estrela do Kopeet"), detalle: t("Tu recomendación sale publicada", "Your recommendation gets published", "Sua recomendação é publicada"), ganado: reco === "aprobado", avance: logrado(reco === "aprobado") },
+  ] : [];
   const ganados = lista.filter((p) => p.ganado).length;
 
   return (
@@ -48,6 +59,7 @@ export default function Premios() {
           </div>
         ))}
       </div>
+      {reco === null && <p className="nota" style={{ marginTop: 12 }}>{t("¿Quieres las medallas del corazón y la estrella? ", "Want the heart and star medals? ", "Quer as medalhas do coração e da estrela? ")}<Link href="/inicio/cuenta">{t("Deja tu recomendación con una foto de tu perro", "Leave your recommendation with a photo of your dog", "Deixe sua recomendação com uma foto do seu cão")}</Link>.</p>}
     </div>
   );
 }

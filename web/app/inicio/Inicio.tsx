@@ -12,6 +12,7 @@ import CocinaHoy from "@/components/app/CocinaHoy";
 import { minutosEjercicio } from "@/lib/onboarding";
 import { locale, useT } from "@/lib/i18n";
 import { registrarEvento } from "@/lib/eventos";
+import Recomendar from "@/components/app/Recomendar";
 import {
   TIPOS_EVENTO, diasEnCasa, enDias, fechaCorta, hoyISO, minutosDelDia, racha,
   type EventoSalud, type Registro,
@@ -101,6 +102,7 @@ export default function Inicio() {
       <SelectorPerros perros={perros} fotos={fotos} activoId={activo.id} elegir={elegir} />
       <a className="enlace-raza" href={`/inicio/editar-perro?id=${activo.id}`} style={{ marginTop: 4 }}><Pencil size={13} /> {t(`Editar o borrar a ${nombre}`, `Edit or delete ${nombre}`, `Editar ou apagar ${nombre}`)}</a>
       <AvisoPlan plan={plan} />
+      <Recomendar modo="hoy" />
       <Recordatorios compacta />
       <Escaner perro={activo} alActualizar={recargar} />
 
